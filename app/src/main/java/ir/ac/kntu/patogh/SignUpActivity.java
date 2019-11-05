@@ -39,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         rootLayout = findViewById(R.id.root_layout);
 
+        System.out.println("hello");
 
         if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                 intent.hasExtra(EXTRA_CIRCULAR_REVEAL_X) &&

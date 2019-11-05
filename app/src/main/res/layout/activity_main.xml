@@ -33,7 +33,7 @@
             android:alpha="0.9"
             android:fontFamily="@font/iransans_font"
             android:gravity="bottom|center_horizontal"
-            android:text="با پاتوق همه جا مکان داشته باشید\nدوستش داشتی؟"
+            android:text="با پاتوق همه جا مکان داشته باشید\nدوستش داری؟"
             android:textSize="20sp" />
 
 

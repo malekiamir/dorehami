@@ -76,11 +76,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/iransans_font"
                     android:gravity="right"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:maxLines="1"
                     android:textColor="#000" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

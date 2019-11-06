@@ -28,12 +28,12 @@
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="128dp"
+                android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toTopOf="@+id/card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-
                 android:background="@drawable/ic_logo" />
 
             <androidx.cardview.widget.CardView

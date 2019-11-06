@@ -2,8 +2,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F6F8">
+    android:layout_margin="0dp"
+    android:background="#F6F6F8"
+    android:id="@+id/frame1">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_page_colorful_croped"
+        />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,11 +28,12 @@
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="75dp"
+                android:layout_marginTop="150dp"
                 app:layout_constraintBottom_toTopOf="@+id/card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+
                 android:background="@drawable/ic_logo" />
 
             <androidx.cardview.widget.CardView

@@ -1,4 +1,4 @@
-package ir.ac.kntu.patogh;
+package ir.ac.kntu.patogh.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import ir.ac.kntu.patogh.R;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class SignUpActivity extends AppCompatActivity {

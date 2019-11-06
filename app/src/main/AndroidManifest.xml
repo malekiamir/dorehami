@@ -11,13 +11,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".SignInActivity"></activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".Activities.PhoneVerification"
+            android:label="@string/title_activity_phone_verification"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Activities.SignInActivity" />
+        <activity
+            android:name=".Activities.SignUpActivity"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

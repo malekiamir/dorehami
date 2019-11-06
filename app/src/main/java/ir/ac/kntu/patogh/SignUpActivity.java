@@ -31,10 +31,6 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        Glide.with(this.getApplicationContext())
-                .load(R.drawable.back)
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation(30, 3)))
-                .into((ImageView) findViewById(R.id.bg));
         final Intent intent = getIntent();
 
         rootLayout = findViewById(R.id.root_layout);

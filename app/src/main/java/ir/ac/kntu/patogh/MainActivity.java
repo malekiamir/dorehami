@@ -2,15 +2,19 @@ package ir.ac.kntu.patogh;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
@@ -20,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     final int currentApiVersion = android.os.Build.VERSION.SDK_INT;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 .load(R.drawable.back)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
                 .into((ImageView) findViewById(R.id.bg));
+
     }
 
     public void clickHandler(View view) {

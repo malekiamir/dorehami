@@ -39,28 +39,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickHandler(View view) {
         if(view.getId() == R.id.btn_mainpage_submit) {
-//            ActivityOptionsCompat options = ActivityOptionsCompat.
-//                    makeSceneTransitionAnimation(this, view, "transition");
 
-//            int revealX = (int) (view.getX() + view.getWidth() / 2);
-//            int revealY = (int) (view.getY() + view.getHeight() / 2);
-            Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
-//            intent.putExtra(SignUpActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
-//            intent.putExtra(SignUpActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
-
+//            Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
+            Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
             startActivity(intent);//, options.toBundle());
         }
-//        if (view.getId() == R.id.button3){
-//            //ActivityOptionsCompat options = ActivityOptionsCompat.
-//           // makeSceneTransitionAnimation(this, view, "transition");
-//
-//            //int revealX = (int) (view.getX() + view.getWidth() / 2);
-//           // int revealY = (int) (view.getY() + view.getHeight() / 2);
-//            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
-////            intent.putExtra(SignUpActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
-////            intent.putExtra(SignUpActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
-//
-//            startActivity(intent);
-//        }
     }
 }

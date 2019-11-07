@@ -5,6 +5,30 @@
     android:layout_height="match_parent"
     android:background="#F6F6F8">
 
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:alpha="0.9"
+        android:background="@drawable/search_sort_bar"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawableEnd="@android:drawable/btn_star"
+        android:fontFamily="@font/iransans_font"
+        android:gravity="right|center_vertical"
+        android:hint="مثال : دوچرخه سواری"
+        android:padding="5dp"
+        android:paddingRight="10dp"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textCursorDrawable="@null"
+        android:textSize="18sp"
+        app:boxStrokeColor="@color/text_input_color"
+        app:hintTextAppearance="@style/TextLabel"
+        app:hintTextColor="#68000000" />
+
+
     <com.gauravk.bubblenavigation.BubbleNavigationConstraintView
         android:id="@+id/top_navigation_constraint"
         android:layout_width="match_parent"

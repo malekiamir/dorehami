@@ -1,8 +1,10 @@
-package ir.ac.kntu.patogh;
+package ir.ac.kntu.patogh.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import ir.ac.kntu.patogh.R;
 
 public class SignInActivity extends AppCompatActivity {
 

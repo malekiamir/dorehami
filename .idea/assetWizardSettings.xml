@@ -152,11 +152,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="106" />
-                            <entry key="outputName" value="ic_page_colorful_croped" />
+                            <entry key="height" value="30" />
+                            <entry key="outputName" value="ic_iranian_flag" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\Amir\Desktop\page_colorful_croped.svg" />
-                            <entry key="width" value="533" />
+                            <entry key="sourceFile" value="C:\Users\Amir\Desktop\iranian-flag.svg" />
+                            <entry key="width" value="50" />
                           </map>
                         </option>
                       </PersistentState>

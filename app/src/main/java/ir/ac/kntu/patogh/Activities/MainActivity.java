@@ -1,4 +1,4 @@
-package ir.ac.kntu.patogh;
+package ir.ac.kntu.patogh.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import ir.ac.kntu.patogh.R;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 import static android.app.ActivityOptions.makeSceneTransitionAnimation;
@@ -37,17 +38,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickHandler(View view) {
-        if(view.getId() == R.id.btn_signup) {
-            ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(this, view, "transition");
+        if(view.getId() == R.id.submit) {
+//            ActivityOptionsCompat options = ActivityOptionsCompat.
+//                    makeSceneTransitionAnimation(this, view, "transition");
 
-            int revealX = (int) (view.getX() + view.getWidth() / 2);
-            int revealY = (int) (view.getY() + view.getHeight() / 2);
-            Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-            intent.putExtra(SignUpActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
-            intent.putExtra(SignUpActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
+//            int revealX = (int) (view.getX() + view.getWidth() / 2);
+//            int revealY = (int) (view.getY() + view.getHeight() / 2);
+            Intent intent = new Intent(MainActivity.this, PhoneVerification.class);
+//            intent.putExtra(SignUpActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
+//            intent.putExtra(SignUpActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
 
-            ActivityCompat.startActivity(this, intent, options.toBundle());
+            startActivity(intent);//, options.toBundle());
         }
         if (view.getId() == R.id.button3){
             //ActivityOptionsCompat options = ActivityOptionsCompat.

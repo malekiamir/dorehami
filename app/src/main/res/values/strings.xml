@@ -3,4 +3,5 @@
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_phone_verification">PhoneVerification</string>
     <string name="title_activity_home_page">PhoneVerification</string>
+    <string name="edt_home_page_search_hint">مثال : دوچرخه سواری</string>
 </resources>

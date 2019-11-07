@@ -109,4 +109,10 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
+    public void clickHandler(View view) {
+        if (view.getId() == R.id.button7) {
+            Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
+            startActivity(intent);
+        }
+    }
 }

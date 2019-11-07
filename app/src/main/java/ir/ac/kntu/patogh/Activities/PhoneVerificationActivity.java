@@ -32,7 +32,8 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
     public void clickHandler(View view) {
         if(view.getId() == R.id.submit) {
-            Intent intent = new Intent(PhoneVerificationActivity.this, HomePageActivity.class);
+//            Intent intent = new Intent(PhoneVerificationActivity.this, HomePageActivity.class);
+            Intent intent = new Intent(PhoneVerificationActivity.this, SignUpActivity.class);
             startActivity(intent);
         }
     }

@@ -58,6 +58,7 @@
         android:hint="شماره همراه"
         android:inputType="phone"
         android:maxLines="1"
+        android:maxLength="11"
         android:textColor="#fff"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@id/submit"

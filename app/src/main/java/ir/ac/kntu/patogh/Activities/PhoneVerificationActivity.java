@@ -24,14 +24,14 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         Glide.with(this.getApplicationContext())
                 .load(R.drawable.back)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
-                .into((ImageView) findViewById(R.id.bg));
+                .into((ImageView) findViewById(R.id.img_phone_verification_background));
         OtpView otpView;
         otpView = findViewById(R.id.otp_view);
 
     }
 
     public void clickHandler(View view) {
-        if(view.getId() == R.id.submit) {
+        if(view.getId() == R.id.btn_phoneverification_submit) {
 //            Intent intent = new Intent(PhoneVerificationActivity.this, HomePageActivity.class);
             Intent intent = new Intent(PhoneVerificationActivity.this, SignUpActivity.class);
             startActivity(intent);

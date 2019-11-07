@@ -20,7 +20,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageView_signup_logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="128dp"
@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toTopOf="@id/button7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView">
+            app:layout_constraintTop_toBottomOf="@id/imageView_signup_logo">
 
 
             <LinearLayout
@@ -54,7 +54,7 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout"
+                    android:id="@+id/textInputLayout_signup_namefield"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout2"
+                    android:id="@+id/textInputLayout_signup_surnamefield"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout7"
+                    android:id="@+id/textInputLayout_signup_"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

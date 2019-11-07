@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/bg"
+        android:id="@+id/img_phone_verification_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.7"
@@ -31,7 +31,7 @@
         app:viewType="line" />
 
     <Button
-        android:id="@+id/submit"
+        android:id="@+id/btn_phoneverification_submit"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

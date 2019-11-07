@@ -33,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(this.getApplicationContext())
                 .load(R.drawable.back)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
-                .into((ImageView) findViewById(R.id.bg));
+                .into((ImageView) findViewById(R.id.img_mainpage_background));
 
     }
 
     public void clickHandler(View view) {
-        if(view.getId() == R.id.submit) {
+        if(view.getId() == R.id.btn_mainpage_submit) {
 //            ActivityOptionsCompat options = ActivityOptionsCompat.
 //                    makeSceneTransitionAnimation(this, view, "transition");
 

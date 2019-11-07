@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,12 +20,9 @@ import ir.ac.kntu.patogh.R;
 
 public class HomePageActivity extends AppCompatActivity {
 
-    @BindView(R.id.edt_home_page_search_bar)
-    EditText edtSearch;
-    @BindView(R.id.btn_img_search_bar_search)
-    EditText btnImgSearch;
-    @BindView(R.id.btn_img_search_bar_sort)
-    EditText btnImgSort;
+    @BindView(R.id.edt_home_page_search_bar) EditText edtSearch;
+    @BindView(R.id.btn_img_search_bar_search) ImageButton btnImgSearch;
+    @BindView(R.id.btn_img_search_bar_sort) ImageButton btnImgSort;
 
 
     @Override

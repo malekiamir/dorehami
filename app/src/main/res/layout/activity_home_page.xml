@@ -1,37 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
-    <!--android:id="@+id/bottom_navigation_homepage"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--android:background="@android:color/holo_orange_light"-->
-    <!--app:itemBackground="@android:color/holo_orange_light"-->
-    <!--app:itemTextColor="@color/material_blue_grey_95"-->
-    <!--app:elevation="8dp"-->
-    <!--app:menu="@menu/bottom_navigation_main"-->
-    <!--app:labelVisibilityMode="labeled">-->
-
-
-    <!--</com.google.android.material.bottomnavigation.BottomNavigationView>-->
+    android:layout_height="match_parent"
+    android:background="#F6F6F8">
 
     <com.gauravk.bubblenavigation.BubbleNavigationConstraintView
         android:id="@+id/top_navigation_constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="380dp"
-        android:background="#fff"
-        android:elevation="4dp"
-        android:paddingRight="18dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_rect_white"
+        android:elevation="20dp"
         android:paddingLeft="18dp"
         android:paddingTop="10dp"
+        android:paddingRight="18dp"
         android:paddingBottom="10dp"
         app:bnc_mode="inside">
 
@@ -77,14 +63,14 @@
             android:layout_height="wrap_content"
             app:bt_active="true"
             app:bt_colorActive="#FFA000"
-            app:bt_shapeColor="#FFA000"
-
             app:bt_colorInactive="#7C7C7C"
+
             app:bt_icon="@drawable/ic_calendar"
             app:bt_padding="12dp"
+            app:bt_shapeColor="#FFA000"
             app:bt_title="Calendar"
             app:bt_titlePadding="2dp" />
         <!-- Add more child items here - max upto 5 -->
 
     </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

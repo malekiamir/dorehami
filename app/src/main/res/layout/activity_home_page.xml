@@ -4,6 +4,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F6F6F8">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/card_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+            <include
+                layout="@layout/card_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+            <include
+                layout="@layout/card_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+            <include
+                layout="@layout/card_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+            <include
+                layout="@layout/card_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+            <include
+                layout="@layout/card_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
+    </ScrollView>
 
     <com.gauravk.bubblenavigation.BubbleNavigationConstraintView
         android:id="@+id/top_navigation_constraint"
@@ -13,7 +72,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/rounded_rect_white"
+        android:background="@drawable/rounded_rect_yellow"
         android:elevation="20dp"
         android:paddingLeft="18dp"
         android:paddingTop="10dp"
@@ -28,6 +87,7 @@
             app:bt_active="true"
             app:bt_colorActive="#EF5350"
             app:bt_colorInactive="#7C7C7C"
+            app:bt_shape="@drawable/rounded_rect_bottom"
             app:bt_icon="@drawable/ic_home"
             app:bt_padding="12dp"
             app:bt_title="Home"
@@ -41,6 +101,7 @@
             app:bt_colorActive="#7B1FA2"
             app:bt_colorInactive="#7C7C7C"
             app:bt_icon="@drawable/ic_add"
+            app:bt_shape="@drawable/rounded_rect_bottom_add"
             app:bt_padding="12dp"
             app:bt_title="Add"
             app:bt_titlePadding="2dp" />
@@ -53,6 +114,7 @@
             app:bt_colorActive="#303F9F"
             app:bt_colorInactive="#7C7C7C"
             app:bt_icon="@drawable/ic_profile"
+            app:bt_shape="@drawable/rounded_rect_bottom_profile"
             app:bt_padding="12dp"
             app:bt_title="Profile"
             app:bt_titlePadding="2dp" />
@@ -64,10 +126,9 @@
             app:bt_active="true"
             app:bt_colorActive="#FFA000"
             app:bt_colorInactive="#7C7C7C"
-
+            app:bt_shape="@drawable/rounded_rect_bottom_calendar"
             app:bt_icon="@drawable/ic_calendar"
             app:bt_padding="12dp"
-            app:bt_shapeColor="#FFA000"
             app:bt_title="Calendar"
             app:bt_titlePadding="2dp" />
         <!-- Add more child items here - max upto 5 -->

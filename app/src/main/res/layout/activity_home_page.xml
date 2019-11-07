@@ -1,12 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F6F6F8">
-    <ScrollView
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edt_home_page_search_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:alpha="0.9"
+        android:background="@drawable/search_sort_bar"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawableEnd="@android:drawable/ic_menu_sort_alphabetically"
+        android:fontFamily="@font/iransans_font"
+        android:gravity="right|center_vertical"
+        android:hint="مثال : دوچرخه سواری"
+        android:padding="5dp"
+        android:paddingRight="10dp"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textCursorDrawable="@null"
+        android:textSize="18sp"
+        app:boxStrokeColor="@color/text_input_color"
+        app:hintTextAppearance="@style/TextLabel"
+        app:hintTextColor="#33000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scroll_home_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_home_page_search_bar">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -16,51 +51,55 @@
                 layout="@layout/card_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
 
             <include
                 layout="@layout/card_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+
             <include
                 layout="@layout/card_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+
             <include
                 layout="@layout/card_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+
             <include
                 layout="@layout/card_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+
             <include
                 layout="@layout/card_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
         </LinearLayout>
     </ScrollView>
 
@@ -72,13 +111,16 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/rounded_rect_yellow"
-        android:elevation="20dp"
+        android:background="@drawable/rounded_rect_bottom_nav"
+        android:elevation="12dp"
         android:paddingLeft="18dp"
         android:paddingTop="10dp"
         android:paddingRight="18dp"
         android:paddingBottom="10dp"
-        app:bnc_mode="inside">
+        app:bnc_mode="inside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.gauravk.bubblenavigation.BubbleToggleView
             android:id="@+id/c_item_rest"
@@ -87,9 +129,9 @@
             app:bt_active="true"
             app:bt_colorActive="#EF5350"
             app:bt_colorInactive="#7C7C7C"
-            app:bt_shape="@drawable/rounded_rect_bottom"
             app:bt_icon="@drawable/ic_home"
             app:bt_padding="12dp"
+            app:bt_shape="@drawable/rounded_rect_bottom_home"
             app:bt_title="Home"
             app:bt_titlePadding="2dp" />
 
@@ -101,8 +143,8 @@
             app:bt_colorActive="#7B1FA2"
             app:bt_colorInactive="#7C7C7C"
             app:bt_icon="@drawable/ic_add"
-            app:bt_shape="@drawable/rounded_rect_bottom_add"
             app:bt_padding="12dp"
+            app:bt_shape="@drawable/rounded_rect_bottom_add"
             app:bt_title="Add"
             app:bt_titlePadding="2dp" />
 
@@ -114,8 +156,8 @@
             app:bt_colorActive="#303F9F"
             app:bt_colorInactive="#7C7C7C"
             app:bt_icon="@drawable/ic_profile"
-            app:bt_shape="@drawable/rounded_rect_bottom_profile"
             app:bt_padding="12dp"
+            app:bt_shape="@drawable/rounded_rect_bottom_profile"
             app:bt_title="Profile"
             app:bt_titlePadding="2dp" />
 
@@ -126,12 +168,12 @@
             app:bt_active="true"
             app:bt_colorActive="#FFA000"
             app:bt_colorInactive="#7C7C7C"
-            app:bt_shape="@drawable/rounded_rect_bottom_calendar"
             app:bt_icon="@drawable/ic_calendar"
             app:bt_padding="12dp"
+            app:bt_shape="@drawable/rounded_rect_bottom_calendar"
             app:bt_title="Calendar"
             app:bt_titlePadding="2dp" />
         <!-- Add more child items here - max upto 5 -->
 
     </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

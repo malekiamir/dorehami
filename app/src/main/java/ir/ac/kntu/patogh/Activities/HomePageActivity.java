@@ -15,7 +15,6 @@ import ir.ac.kntu.patogh.R;
 
 public class HomePageActivity extends AppCompatActivity {
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

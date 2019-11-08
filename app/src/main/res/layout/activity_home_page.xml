@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F6F8">
+    android:background="#EDF2F0">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/home_page_search_bar"
@@ -155,9 +155,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="1dp"
         android:background="@drawable/rounded_rect_bottom_nav"
         android:elevation="12dp"
         android:paddingLeft="18dp"
@@ -175,10 +175,9 @@
             android:layout_height="wrap_content"
             app:bt_active="true"
             app:bt_colorActive="#EF5350"
-            app:bt_colorInactive="#7C7C7C"
+            app:bt_colorInactive="#7c7c7c"
             app:bt_icon="@drawable/ic_home"
             app:bt_padding="12dp"
-            app:bt_shape="@drawable/rounded_rect_bottom_home"
             app:bt_title="Home"
             app:bt_titlePadding="2dp" />
 
@@ -188,10 +187,10 @@
             android:layout_height="wrap_content"
             app:bt_active="true"
             app:bt_colorActive="#7B1FA2"
-            app:bt_colorInactive="#7C7C7C"
+            app:bt_colorInactive="#7c7c7c"
             app:bt_icon="@drawable/ic_add"
             app:bt_padding="12dp"
-            app:bt_shape="@drawable/rounded_rect_bottom_add"
+
             app:bt_title="Add"
             app:bt_titlePadding="2dp" />
 
@@ -201,10 +200,10 @@
             android:layout_height="wrap_content"
             app:bt_active="true"
             app:bt_colorActive="#303F9F"
-            app:bt_colorInactive="#7C7C7C"
+            app:bt_colorInactive="#7c7c7c"
             app:bt_icon="@drawable/ic_profile"
             app:bt_padding="12dp"
-            app:bt_shape="@drawable/rounded_rect_bottom_profile"
+
             app:bt_title="Profile"
             app:bt_titlePadding="2dp" />
 
@@ -214,10 +213,9 @@
             android:layout_height="wrap_content"
             app:bt_active="true"
             app:bt_colorActive="#FFA000"
-            app:bt_colorInactive="#7C7C7C"
+            app:bt_colorInactive="#7c7c7c"
             app:bt_icon="@drawable/ic_calendar"
             app:bt_padding="12dp"
-            app:bt_shape="@drawable/rounded_rect_bottom_calendar"
             app:bt_title="Calendar"
             app:bt_titlePadding="2dp" />
         <!-- Add more child items here - max upto 5 -->

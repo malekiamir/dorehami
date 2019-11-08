@@ -12,22 +12,23 @@
         android:scaleType="centerCrop" />
 
     <com.mukesh.OtpView
-        android:id="@+id/otp_view"
+        android:id="@+id/edt_verification"
         style="@style/OtpWidget.OtpView"
         android:layout_width="wrap_content"
-        app:itemSpacing="20dp"
-        app:lineWidth="1dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
+        android:alpha="0.9"
         android:inputType="number"
         android:textColor="@android:color/white"
         app:itemCount="4"
+        app:itemSpacing="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.601"
         app:lineColor="#fff"
+        app:lineWidth="1dp"
         app:viewType="line" />
 
     <Button
@@ -39,11 +40,25 @@
         android:layout_marginBottom="32dp"
         android:backgroundTint="#F0D919"
         android:fontFamily="@font/iransans_font"
+        android:onClick="clickHandler"
         android:text="ادامه"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:onClick="clickHandler"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:alpha="0.9"
+        android:fontFamily="@font/iransans_font"
+        android:gravity="center_horizontal"
+        android:text="لطفا کد ارسال شده را وارد نمایید"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/edt_verification"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

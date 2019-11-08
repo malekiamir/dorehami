@@ -8,15 +8,25 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gauravk.bubblenavigation.BubbleNavigationConstraintView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
+import ir.ac.kntu.patogh.Utils.KeyboardUtils;
 
 public class HomePageActivity extends AppCompatActivity {
 
-    @BindView(R.id.edt_home_page_search_bar) EditText edtSearch;
-    @BindView(R.id.btn_img_search_bar_search) ImageButton btnImgSearch;
-    @BindView(R.id.btn_img_search_bar_sort) ImageButton btnImgSort;
+    @BindView(R.id.edt_home_page_search_bar)
+    EditText edtSearch;
+    @BindView(R.id.btn_img_search_bar_search)
+    ImageButton btnImgSearch;
+    @BindView(R.id.btn_img_search_bar_sort)
+    ImageButton btnImgSort;
+    @BindView(R.id.btn_img_search_bar_cancel)
+    ImageButton btnImgCancel;
+    @BindView(R.id.nav_bottom_home)
+    BubbleNavigationConstraintView navBottom;
 
 
     @Override
@@ -24,18 +34,14 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         ButterKnife.bind(this);
-//        edtSearch.setOnFocusChangeListener((view, b) -> {
-//            if(view.getId() == edtSearch.getId()) {
-//                if (b) {
-//                    edtSearch.setHint(null);
-//                } else {
-//                    edtSearch.setHint(null);
-//                }
-//            }
-//        });
+        edtSearch.setOnFocusChangeListener((view, b) -> {
+            if (b) {
+                edtSearch.setText(null);
+                btnImgSort.setVisibility(View.INVISIBLE);
+                btnImgCancel.setVisibility(View.VISIBLE);
+            }
+        });
 
-        System.out.println();
-        edtSearch.setHint("what");
 
 //        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_homepage);
 //        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,7 +71,13 @@ public class HomePageActivity extends AppCompatActivity {
             Toast.makeText(this, "sort", Toast.LENGTH_SHORT).show();
         } else if (view.getId() == R.id.btn_img_search_bar_search) {
             Toast.makeText(this, "search", Toast.LENGTH_SHORT).show();
-
+        } else if (view.getId() == R.id.btn_img_search_bar_cancel) {
+            btnImgSort.setVisibility(View.VISIBLE);
+            btnImgCancel.setVisibility(View.INVISIBLE);
+            edtSearch.clearFocus();
+            edtSearch.setText(R.string.edt_home_page_search_hint);
+            KeyboardUtils.hideKeyboard(this);
         }
     }
 }
+

@@ -31,7 +31,7 @@
         app:lineWidth="1dp"
         app:viewType="line" />
 
-    <Button
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/btn_phoneverification_submit"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"

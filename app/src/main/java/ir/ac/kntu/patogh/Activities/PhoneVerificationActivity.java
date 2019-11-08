@@ -1,6 +1,8 @@
 package ir.ac.kntu.patogh.Activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -11,6 +13,7 @@ import com.mukesh.OtpView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
@@ -29,7 +33,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     @BindView(R.id.edt_verification)
     OtpView edtVerification;
     @BindView(R.id.btn_phoneverification_submit)
-    Button btnSubmit;
+    CircularProgressButton btnSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +44,27 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 .load(R.drawable.back)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
                 .into((ImageView) findViewById(R.id.img_phone_verification_background));
-
     }
 
     public void clickHandler(View view) {
         if(view.getId() == R.id.btn_phoneverification_submit) {
 //            Intent intent = new Intent(PhoneVerificationActivity.this, HomePageActivity.class);
+            btnSubmit.startAnimation();
+            btnSubmit.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    btnSubmit.doneLoadingAnimation(Color.rgb(100,50,100)
+                            , BitmapFactory.decodeResource(getResources(), R.drawable.back));
+                }
+            },500);
             if (checkVerificationCode()) {
+
+//                btnSubmit.doneLoadingAnimation(Color.rgb(100,50,100)
+//                        , BitmapFactory.decodeResource(getResources(), R.drawable.back));
                 Intent intent = new Intent(PhoneVerificationActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
+
         }
     }
 
@@ -64,6 +79,12 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                     .textColor(Color.WHITE)
                     .backgroundColor(Color.argb(255, 255, 94, 100))
                     .show();
+            btnSubmit.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    btnSubmit.revertAnimation();
+                }
+            },500);
             return false;
         } else if (verificationCode.length() != 4) {
             Animation shake = AnimationUtils.loadAnimation(PhoneVerificationActivity.this, R.anim.shake);
@@ -74,6 +95,12 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                     .textColor(Color.WHITE)
                     .backgroundColor(Color.argb(255, 255, 94, 100))
                     .show();
+            btnSubmit.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    btnSubmit.revertAnimation();
+                }
+            },500);
             return false;
         }
         return true;

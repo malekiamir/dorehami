@@ -46,4 +46,5 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
     implementation 'com.muddzdev:styleabletoast:2.2.3'
+    implementation 'br.com.simplepass:loading-button-android:2.2.0'
 }

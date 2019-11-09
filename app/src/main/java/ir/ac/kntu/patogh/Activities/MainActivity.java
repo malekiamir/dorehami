@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         if (view.getId() == R.id.btn_mainpage_submit) {
             if (checkPhone()) {
                 Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
-//            Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
                 startActivity(intent);
             }
         }
@@ -80,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
                     .show();
             return false;
         }
-        return true;
+        return requestLogin(); 
+    }
+
+    private boolean requestLogin() {
+
     }
 }

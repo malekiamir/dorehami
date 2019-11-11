@@ -2,9 +2,7 @@ package ir.ac.kntu.patogh.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.transition.Explode;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -13,10 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -28,7 +23,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
-import ir.ac.kntu.patogh.TypeRequestLogin;
+import ir.ac.kntu.patogh.PhoneNumber;
 import ir.ac.kntu.patogh.R;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import okhttp3.MediaType;
@@ -47,15 +42,10 @@ public class MainActivity extends AppCompatActivity {
     EditText edtPhone;
     @BindView(R.id.btn_mainpage_submit)
     Button btnSubmit;
-    @BindView(R.id.img_mainpage_background)
-    ImageView imgBackground;
-    boolean success = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setSharedElementExitTransition(new Explode());
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -73,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
     public void clickHandler(View view) {
         if (view.getId() == R.id.btn_mainpage_submit) {
             if (checkPhone()) {
-                goToNextPage();
+//                Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
+                Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
+                startActivity(intent);
             }
         }
     }
@@ -111,14 +103,13 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
-                , gson.toJson(new TypeRequestLogin(phoneNumber)));
+                , gson.toJson(new PhoneNumber(phoneNumber)));
         patoghApi.requestLogin(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     Log.d("~~~~~~~~~~~~~~~~~", response.body().string());
-                    success = true;
-                    goToNextPage();
+                    System.out.println("ineha " + response.body().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -126,29 +117,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                new StyleableToast
-                        .Builder(MainActivity.this)
-                        .text("لطفا اتصال اینترنت را بررسی نمایید و سپس مجددا تلاش نمایید.")
-                        .textColor(Color.WHITE)
-                        .backgroundColor(Color.argb(255, 255, 94, 100))
-                        .show();
-                success = false;
+                System.out.println("ridim baba");
             }
         });
-
-        return success;
-    }
-
-    public void goToNextPage() {
-        Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
-        intent.putExtra("phoneNumber", edtPhone.getText().toString());
-        ActivityOptionsCompat options = ActivityOptionsCompat
-                .makeSceneTransitionAnimation(MainActivity.this
-                        , imgBackground
-                        , ViewCompat.getTransitionName(imgBackground))
-                .makeSceneTransitionAnimation(MainActivity.this
-                        , btnSubmit
-                        , ViewCompat.getTransitionName(btnSubmit));
-        startActivity(intent, options.toBundle());
+        return true;
     }
 }

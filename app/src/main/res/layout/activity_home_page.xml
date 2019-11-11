@@ -93,146 +93,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
-        android:id="@+id/scroll_home_page"
-        android:layout_width="match_parent"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_page_search_bar">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include
-                layout="@layout/card_event"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
-
-            <include
-                layout="@layout/card_event"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
-
-            <include
-                layout="@layout/card_event"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
-
-            <include
-                layout="@layout/card_event"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
-
-            <include
-                layout="@layout/card_event"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
-
-            <include
-                layout="@layout/card_event"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
-        </LinearLayout>
-    </ScrollView>
-
-    <com.gauravk.bubblenavigation.BubbleNavigationConstraintView
-        android:id="@+id/nav_bottom_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/rounded_rect_bottom_nav"
-        android:elevation="12dp"
-        android:paddingLeft="18dp"
-        android:paddingTop="10dp"
-        android:paddingRight="18dp"
-        android:paddingBottom="10dp"
-        app:bnc_mode="inside"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
-        <com.gauravk.bubblenavigation.BubbleToggleView
-            android:id="@+id/c_item_rest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:bt_active="true"
-            app:bt_colorActive="#EF5350"
-            app:bt_colorInactive="#7C7C7C"
-            app:bt_icon="@drawable/ic_home"
-            app:bt_padding="12dp"
-            app:bt_shape="@drawable/rounded_rect_bottom_home"
-            app:bt_title="Home"
-            app:bt_titlePadding="2dp" />
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_page_search_bar"
+        app:navGraph="@navigation/mobile_navigation" />
 
-        <com.gauravk.bubblenavigation.BubbleToggleView
-            android:id="@+id/c_item_rest2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:bt_active="true"
-            app:bt_colorActive="#7B1FA2"
-            app:bt_colorInactive="#7C7C7C"
-            app:bt_icon="@drawable/ic_add"
-            app:bt_padding="12dp"
-            app:bt_shape="@drawable/rounded_rect_bottom_add"
-            app:bt_title="Add"
-            app:bt_titlePadding="2dp" />
-
-        <com.gauravk.bubblenavigation.BubbleToggleView
-            android:id="@+id/c_item_rest3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:bt_active="true"
-            app:bt_colorActive="#303F9F"
-            app:bt_colorInactive="#7C7C7C"
-            app:bt_icon="@drawable/ic_profile"
-            app:bt_padding="12dp"
-            app:bt_shape="@drawable/rounded_rect_bottom_profile"
-            app:bt_title="Profile"
-            app:bt_titlePadding="2dp" />
-
-        <com.gauravk.bubblenavigation.BubbleToggleView
-            android:id="@+id/c_item_rest4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:bt_active="true"
-            app:bt_colorActive="#FFA000"
-            app:bt_colorInactive="#7C7C7C"
-            app:bt_icon="@drawable/ic_calendar"
-            app:bt_padding="12dp"
-            app:bt_shape="@drawable/rounded_rect_bottom_calendar"
-            app:bt_title="Calendar"
-            app:bt_titlePadding="2dp" />
-        <!-- Add more child items here - max upto 5 -->
-
-    </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>
 </androidx.constraintlayout.widget.ConstraintLayout>

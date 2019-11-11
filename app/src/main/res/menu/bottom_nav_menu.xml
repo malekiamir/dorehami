@@ -1,33 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home"
-        android:iconTint="@drawable/nav_home_color"
-        app:itemTextColor="@drawable/nav_home_color" />
+        android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_add"
-        android:icon="@drawable/ic_add"
-        android:title="@string/title_add"
-        app:itemIconTint="@drawable/nav_add_color"
-        app:itemTextColor="@drawable/nav_add_color" />
+        android:icon="@android:drawable/ic_input_add"
+        android:title="@string/title_add" />
 
     <item
         android:id="@+id/navigation_calendar"
-        android:icon="@drawable/ic_calendar"
-        android:title="@string/title_calendar"
-        app:itemIconTint="@drawable/nav_calendar_color"
-        app:itemTextColor="@drawable/nav_calendar_color" />
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="@string/title_calendar" />
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_profile"
-        android:title="@string/title_profile"
-        app:itemIconTint="@drawable/nav_profile_color"
-        app:itemTextColor="@drawable/nav_profile_color" />
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="@string/title_profile" />
 
 </menu>

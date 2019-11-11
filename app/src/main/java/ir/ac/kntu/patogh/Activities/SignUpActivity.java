@@ -9,40 +9,19 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.textfield.TextInputLayout;
-
-import butterknife.BindView;
 import ir.ac.kntu.patogh.R;
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class SignUpActivity extends AppCompatActivity {
 
     public static final String EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X";
     public static final String EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y";
 
-    @BindView(R.id.edt_signup_name)
-    TextInputLayout textInputLayoutName;
-    @BindView(R.id.edt_signup_surname)
-    TextInputLayout textInputLayoutSurname;
-    @BindView(R.id.edt_signup_email)
-    TextInputLayout textInputLayoutEmail;
-
-
     private int revealX;
     private int revealY;
     View rootLayout;
-    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,62 +104,10 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-
-    private boolean checkEmailAddress() {
-        String EmailInput = textInputLayoutEmail.getEditText().getText().toString().trim();
-        if (EmailInput.equals("")) {
-            textInputLayoutEmail.setError("این فیلد نمیتواند خالی باشد.");
-            return false;
-        } else if (!(EmailInput.contains("@"))) {
-            textInputLayoutEmail.setError("لطفاآدرس ایمیل رامجددا وارد کنید.");
-            return false;
-        } else {
-            textInputLayoutEmail.setError(null);
-            return true;
-        }
-    }
-
-    private boolean checkName(){
-        String NameInput = textInputLayoutName.getEditText().getText().toString().trim();
-        if (NameInput.equals("")) {
-            textInputLayoutEmail.setError("این فیلد نمیتواند خالی باشد.");
-            return false;
-        }else if(NameInput.length()>20){
-            textInputLayoutName.setError("لطفا نام معتبر را وارد کنید.");
-            return false;
-        }else if(NameInput.length()<3){
-            textInputLayoutName.setError("لطفا نام معتبر را وارد کنید.");
-            return false;
-        }else {
-            textInputLayoutName.setError(null);
-            return true;
-        }
-    }
-
-    private boolean checkSurname(){
-        String SurnameInput = textInputLayoutSurname.getEditText().getText().toString().trim();
-        if (SurnameInput.equals("")) {
-            textInputLayoutEmail.setError("این فیلد نمیتواند خالی باشد.");
-            return false;
-        }else if(SurnameInput.length()>45){
-            textInputLayoutName.setError("لطفا نام خانوادگی معتبر را وارد کنید.");
-            return false;
-        }else if(SurnameInput.length()<3){
-            textInputLayoutName.setError("لطفا نام خانوادگی معتبر را وارد کنید.");
-            return false;
-        }else {
-            textInputLayoutName.setError(null);
-            return true;
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void clickHandler(View view) {
-        if (view.getId() == R.id.btn_signup_register) {
-            if (checkSurname() && checkName() && checkEmailAddress()) {
-                Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
-                startActivity(intent);
-            }
+        if (view.getId() == R.id.button7) {
+            Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
+            startActivity(intent);
         }
     }
 }

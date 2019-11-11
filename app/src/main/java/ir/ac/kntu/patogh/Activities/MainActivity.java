@@ -1,17 +1,35 @@
 package ir.ac.kntu.patogh.Activities;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.AutoTransition;
+import android.transition.ChangeBounds;
+import android.transition.ChangeClipBounds;
+import android.transition.ChangeImageTransform;
+import android.transition.ChangeTransform;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.TransitionSet;
+import android.transition.Visibility;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -42,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     EditText edtPhone;
     @BindView(R.id.btn_mainpage_submit)
     Button btnSubmit;
+    @BindView(R.id.img_mainpage_background)
+    ImageView imgBackground;
 
 
     @Override
@@ -49,6 +69,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            TransitionSet transitionSet = new TransitionSet()
+                    .addTransition(new Fade()).addTransition(new Explode())
+                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .setDuration(600);
+            transitionSet.excludeTarget(R.id.img_mainpage_background, true);
+            getWindow().setEnterTransition(transitionSet);
+            getWindow().setExitTransition(transitionSet);
+
+        }
         Glide.with(this.getApplicationContext())
                 .load(R.drawable.back)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
@@ -60,11 +91,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void clickHandler(View view) {
         if (view.getId() == R.id.btn_mainpage_submit) {
             if (checkPhone()) {
                 Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
-                startActivity(intent);
+                ActivityOptionsCompat options = ActivityOptionsCompat
+                        .makeSceneTransitionAnimation(MainActivity.this
+                                , imgBackground
+                                , ViewCompat.getTransitionName(imgBackground))
+                        .makeSceneTransitionAnimation(MainActivity.this
+                                , btnSubmit
+                                , ViewCompat.getTransitionName(btnSubmit));
+                startActivity(intent, options.toBundle());
+
             }
         }
     }

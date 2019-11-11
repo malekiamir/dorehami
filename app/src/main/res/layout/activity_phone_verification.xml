@@ -8,7 +8,9 @@
         android:id="@+id/img_phone_verification_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:transitionName="@string/transition_background_photo"
         android:alpha="0.7"
+        android:src="@drawable/back"
         android:scaleType="centerCrop" />
 
     <com.mukesh.OtpView
@@ -36,16 +38,18 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="32dp"
+        android:layout_gravity="right"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="#F0D919"
         android:fontFamily="@font/iransans_font"
         android:onClick="clickHandler"
         android:text="ادامه"
         android:textColor="#000000"
         android:textSize="18sp"
+        android:transitionName="@string/transition_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.643"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -62,5 +66,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_phoneverification_edit"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#00000000"
+        android:fontFamily="@font/iransans_font"
+        android:onClick="clickHandler"
+        android:outlineSpotShadowColor="#F0d919"
+        android:text="ویرایش"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.297"
+        app:layout_constraintRight_toLeftOf="@+id/btn_phoneverification_submit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_verification"
+        app:layout_constraintVertical_bias="0.95"
+        app:strokeColor="#F0D919" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

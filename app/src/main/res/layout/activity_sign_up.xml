@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/frame1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_page_colorful_croped" />
+        app:srcCompat="@drawable/ic_page_colorful_croped" />
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,7 +42,7 @@
             android:elevation="10dp"
             app:cardBackgroundColor="#fff"
             app:cardCornerRadius="18dp"
-            app:layout_constraintBottom_toTopOf="@id/button7"
+            app:layout_constraintBottom_toTopOf="@id/btn_signup_register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView_signup_logo">
@@ -61,37 +62,45 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20"
                     android:elevation="6dp"
                     android:hint="نام"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
                     app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000">
+                    app:hintTextColor="#000"
+                    app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_signup_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
                         android:maxLines="1"
+                        android:inputType="text"
                         android:textColor="#000" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout_signup_surnamefield"
+                    android:id="@+id/edt_signup_surname"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="45"
                     android:elevation="6dp"
                     android:hint="نام خانوادگی"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
                     app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000">
+                    app:hintTextColor="#000"
+                    app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -100,11 +109,12 @@
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
                         android:maxLines="1"
+                        android:inputType="text"
                         android:textColor="#000" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout_signup_"
+                    android:id="@+id/edt_signup_email"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -116,7 +126,8 @@
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
                     app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000">
+                    app:hintTextColor="#000"
+                    app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -132,7 +143,7 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/btn_signup_register"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

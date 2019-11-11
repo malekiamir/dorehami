@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
@@ -11,16 +12,18 @@ import com.bumptech.glide.request.RequestOptions;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.mukesh.OtpView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Handler;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.TransitionSet;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
@@ -40,6 +43,20 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_verification);
         ButterKnife.bind(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            TransitionSet transitionSet = new TransitionSet()
+                    .addTransition(new Fade()).addTransition(new Slide())
+                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .setDuration(600);
+            transitionSet.excludeTarget(R.id.img_phone_verification_background, true);
+            transitionSet.excludeTarget(R.id.img_mainpage_background, true);
+            getWindow().setEnterTransition(transitionSet);
+            getWindow().setExitTransition(transitionSet);
+        }
+
+
+
         Glide.with(this.getApplicationContext())
                 .load(R.drawable.back)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
@@ -47,16 +64,16 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     }
 
     public void clickHandler(View view) {
-        if(view.getId() == R.id.btn_phoneverification_submit) {
+        if (view.getId() == R.id.btn_phoneverification_submit) {
 //            Intent intent = new Intent(PhoneVerificationActivity.this, HomePageActivity.class);
             btnSubmit.startAnimation();
             btnSubmit.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    btnSubmit.doneLoadingAnimation(Color.rgb(100,50,100)
+                    btnSubmit.doneLoadingAnimation(Color.rgb(100, 50, 100)
                             , BitmapFactory.decodeResource(getResources(), R.drawable.back));
                 }
-            },500);
+            }, 500);
             if (checkVerificationCode()) {
 
 //                btnSubmit.doneLoadingAnimation(Color.rgb(100,50,100)
@@ -65,6 +82,10 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 startActivity(intent);
             }
 
+        }
+        if (view.getId() == R.id.btn_phoneverification_edit) {
+            Intent intent = new Intent(PhoneVerificationActivity.this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -84,7 +105,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 public void run() {
                     btnSubmit.revertAnimation();
                 }
-            },500);
+            }, 500);
             return false;
         } else if (verificationCode.length() != 4) {
             Animation shake = AnimationUtils.loadAnimation(PhoneVerificationActivity.this, R.anim.shake);
@@ -100,7 +121,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 public void run() {
                     btnSubmit.revertAnimation();
                 }
-            },500);
+            }, 500);
             return false;
         }
         return true;

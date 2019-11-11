@@ -8,5 +8,4 @@
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
-
 </resources>

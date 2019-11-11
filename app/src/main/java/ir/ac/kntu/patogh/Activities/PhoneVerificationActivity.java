@@ -15,9 +15,14 @@ import com.mukesh.OtpView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.TransitionSet;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
@@ -37,6 +42,18 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_verification);
         ButterKnife.bind(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            TransitionSet transitionSet = new TransitionSet()
+                    .addTransition(new Fade()).addTransition(new Slide())
+                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .setDuration(600);
+            transitionSet.excludeTarget(R.id.img_phone_verification_background, true);
+            getWindow().setEnterTransition(transitionSet);
+            getWindow().setExitTransition(transitionSet);
+        }
+
+
 //        Glide.with(this.getApplicationContext())
 //                .load(R.drawable.back)
 //                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))

@@ -1,7 +1,9 @@
 package ir.ac.kntu.patogh.Activities;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -42,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     EditText edtPhone;
     @BindView(R.id.btn_mainpage_submit)
     Button btnSubmit;
+    @BindView(R.id.img_mainpage_background)
+    ImageView imgBackground;
 
 
     @Override
@@ -49,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Glide.with(this.getApplicationContext())
-                .load(R.drawable.back)
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
-                .into((ImageView) findViewById(R.id.img_mainpage_background));
+//        Glide.with(this.getApplicationContext())
+//                .load(R.drawable.back)
+//                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
+//                .into((ImageView) findViewById(R.id.img_mainpage_background));
         edtPhone.setOnFocusChangeListener((view, b) -> {
             if (b) {
                 edtPhone.setHint(null);
@@ -60,12 +67,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void clickHandler(View view) {
         if (view.getId() == R.id.btn_mainpage_submit) {
             if (checkPhone()) {
 //                Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
-                Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat
+                        .makeSceneTransitionAnimation(MainActivity.this,imgBackground, ViewCompat.getTransitionName(imgBackground));
+                startActivity(intent,options.toBundle());
             }
         }
     }

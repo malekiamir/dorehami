@@ -71,11 +71,15 @@ public class MainActivity extends AppCompatActivity {
     public void clickHandler(View view) {
         if (view.getId() == R.id.btn_mainpage_submit) {
             if (checkPhone()) {
-//                Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
                 Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat
-                        .makeSceneTransitionAnimation(MainActivity.this,imgBackground, ViewCompat.getTransitionName(imgBackground));
-                startActivity(intent,options.toBundle());
+                        .makeSceneTransitionAnimation(MainActivity.this
+                                , imgBackground
+                                , ViewCompat.getTransitionName(imgBackground))
+                        .makeSceneTransitionAnimation(MainActivity.this
+                                , btnSubmit
+                                , ViewCompat.getTransitionName(btnSubmit));
+                startActivity(intent, options.toBundle());
             }
         }
     }

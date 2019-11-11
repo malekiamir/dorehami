@@ -9,5 +9,6 @@
     <string name="title_calendar">Calendar</string>
     <string name="title_profile">Profile</string>
     <string name="transition_background_photo">transition background photo</string>
+    <string name="transition_button">transition button</string>
 
 </resources>

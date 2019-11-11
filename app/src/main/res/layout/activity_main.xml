@@ -8,7 +8,9 @@
     <ImageView
         android:id="@+id/img_mainpage_background"
         android:layout_width="match_parent"
+        android:src="@drawable/back"
         android:layout_height="match_parent"
+        android:transitionName="@string/transition_background_photo"
         android:alpha="0.7"
         android:scaleType="centerCrop" />
 

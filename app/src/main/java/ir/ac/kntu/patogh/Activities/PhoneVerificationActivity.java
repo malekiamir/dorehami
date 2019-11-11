@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
@@ -11,6 +12,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.mukesh.OtpView;
 
+import androidx.annotation.RequiresApi;
+import androidx.annotation.TransitionRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
@@ -35,15 +38,16 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     @BindView(R.id.btn_phoneverification_submit)
     CircularProgressButton btnSubmit;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_verification);
         ButterKnife.bind(this);
-        Glide.with(this.getApplicationContext())
-                .load(R.drawable.back)
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
-                .into((ImageView) findViewById(R.id.img_phone_verification_background));
+//        Glide.with(this.getApplicationContext())
+//                .load(R.drawable.back)
+//                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
+//                .into((ImageView) findViewById(R.id.img_phone_verification_background));
     }
 
     public void clickHandler(View view) {

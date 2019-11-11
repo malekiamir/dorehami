@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +38,8 @@ public class SignUpActivity extends AppCompatActivity {
         final Intent intent = getIntent();
 
         rootLayout = findViewById(R.id.root_layout);
+        Button btn_register = findViewById(R.id.button7);
+
 
 
         if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
@@ -111,6 +116,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void clickHandler(View view) {
         if (view.getId() == R.id.button7) {
+            Animation animation = AnimationUtils.loadAnimation(SignUpActivity.this,R.anim.bounce);
+            view.startAnimation(animation);
             Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
             startActivity(intent);
         }

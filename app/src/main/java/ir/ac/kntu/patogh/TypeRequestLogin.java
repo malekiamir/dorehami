@@ -1,9 +1,9 @@
 package ir.ac.kntu.patogh;
 
-public class PhoneNumber {
+public class TypeRequestLogin {
     String phoneNumber;
 
-    public PhoneNumber(String phoneNumber) {
+    public TypeRequestLogin(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

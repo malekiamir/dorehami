@@ -1,14 +1,14 @@
 package ir.ac.kntu.patogh.Activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.mukesh.OtpView;
 
@@ -16,19 +16,28 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.TransitionSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
+
+import java.io.IOException;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ir.ac.kntu.patogh.Interfaces.PatoghApi;
+import ir.ac.kntu.patogh.TypeAuthentication;
 import ir.ac.kntu.patogh.R;
 import jp.wasabeef.glide.transformations.BlurTransformation;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class PhoneVerificationActivity extends AppCompatActivity {
 
@@ -36,53 +45,37 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     OtpView edtVerification;
     @BindView(R.id.btn_phoneverification_submit)
     CircularProgressButton btnSubmit;
+    boolean success = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setEnterTransition(new Explode());
         super.onCreate(savedInstanceState);
+        Bundle bundle = getIntent().getExtras();
+//                bundle.getBundle("phoneNumber").toString();
         setContentView(R.layout.activity_phone_verification);
         ButterKnife.bind(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            TransitionSet transitionSet = new TransitionSet()
-                    .addTransition(new Fade()).addTransition(new Slide())
-                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
-                    .setInterpolator(new DecelerateInterpolator())
-                    .setDuration(600);
-            transitionSet.excludeTarget(R.id.img_phone_verification_background, true);
-            getWindow().setEnterTransition(transitionSet);
-            getWindow().setExitTransition(transitionSet);
-        }
-
-
-//        Glide.with(this.getApplicationContext())
-//                .load(R.drawable.back)
-//                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
-//                .into((ImageView) findViewById(R.id.img_phone_verification_background));
+        Glide.with(this.getApplicationContext())
+                .load(R.drawable.back)
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
+                .into((ImageView) findViewById(R.id.img_phone_verification_background));
     }
 
     public void clickHandler(View view) {
-        if(view.getId() == R.id.btn_phoneverification_submit) {
-//            Intent intent = new Intent(PhoneVerificationActivity.this, HomePageActivity.class);
+        if (view.getId() == R.id.btn_phoneverification_submit) {
             btnSubmit.startAnimation();
-            btnSubmit.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    btnSubmit.doneLoadingAnimation(Color.rgb(100,50,100)
-                            , BitmapFactory.decodeResource(getResources(), R.drawable.back));
-                }
-            },500);
-            if (checkVerificationCode()) {
-
+            String phoneNumber = getIntent().getStringExtra("phoneNumber");
+            System.out.println(edtVerification.getText().toString());
+            if (checkVerificationCode(phoneNumber)) {
 //                btnSubmit.doneLoadingAnimation(Color.rgb(100,50,100)
 //                        , BitmapFactory.decodeResource(getResources(), R.drawable.back));
-                Intent intent = new Intent(PhoneVerificationActivity.this, SignUpActivity.class);
-                startActivity(intent);
             }
 
         }
     }
 
-    private boolean checkVerificationCode() {
+    private boolean checkVerificationCode(String phoneNumber) {
         String verificationCode = edtVerification.getText().toString();
         if (verificationCode.equals("")) {
             Animation shake = AnimationUtils.loadAnimation(PhoneVerificationActivity.this, R.anim.shake);
@@ -98,7 +91,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 public void run() {
                     btnSubmit.revertAnimation();
                 }
-            },500);
+            }, 500);
             return false;
         } else if (verificationCode.length() != 4) {
             Animation shake = AnimationUtils.loadAnimation(PhoneVerificationActivity.this, R.anim.shake);
@@ -114,9 +107,72 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 public void run() {
                     btnSubmit.revertAnimation();
                 }
-            },500);
+            }, 500);
             return false;
         }
-        return true;
+        return authenticate(phoneNumber, edtVerification.getText().toString());
     }
+
+    private boolean authenticate(String phoneNumber, String code) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://185.252.30.32:7700/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(new TypeAuthentication(phoneNumber, code)));
+        patoghApi.authenticate(requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Response<ResponseBody> saveResponse = response;
+                    String responseBody = response.body().string();
+                    Log.d("~~~~~~~~~~~~~~~~~", saveResponse.body().string());
+                    if (!saveResponse.message().equals("OK")) {
+                        new StyleableToast
+                                .Builder(PhoneVerificationActivity.this)
+                                .text("کد صحیح نمی باشد.")
+                                .textColor(Color.WHITE)
+                                .backgroundColor(Color.argb(255, 255, 94, 100))
+                                .show();
+                        success = false;
+                    } else {
+                        btnSubmit.revertAnimation();
+                        JsonObject jsonObject1 = new Gson().fromJson(responseBody, JsonObject.class);
+                        String returnValue = jsonObject1.get("returnValue").toString();
+                        JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
+                        String token = jsonObject2.get("value").getAsString();
+                        success = true;
+                        System.out.println("~~~" + token);
+                        System.out.println(response.toString());
+                        goToNextPage(token);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                new StyleableToast
+                        .Builder(PhoneVerificationActivity.this)
+                        .text("لطفا اتصال اینترنت را بررسی نمایید و سپس مجددا تلاش نمایید.")
+                        .textColor(Color.WHITE)
+                        .backgroundColor(Color.argb(255, 255, 94, 100))
+                        .show();
+                success = false;
+
+            }
+        });
+
+        return success;
+    }
+
+    public void goToNextPage(String token) {
+        Intent intent = new Intent(PhoneVerificationActivity.this, SignUpActivity.class);
+        intent.putExtra("token", token);
+        startActivity(intent);
+    }
+
 }
+

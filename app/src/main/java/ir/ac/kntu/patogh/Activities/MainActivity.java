@@ -1,26 +1,14 @@
 package ir.ac.kntu.patogh.Activities;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.transition.AutoTransition;
-import android.transition.ChangeBounds;
-import android.transition.ChangeClipBounds;
-import android.transition.ChangeImageTransform;
-import android.transition.ChangeTransform;
 import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.TransitionSet;
-import android.transition.Visibility;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,7 +17,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -41,7 +28,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
-import ir.ac.kntu.patogh.PhoneNumber;
+import ir.ac.kntu.patogh.TypeRequestLogin;
 import ir.ac.kntu.patogh.R;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import okhttp3.MediaType;
@@ -62,27 +49,20 @@ public class MainActivity extends AppCompatActivity {
     Button btnSubmit;
     @BindView(R.id.img_mainpage_background)
     ImageView imgBackground;
-
+    boolean success = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setSharedElementExitTransition(new Explode());
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            TransitionSet transitionSet = new TransitionSet()
-                    .addTransition(new Fade()).addTransition(new Explode())
-                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
-                    .setInterpolator(new DecelerateInterpolator())
-                    .setDuration(600);
-            transitionSet.excludeTarget(R.id.img_mainpage_background, true);
-            getWindow().setEnterTransition(transitionSet);
-            getWindow().setExitTransition(transitionSet);
-        }
-//        Glide.with(this.getApplicationContext())
-//                .load(R.drawable.back)
-//                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
-//                .into((ImageView) findViewById(R.id.img_mainpage_background));
+        Glide.with(this.getApplicationContext())
+                .load(R.drawable.back)
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
+                .into((ImageView) findViewById(R.id.img_mainpage_background));
         edtPhone.setOnFocusChangeListener((view, b) -> {
             if (b) {
                 edtPhone.setHint(null);
@@ -90,19 +70,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void clickHandler(View view) {
         if (view.getId() == R.id.btn_mainpage_submit) {
             if (checkPhone()) {
-                Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
-                ActivityOptionsCompat options = ActivityOptionsCompat
-                        .makeSceneTransitionAnimation(MainActivity.this
-                                , imgBackground
-                                , ViewCompat.getTransitionName(imgBackground))
-                        .makeSceneTransitionAnimation(MainActivity.this
-                                , btnSubmit
-                                , ViewCompat.getTransitionName(btnSubmit));
-                startActivity(intent, options.toBundle());
+                goToNextPage();
             }
         }
     }
@@ -140,13 +111,14 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
-                , gson.toJson(new PhoneNumber(phoneNumber)));
+                , gson.toJson(new TypeRequestLogin(phoneNumber)));
         patoghApi.requestLogin(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     Log.d("~~~~~~~~~~~~~~~~~", response.body().string());
-                    System.out.println("ineha " + response.body().string());
+                    success = true;
+                    goToNextPage();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -154,9 +126,29 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                System.out.println("ridim baba");
+                new StyleableToast
+                        .Builder(MainActivity.this)
+                        .text("لطفا اتصال اینترنت را بررسی نمایید و سپس مجددا تلاش نمایید.")
+                        .textColor(Color.WHITE)
+                        .backgroundColor(Color.argb(255, 255, 94, 100))
+                        .show();
+                success = false;
             }
         });
-        return true;
+
+        return success;
+    }
+
+    public void goToNextPage() {
+        Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
+        intent.putExtra("phoneNumber", edtPhone.getText().toString());
+        ActivityOptionsCompat options = ActivityOptionsCompat
+                .makeSceneTransitionAnimation(MainActivity.this
+                        , imgBackground
+                        , ViewCompat.getTransitionName(imgBackground))
+                .makeSceneTransitionAnimation(MainActivity.this
+                        , btnSubmit
+                        , ViewCompat.getTransitionName(btnSubmit));
+        startActivity(intent, options.toBundle());
     }
 }

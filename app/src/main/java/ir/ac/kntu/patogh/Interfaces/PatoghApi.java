@@ -7,8 +7,10 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface PatoghApi {
-    @POST("User/requestLogin")
+    @POST("/api/User/requestLogin")
     Call<ResponseBody> requestLogin(@Body RequestBody requestBody);
 
+    @POST("/api/User/authenticate")
+    Call<ResponseBody> authenticate(@Body RequestBody requestBody);
 
 }

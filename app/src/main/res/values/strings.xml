@@ -2,9 +2,11 @@
     <string name="app_name">Patogh</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_phone_verification">PhoneVerification</string>
-    <string name="title_activity_home_page">PhoneVerification</string>
+    <string name="title_activity_home_page">HomePage</string>
     <string name="edt_home_page_search_hint">مثال : دوچرخه سواری</string>
-    <string name="title_activity_tabbed">TabbedActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="title_home">Home</string>
+    <string name="title_add">Add</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_profile">Profile</string>
+
 </resources>

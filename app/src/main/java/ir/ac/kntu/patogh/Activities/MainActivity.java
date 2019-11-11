@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
     public void clickHandler(View view) {
         if (view.getId() == R.id.btn_mainpage_submit) {
             if (checkPhone()) {
-                Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
+//                Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
+                Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
                 startActivity(intent);
             }
         }

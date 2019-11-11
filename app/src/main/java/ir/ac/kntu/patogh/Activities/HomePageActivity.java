@@ -1,19 +1,37 @@
 package ir.ac.kntu.patogh.Activities;
 
 import android.os.Bundle;
+import android.transition.Transition;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavArgument;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
-import com.gauravk.bubblenavigation.BubbleNavigationConstraintView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.KeyboardUtils;
+import ir.ac.kntu.patogh.ui.add.AddFragment;
+import ir.ac.kntu.patogh.ui.calendar.CalendarFragment;
+import ir.ac.kntu.patogh.ui.home.HomeFragment;
+
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -25,9 +43,8 @@ public class HomePageActivity extends AppCompatActivity {
     ImageButton btnImgSort;
     @BindView(R.id.btn_img_search_bar_cancel)
     ImageButton btnImgCancel;
-    @BindView(R.id.nav_bottom_home)
-    BubbleNavigationConstraintView navBottom;
-
+    @BindView(R.id.nav_view)
+    BottomNavigationView navBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,28 +59,17 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
 
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupWithNavController(navView, navController);
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+//                navController.navigate(destination.getId());
+                System.out.println(destination.getLabel());
+            }
+        });
 
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_homepage);
-//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                switch(item.getItemId()){
-//                    case R.id.action_add:
-//                        Toast.makeText(HomePageActivity.this,"add event",Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.action_calendar:
-//                        Toast.makeText(HomePageActivity.this,"this is calendar",Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.action_profile:
-//                        Toast.makeText(HomePageActivity.this,"your profile",Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.action_home:
-//                        Toast.makeText(HomePageActivity.this,"this is home page",Toast.LENGTH_SHORT).show();
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
     }
 
     public void searchBarClickHandler(View view) {

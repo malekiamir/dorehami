@@ -42,7 +42,7 @@
             android:elevation="10dp"
             app:cardBackgroundColor="#fff"
             app:cardCornerRadius="18dp"
-            app:layout_constraintBottom_toTopOf="@id/button7"
+            app:layout_constraintBottom_toTopOf="@id/btn_signup_register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView_signup_logo">
@@ -70,6 +70,7 @@
                     app:hintTextColor="#000">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_signup_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
@@ -95,6 +96,7 @@
                     app:hintTextColor="#000">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_signup_surname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
@@ -120,6 +122,7 @@
                     app:hintTextColor="#000">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_signup_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
@@ -133,7 +136,7 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/btn_signup_register"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

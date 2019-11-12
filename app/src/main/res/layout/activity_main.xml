@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/success_check"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:text="false"/>
     <ImageView
         android:id="@+id/img_mainpage_background"
         android:layout_width="match_parent"

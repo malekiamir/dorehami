@@ -127,8 +127,8 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 try {
                     Response<ResponseBody> saveResponse = response;
                     String responseBody = response.body().string();
-                    Log.d("~~~~~~~~~~~~~~~~~", saveResponse.body().string());
-                    if (!saveResponse.message().equals("OK")) {
+                    Log.d("~~~~~~~~~~~~~~~~~", responseBody);
+                    if (!responseBody.contains("value")) {
                         new StyleableToast
                                 .Builder(PhoneVerificationActivity.this)
                                 .text("کد صحیح نمی باشد.")
@@ -136,6 +136,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                                 .backgroundColor(Color.argb(255, 255, 94, 100))
                                 .show();
                         success = false;
+                        btnSubmit.revertAnimation();
                     } else {
                         btnSubmit.revertAnimation();
                         JsonObject jsonObject1 = new Gson().fromJson(responseBody, JsonObject.class);

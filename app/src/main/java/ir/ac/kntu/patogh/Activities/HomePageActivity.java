@@ -1,5 +1,6 @@
 package ir.ac.kntu.patogh.Activities;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.transition.Transition;
 import android.view.MenuItem;
@@ -67,6 +68,23 @@ public class HomePageActivity extends AppCompatActivity {
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
 //                navController.navigate(destination.getId());
                 System.out.println(destination.getLabel());
+            }
+        });
+
+        navBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        navBottom.setItemTextColor(ColorStateList.valueOf(R.drawable.nav_home_color));
+                    case R.id.navigation_add:
+                        navBottom.setItemTextColor(ColorStateList.valueOf(R.drawable.nav_add_color));
+                    case R.id.navigation_profile:
+                        navBottom.setItemTextColor(ColorStateList.valueOf(R.drawable.nav_profile_color));
+                    case R.id.navigation_calendar:
+                        navBottom.setItemTextColor(ColorStateList.valueOf(R.drawable.nav_calendar_color));
+                }
+                return true;
             }
         });
 

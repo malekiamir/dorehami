@@ -13,4 +13,6 @@ public interface PatoghApi {
     @POST("/api/User/authenticate")
     Call<ResponseBody> authenticate(@Body RequestBody requestBody);
 
+    @POST("/api/User/editUserDetails")
+    Call<ResponseBody> editUserDetails(@Body RequestBody requestBody);
 }

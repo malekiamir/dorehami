@@ -28,7 +28,7 @@ import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
-import ir.ac.kntu.patogh.TypeAuthentication;
+import ir.ac.kntu.patogh.ApiDataTypes.TypeAuthentication;
 import ir.ac.kntu.patogh.R;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import okhttp3.MediaType;
@@ -65,9 +65,8 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     public void clickHandler(View view) {
         if (view.getId() == R.id.btn_phoneverification_submit) {
             btnSubmit.startAnimation();
-            String phoneNumber = getIntent().getStringExtra("phoneNumber");
             System.out.println(edtVerification.getText().toString());
-            if (checkVerificationCode(phoneNumber)) {
+            if (checkVerificationCode()) {
 //                btnSubmit.doneLoadingAnimation(Color.rgb(100,50,100)
 //                        , BitmapFactory.decodeResource(getResources(), R.drawable.back));
             }
@@ -75,7 +74,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkVerificationCode(String phoneNumber) {
+    private boolean checkVerificationCode() {
         String verificationCode = edtVerification.getText().toString();
         if (verificationCode.equals("")) {
             Animation shake = AnimationUtils.loadAnimation(PhoneVerificationActivity.this, R.anim.shake);
@@ -110,14 +109,15 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             }, 500);
             return false;
         }
-        return authenticate(phoneNumber, edtVerification.getText().toString());
+        return authenticate(edtVerification.getText().toString());
     }
 
-    private boolean authenticate(String phoneNumber, String code) {
+    private boolean authenticate(String code) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://185.252.30.32:7700/api/")
                 .build();
         Gson gson = new Gson();
+        String phoneNumber = getIntent().getStringExtra("phoneNumber");
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
                 , gson.toJson(new TypeAuthentication(phoneNumber, code)));
@@ -171,9 +171,10 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
     public void goToNextPage(String token) {
         Intent intent = new Intent(PhoneVerificationActivity.this, SignUpActivity.class);
+        String phoneNumber = getIntent().getStringExtra("phoneNumber");
+        intent.putExtra("phoneNumber", phoneNumber);
         intent.putExtra("token", token);
         startActivity(intent);
     }
-
 }
 

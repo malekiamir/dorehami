@@ -21,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeEditUserDetails;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
@@ -60,11 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        buttonSignUp.setOnClickListener(view -> {
-            checkFields();
-        });
-
+        ButterKnife.bind(this);
         editTextName.addTextChangedListener(signInTextWatcher);
         editTextSurname.addTextChangedListener(signInTextWatcher);
         editTextEmail.addTextChangedListener(signInTextWatcher);
@@ -172,12 +169,12 @@ public class SignUpActivity extends AppCompatActivity {
         patoghApi.editUserDetails(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String responseBody = response.body().string();
-                    Log.d("~~~~~~~~~~~~~~~~~", responseBody);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    String responseBody = response.body().string();
+//                    Log.d("~~~~~~~~~~~~~~~~~", responseBody);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 success = true;
             }
 
@@ -197,4 +194,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
+    public void OnClickListener(View view) {
+        checkFields();
+    }
 }

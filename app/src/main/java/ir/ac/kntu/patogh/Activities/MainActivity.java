@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
@@ -28,7 +27,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
-import ir.ac.kntu.patogh.TypeRequestLogin;
+import ir.ac.kntu.patogh.ApiDataTypes.TypeRequestLogin;
 import ir.ac.kntu.patogh.R;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import okhttp3.MediaType;
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToNextPage() {
-        Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+        Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
         intent.putExtra("phoneNumber", edtPhone.getText().toString());
         ActivityOptionsCompat options = ActivityOptionsCompat
                 .makeSceneTransitionAnimation(MainActivity.this

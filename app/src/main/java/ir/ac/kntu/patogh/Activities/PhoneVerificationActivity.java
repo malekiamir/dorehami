@@ -72,6 +72,10 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             }
 
         }
+        if(view.getId() == R.id.btn_phoneverification_edit){
+            Intent intent = new Intent(PhoneVerificationActivity.this,MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     private boolean checkVerificationCode() {

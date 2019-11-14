@@ -171,13 +171,16 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 System.out.println(response.toString());
-//                try {
-//                    String responseBody = response.body().string();
-//                    Log.d("~~~~~~~~~~~~~~~~~", responseBody);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-                success = true;
+                try {
+                    String responseBody = response.body().string();
+                    Log.d("~~~~~~~~~~~~~~~~~", responseBody);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(response.code() == 200)
+                    success = true;
+                else
+                    success = false;
             }
 
             @Override

@@ -1,12 +1,6 @@
 package ir.ac.kntu.patogh.Activities;
 
-import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,19 +15,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
-import ir.ac.kntu.patogh.Utils.KeyboardUtils;
 
 
 public class HomePageActivity extends AppCompatActivity {
 
-    @BindView(R.id.edt_home_page_search_bar)
-    EditText edtSearch;
-    @BindView(R.id.btn_img_search_bar_search)
-    ImageButton btnImgSearch;
-    @BindView(R.id.btn_img_search_bar_sort)
-    ImageButton btnImgSort;
-    @BindView(R.id.btn_img_search_bar_cancel)
-    ImageButton btnImgCancel;
     @BindView(R.id.nav_view)
     BottomNavigationView navBottom;
 
@@ -42,13 +27,7 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         ButterKnife.bind(this);
-        edtSearch.setOnFocusChangeListener((view, b) -> {
-            if (b) {
-                edtSearch.setText(null);
-                btnImgSort.setVisibility(View.INVISIBLE);
-                btnImgCancel.setVisibility(View.VISIBLE);
-            }
-        });
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -63,18 +42,5 @@ public class HomePageActivity extends AppCompatActivity {
 
     }
 
-    public void searchBarClickHandler(View view) {
-        if (view.getId() == R.id.btn_img_search_bar_sort) {
-            Toast.makeText(this, "sort", Toast.LENGTH_SHORT).show();
-        } else if (view.getId() == R.id.btn_img_search_bar_search) {
-            Toast.makeText(this, "search", Toast.LENGTH_SHORT).show();
-        } else if (view.getId() == R.id.btn_img_search_bar_cancel) {
-            btnImgSort.setVisibility(View.VISIBLE);
-            btnImgCancel.setVisibility(View.INVISIBLE);
-            edtSearch.clearFocus();
-            edtSearch.setText(R.string.edt_home_page_search_hint);
-            KeyboardUtils.hideKeyboard(this);
-        }
-    }
 }
 

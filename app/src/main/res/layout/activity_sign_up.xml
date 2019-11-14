@@ -107,7 +107,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout_signup_"
+                    android:id="@+id/textInputLayout_signup_email"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -152,7 +152,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:onClick="clickHandler"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card" />
+            app:layout_constraintTop_toBottomOf="@+id/card"
+            android:enabled="false"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

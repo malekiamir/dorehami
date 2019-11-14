@@ -13,7 +13,12 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_add"
             app:destination="@id/navigation_add"
-            app:enterAnim="@anim/slide_in_right" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/navigation_add"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

@@ -1,4 +1,4 @@
-package ir.ac.kntu.patogh;
+package ir.ac.kntu.patogh.ApiDataTypes;
 
 public class TypeRequestLogin {
     String phoneNumber;

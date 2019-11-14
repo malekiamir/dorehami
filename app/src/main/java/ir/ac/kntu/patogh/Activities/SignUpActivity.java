@@ -1,106 +1,68 @@
 package ir.ac.kntu.patogh.Activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+import com.muddzdev.styleabletoast.StyleableToast;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
+import ir.ac.kntu.patogh.ApiDataTypes.TypeEditUserDetails;
+import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
-import jp.wasabeef.glide.transformations.BlurTransformation;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class SignUpActivity extends AppCompatActivity {
 
     public static final String EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X";
     public static final String EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y";
 
-//    @BindView(R.id.edt_signup_name)
-//    EditText editTextName;
-//    @BindView(R.id.edt_signup_surname)
-//    EditText editTextSurname;
-//    @BindView(R.id.edt_signup_email)
-//    EditText editTextEmail;
+    @BindView(R.id.edt_signup_name)
+    EditText editTextName;
+    @BindView(R.id.edt_signup_surname)
+    EditText editTextSurname;
+    @BindView(R.id.edt_signup_email)
+    EditText editTextEmail;
 
-
-    private int revealX;
-    private int revealY;
-    View rootLayout;
-    private View view;
-
+    boolean success = false;
     private TextInputLayout textInputLayoutName;
     private TextInputLayout textInputLayoutSurname;
     private TextInputLayout textInputLayoutEmail;
-    private EditText editTextName;
-    private EditText editTextSurname;
-    private EditText editTextEmail;
+
     private Button buttonSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        final Intent intent = getIntent();
 
-        rootLayout = findViewById(R.id.root_layout);
         textInputLayoutName = findViewById(R.id.textInputLayout_signup_namefield);
         textInputLayoutSurname = findViewById(R.id.textInputLayout_signup_surnamefield);
         textInputLayoutEmail = findViewById(R.id.textInputLayout_signup_email);
-        editTextName = findViewById(R.id.edt_signup_name);
-        editTextSurname = findViewById(R.id.edt_signup_surname);
-        editTextEmail = findViewById(R.id.edt_signup_email);
         buttonSignUp = findViewById(R.id.btn_signup_register);
 
-        buttonSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isSurnameValid() && isSurnameValid()
-                        &&isEmailValid(textInputLayoutEmail.getEditText().getText().toString().trim())){
-                    Intent intent = new Intent(SignUpActivity.this,HomePageActivity.class);
-                    startActivity(intent);
-                }
-                if (!(isNameValid())) {
-                    textInputLayoutName.setError("نام صحیح را وارد کنید.");
-
-                } else if (isNameValid()) {
-                        textInputLayoutName.setError(null);
-                }
-                if (!(isEmailValid(textInputLayoutEmail.getEditText().getText().toString().trim()))){
-                    textInputLayoutEmail.setError("ایمیل صحیح را وارد کنید.");
-                }else if(isEmailValid(textInputLayoutEmail.getEditText().getText().toString().trim())){
-                    textInputLayoutEmail.setError(null);
-                }
-                if (!(isSurnameValid())){
-                    textInputLayoutSurname.setError("نام خانوادگی صحیح را وارد کنید.");
-                }else if(isSurnameValid()){
-                    textInputLayoutSurname.setError(null);
-                }
-            }
+        buttonSignUp.setOnClickListener(view -> {
+            checkFields();
         });
 
 //        editTextName.addTextChangedListener(new TextWatcher() {
@@ -154,28 +116,31 @@ public class SignUpActivity extends AppCompatActivity {
         editTextSurname.addTextChangedListener(signInTextWatcher);
         editTextEmail.addTextChangedListener(signInTextWatcher);
 
-        if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-                intent.hasExtra(EXTRA_CIRCULAR_REVEAL_X) &&
-                intent.hasExtra(EXTRA_CIRCULAR_REVEAL_Y)) {
-            rootLayout.setVisibility(View.INVISIBLE);
+    }
 
-            revealX = intent.getIntExtra(EXTRA_CIRCULAR_REVEAL_X, 0);
-            revealY = intent.getIntExtra(EXTRA_CIRCULAR_REVEAL_Y, 0);
+    private void checkFields() {
+        if(isSurnameValid() && isSurnameValid()
+                &&isEmailValid(textInputLayoutEmail.getEditText().getText().toString().trim())
+                && editUserDetails() ){
 
+            Intent intent = new Intent(SignUpActivity.this,HomePageActivity.class);
+            startActivity(intent);
+        }
+        if (!(isNameValid())) {
+            textInputLayoutName.setError("نام صحیح را وارد کنید.");
 
-            ViewTreeObserver viewTreeObserver = rootLayout.getViewTreeObserver();
-            if (viewTreeObserver.isAlive()) {
-                viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        revealActivity(revealX, revealY);
-                        rootLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    }
-                });
-            }
-
-        } else {
-            rootLayout.setVisibility(View.VISIBLE);
+        } else if (isNameValid()) {
+            textInputLayoutName.setError(null);
+        }
+        if (!(isEmailValid(textInputLayoutEmail.getEditText().getText().toString().trim()))){
+            textInputLayoutEmail.setError("ایمیل صحیح را وارد کنید.");
+        }else if(isEmailValid(textInputLayoutEmail.getEditText().getText().toString().trim())){
+            textInputLayoutEmail.setError(null);
+        }
+        if (!(isSurnameValid())){
+            textInputLayoutSurname.setError("نام خانوادگی صحیح را وارد کنید.");
+        }else if(isSurnameValid()){
+            textInputLayoutSurname.setError(null);
         }
 
     }
@@ -201,53 +166,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         }
     };
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unRevealActivity();
-    }
-
-    protected void revealActivity(int x, int y) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            float finalRadius = (float) (Math.max(rootLayout.getWidth(), rootLayout.getHeight()) * 1.1);
-
-            // create the animator for this view (the start radius is zero)
-            Animator circularReveal = ViewAnimationUtils.createCircularReveal(rootLayout, x, y, 0, finalRadius);
-            circularReveal.setDuration(1000);
-            circularReveal.setInterpolator(new AccelerateInterpolator());
-
-            // make the view visible and start the animation
-            rootLayout.setVisibility(View.VISIBLE);
-            circularReveal.start();
-        } else {
-            finish();
-        }
-    }
-
-
-    protected void unRevealActivity() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            finish();
-        } else {
-            float finalRadius = (float) (Math.max(rootLayout.getWidth(), rootLayout.getHeight()) * 1.1);
-            Animator circularReveal = ViewAnimationUtils.createCircularReveal(
-                    rootLayout, revealX, revealY, finalRadius, 0);
-
-            circularReveal.setDuration(1000);
-            circularReveal.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    rootLayout.setVisibility(View.INVISIBLE);
-                    finish();
-                }
-            });
-
-
-            circularReveal.start();
-        }
-    }
-
 
     public static boolean isEmailValid(String Email) {
         boolean isValid = true;
@@ -281,6 +199,49 @@ public class SignUpActivity extends AppCompatActivity {
         return isValid;
     }
 
+
+    private boolean editUserDetails() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://185.252.30.32:7700/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String phoneNumber = getIntent().getStringExtra("phoneNumber");
+        String token = getIntent().getStringExtra("token");
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(new TypeEditUserDetails(phoneNumber
+                        , textInputLayoutName.getEditText().toString()
+                        , textInputLayoutSurname.getEditText().toString()
+                        , textInputLayoutEmail.getEditText().toString())
+                ));
+
+        patoghApi.editUserDetails(requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String responseBody = response.body().string();
+                    Log.d("~~~~~~~~~~~~~~~~~", responseBody);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                success = true;
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                new StyleableToast
+                        .Builder(SignUpActivity.this)
+                        .text("لطفا اتصال اینترنت را بررسی نمایید و سپس مجددا تلاش نمایید.")
+                        .textColor(Color.WHITE)
+                        .backgroundColor(Color.argb(255, 255, 94, 100))
+                        .show();
+                success = false;
+            }
+        });
+
+        return success;
+    }
 
 
 }

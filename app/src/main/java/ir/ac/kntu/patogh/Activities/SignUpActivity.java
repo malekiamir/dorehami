@@ -28,6 +28,7 @@ import ir.ac.kntu.patogh.R;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import okhttp3.internal.http2.Header;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -166,9 +167,10 @@ public class SignUpActivity extends AppCompatActivity {
                         , textInputLayoutEmail.getEditText().toString())
                 ));
 
-        patoghApi.editUserDetails(requestBody).enqueue(new Callback<ResponseBody>() {
+        patoghApi.editUserDetails("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                System.out.println(response.toString());
 //                try {
 //                    String responseBody = response.body().string();
 //                    Log.d("~~~~~~~~~~~~~~~~~", responseBody);

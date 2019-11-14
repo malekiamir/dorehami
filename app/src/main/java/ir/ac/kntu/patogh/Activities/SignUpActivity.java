@@ -53,6 +53,9 @@ public class SignUpActivity extends AppCompatActivity {
     View rootLayout;
     private View view;
 
+    private TextInputLayout textInputLayoutName;
+    private TextInputLayout textInputLayoutSurname;
+    private TextInputLayout textInputLayoutEmail;
     private EditText editTextName;
     private EditText editTextSurname;
     private EditText editTextEmail;
@@ -65,10 +68,87 @@ public class SignUpActivity extends AppCompatActivity {
         final Intent intent = getIntent();
 
         rootLayout = findViewById(R.id.root_layout);
+        textInputLayoutName = findViewById(R.id.textInputLayout_signup_namefield);
+        textInputLayoutSurname = findViewById(R.id.textInputLayout_signup_surnamefield);
+        textInputLayoutEmail = findViewById(R.id.textInputLayout_signup_email);
         editTextName = findViewById(R.id.edt_signup_name);
         editTextSurname = findViewById(R.id.edt_signup_surname);
         editTextEmail = findViewById(R.id.edt_signup_email);
         buttonSignUp = findViewById(R.id.btn_signup_register);
+
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isSurnameValid() && isSurnameValid()
+                        &&isEmailValid(textInputLayoutEmail.getEditText().getText().toString().trim())){
+                    Intent intent = new Intent(SignUpActivity.this,HomePageActivity.class);
+                    startActivity(intent);
+                }
+                if (!(isNameValid())) {
+                    textInputLayoutName.setError("نام صحیح را وارد کنید.");
+
+                } else if (isNameValid()) {
+                        textInputLayoutName.setError(null);
+                }
+                if (!(isEmailValid(textInputLayoutEmail.getEditText().getText().toString().trim()))){
+                    textInputLayoutEmail.setError("ایمیل صحیح را وارد کنید.");
+                }else if(isEmailValid(textInputLayoutEmail.getEditText().getText().toString().trim())){
+                    textInputLayoutEmail.setError(null);
+                }
+                if (!(isSurnameValid())){
+                    textInputLayoutSurname.setError("نام خانوادگی صحیح را وارد کنید.");
+                }else if(isSurnameValid()){
+                    textInputLayoutSurname.setError(null);
+                }
+            }
+        });
+
+//        editTextName.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                if(i1>textInputLayoutName.getCounterMaxLength()){
+//                    textInputLayoutName.setError("نام طولانی است.");
+//                }else if(i1<2){
+//                    textInputLayoutName.setError("نام کوتاه است.");
+//                }else{
+//                    textInputLayoutName.setErrorEnabled(false);
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+//
+//        editTextSurname.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                if(i1>textInputLayoutSurname.getCounterMaxLength()){
+//                    textInputLayoutSurname.setError("نام خانوادگی طولانی است.");
+//                }else if(i1<2){
+//                    textInputLayoutSurname.setError("نام خانوادگی کوتاه است.");
+//                }else{
+//                    textInputLayoutSurname.setErrorEnabled(false);
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+
 
         editTextName.addTextChangedListener(signInTextWatcher);
         editTextSurname.addTextChangedListener(signInTextWatcher);
@@ -169,11 +249,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    public static boolean isEmailValid(String editTextEmail) {
+    public static boolean isEmailValid(String Email) {
         boolean isValid = true;
 
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-        CharSequence inputStr = editTextEmail;
+        CharSequence inputStr = Email;
 
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(inputStr);
@@ -185,8 +265,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     public boolean isNameValid() {
         boolean isValid = true;
-        // String NameInput = editTextName.getText().toString().trim();
-        if (editTextName.length() > 20 || editTextName.length() < 3) {
+        if (textInputLayoutName.getEditText().getText().toString().trim().length() > 20 ||
+                textInputLayoutName.getEditText().getText().toString().trim().length()< 3) {
             isValid = false;
         }
         return isValid;
@@ -194,32 +274,13 @@ public class SignUpActivity extends AppCompatActivity {
 
     public boolean isSurnameValid() {
         boolean isValid = true;
-        // String NameInput = editTextName.getText().toString().trim();
-        if (editTextSurname.length() > 40 || editTextSurname.length() < 3) {
+        if (textInputLayoutSurname.getEditText().getText().toString().trim().length() > 40 ||
+                textInputLayoutSurname.getEditText().getText().toString().trim().length() < 3) {
             isValid = false;
         }
         return isValid;
     }
 
-    @TargetApi(Build.VERSION_CODES.P)
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void clickHandler(View view) {
-        if (view.getId() == R.id.btn_signup_register) {
-            String signUpEmail = editTextEmail.getText().toString().trim();
-            if (isEmailValid(signUpEmail) && isNameValid() && isSurnameValid()) {
-                Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
-                startActivity(intent);
-            } else if (!(isNameValid())) {
-                Toast.makeText(this, "لطفا نام را درست واردکنید.", Toast.LENGTH_LONG).show();
-                editTextName.setTextColor(Color.rgb(247, 17, 5));
-            } else if (!(isSurnameValid())) {
-                Toast.makeText(this, "لطفا نام خانوادگی را درست واردکنید.", Toast.LENGTH_LONG).show();
-                editTextName.setTextColor(Color.rgb(247, 17, 5));
-            } else if (!(isEmailValid(signUpEmail))) {
-                Toast.makeText(this, "لطفاآدرس ایمیل را درست واردکنید.", Toast.LENGTH_LONG).show();
-                editTextEmail.setTextColor(Color.rgb(247, 17, 5));
-            }
-        }
-    }
+
 
 }

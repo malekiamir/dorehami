@@ -152,11 +152,9 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="30" />
-                            <entry key="outputName" value="ic_iranian_flag" />
+                            <entry key="outputName" value="ic_white_heart" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\Amir\Desktop\iranian-flag.svg" />
-                            <entry key="width" value="50" />
+                            <entry key="sourceFile" value="C:\Users\farzan\Desktop\iconmonstr-favorite-2.svg" />
                           </map>
                         </option>
                       </PersistentState>

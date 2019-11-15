@@ -139,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToNextPage() {
-//        Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
-        Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
+        Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
+//        Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
         intent.putExtra("phoneNumber", edtPhone.getText().toString());
         ActivityOptionsCompat options = ActivityOptionsCompat
                 .makeSceneTransitionAnimation(MainActivity.this

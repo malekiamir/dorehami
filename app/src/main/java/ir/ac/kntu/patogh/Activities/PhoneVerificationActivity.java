@@ -1,5 +1,6 @@
 package ir.ac.kntu.patogh.Activities;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -14,8 +15,11 @@ import com.mukesh.OtpView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 
 import android.transition.Explode;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -53,7 +57,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         getWindow().setEnterTransition(new Explode());
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
-//                bundle.getBundle("phoneNumber").toString();
+//      bundle.getBundle("phoneNumber").toString();
         setContentView(R.layout.activity_phone_verification);
         ButterKnife.bind(this);
         Glide.with(this.getApplicationContext())
@@ -62,6 +66,10 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 .into((ImageView) findViewById(R.id.img_phone_verification_background));
     }
 
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void clickHandler(View view) {
         if (view.getId() == R.id.btn_phoneverification_submit) {
             btnSubmit.startAnimation();
@@ -74,7 +82,14 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         }
         if(view.getId() == R.id.btn_phoneverification_edit){
             Intent intent = new Intent(PhoneVerificationActivity.this,MainActivity.class);
-            startActivity(intent);
+            Fade fade = new Fade();
+            getWindow().setEnterTransition(fade);
+            getWindow().setExitTransition(fade);
+            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(
+                            PhoneVerificationActivity.this,btnSubmit, ViewCompat.getTransitionName(btnSubmit));
+            startActivity(intent,activityOptionsCompat.toBundle());
+
         }
     }
 

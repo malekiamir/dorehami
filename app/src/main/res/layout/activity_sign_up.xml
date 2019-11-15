@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frame1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="0dp"
-    android:background="#F6F6F8">
+    android:layout_margin="0dp">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_page_colorful_croped" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,12 +16,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/img_signuppage_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.7"
+            android:scaleType="centerCrop"
+            android:src="@drawable/back"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="294dp" />
 
         <ImageView
             android:id="@+id/imageView_signup_logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/ic_logo"
             app:layout_constraintBottom_toTopOf="@+id/card"
@@ -34,13 +40,14 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card"
-            android:layout_width="330dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#fff"
+            android:layout_marginTop="100dp"
+            android:background="#B1AF4C"
             android:elevation="10dp"
-            app:cardBackgroundColor="#fff"
+            app:cardBackgroundColor="#fffde7"
             app:cardCornerRadius="18dp"
             app:layout_constraintBottom_toTopOf="@id/btn_signup_register"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,10 +71,10 @@
                     android:layout_marginEnd="16dp"
                     android:elevation="6dp"
                     android:hint="نام"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="20"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20"
                     app:hintTextAppearance="@style/TextLabel"
                     app:hintTextColor="#000">
 
@@ -92,10 +99,10 @@
                     android:layout_marginEnd="16dp"
                     android:elevation="6dp"
                     android:hint="نام خانوادگی"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="40"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="40"
                     app:hintTextAppearance="@style/TextLabel"
                     app:hintTextColor="#000">
 
@@ -144,20 +151,18 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="50dp"
             android:backgroundTint="#F0D919"
+            android:enabled="false"
             android:fontFamily="@font/iransans_font"
+            android:onClick="OnClickListener"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
             android:text="ثبت نام"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="OnClickListener"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card"
-            android:enabled="false"/>
+            app:layout_constraintTop_toBottomOf="@+id/card" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

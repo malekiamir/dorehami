@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Explode;
-import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
@@ -114,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
                 , gson.toJson(new TypeRequestLogin(phoneNumber)));
         patoghApi.requestLogin(requestBody).enqueue(new Callback<ResponseBody>() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
@@ -141,11 +138,9 @@ public class MainActivity extends AppCompatActivity {
         return success;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void goToNextPage() {
-//        Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
+        Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
 //        Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
-        Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
         intent.putExtra("phoneNumber", edtPhone.getText().toString());
         ActivityOptionsCompat options = ActivityOptionsCompat
                 .makeSceneTransitionAnimation(MainActivity.this

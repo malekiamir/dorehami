@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/success_check"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:text="false"/>
     <ImageView
         android:id="@+id/img_mainpage_background"
         android:layout_width="match_parent"
@@ -18,37 +14,91 @@
         android:alpha="0.7"
         android:scaleType="centerCrop"
         android:src="@drawable/back"
-        android:transitionName="@string/transition_background_photo" />
+        android:transitionName="@string/transition_background_photo"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="37dp" />
 
+    <TextView
+        android:id="@+id/success_check"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:text="false"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="128dp"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="104dp"
+        app:layout_constraintGuide_percent="0.15"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="310dp"
+        app:layout_constraintGuide_percent="0.40" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="364dp"
+        app:layout_constraintGuide_percent="0.55"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="500dp"
+        app:layout_constraintGuide_percent="0.70"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="619dp"
+        app:layout_constraintGuide_percent="0.85"/>
 
     <ImageView
         android:id="@+id/img_mainpage_logo"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="56dp"
+        android:gravity="center_horizontal"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
     <TextView
         android:id="@+id/tv_mainpage_moto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="15dp"
-        android:layout_weight="1"
-        android:alpha="0.9"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/iransans_font"
-        android:gravity="bottom|center_horizontal"
-        android:text="با پاتوق همه جا مکان داشته باشید\nدوستش داری؟"
+        android:gravity="center_horizontal"
+        android:text="با پاتوق همه گزینه ها روی میزه!"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_mainpage_logo" />
-
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edt_mainpage_phonenumber"
@@ -56,8 +106,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="20dp"
-        android:alpha="0.9"
+        android:layout_marginTop="32dp"
+        android:ems="10"
         android:drawableLeft="@drawable/ic_iranian_flag"
         android:fontFamily="@font/iransans_font"
         android:gravity="right"
@@ -69,19 +119,18 @@
         android:paddingRight="5dp"
         android:textColor="#fff"
         android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@id/btn_mainpage_submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <Button
         android:id="@+id/btn_mainpage_submit"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:layout_gravity="center"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="150dp"
         android:backgroundTint="#F0D919"
         android:fontFamily="@font/iransans_font"
         android:onClick="clickHandler"
@@ -89,8 +138,7 @@
         android:textColor="#000000"
         android:textSize="18sp"
         android:transitionName="@string/transition_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

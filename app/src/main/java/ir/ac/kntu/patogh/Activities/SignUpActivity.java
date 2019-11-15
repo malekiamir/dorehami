@@ -9,9 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.muddzdev.styleabletoast.StyleableToast;
@@ -21,9 +24,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeEditUserDetails;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -60,11 +65,15 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
+        ButterKnife.bind(this);
         buttonSignUp.setOnClickListener(view -> {
             checkFields();
         });
 
+        Glide.with(this.getApplicationContext())
+                .load(R.drawable.back)
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
+                .into((ImageView) findViewById(R.id.img_signuppage_background));
         editTextName.addTextChangedListener(signInTextWatcher);
         editTextSurname.addTextChangedListener(signInTextWatcher);
         editTextEmail.addTextChangedListener(signInTextWatcher);
@@ -109,7 +118,6 @@ public class SignUpActivity extends AppCompatActivity {
             String signUpName = editTextName.getText().toString().trim();
             String signUpSurname = editTextSurname.getText().toString().trim();
             String signUpEmail = editTextEmail.getText().toString().trim();
-
 
             buttonSignUp.setEnabled(!signUpName.isEmpty() && !signUpSurname.isEmpty() && !signUpEmail.isEmpty());
         }

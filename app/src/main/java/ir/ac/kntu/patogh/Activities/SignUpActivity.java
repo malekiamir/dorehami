@@ -160,49 +160,48 @@ public class SignUpActivity extends AppCompatActivity {
         return isValid;
     }
 
-//
+
     private boolean editUserDetails() {
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://185.252.30.32:7700/api/")
-//                .build();
-//        Gson gson = new Gson();
-//        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
-//        String phoneNumber = getIntent().getStringExtra("phoneNumber");
-//        String token = getIntent().getStringExtra("token");
-//
-//        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
-//                , gson.toJson(new TypeEditUserDetails(phoneNumber
-//                        , textInputLayoutName.getEditText().toString()
-//                        , textInputLayoutSurname.getEditText().toString()
-//                        , textInputLayoutEmail.getEditText().toString())
-//                ));
-//
-//        patoghApi.editUserDetails(requestBody).enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                try {
-//                    String responseBody = response.body().string();
-//                    Log.d("~~~~~~~~~~~~~~~~~", responseBody);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                success = true;
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                new StyleableToast
-//                        .Builder(SignUpActivity.this)
-//                        .text("لطفا اتصال اینترنت را بررسی نمایید و سپس مجددا تلاش نمایید.")
-//                        .textColor(Color.WHITE)
-//                        .backgroundColor(Color.argb(255, 255, 94, 100))
-//                        .show();
-//                success = false;
-//            }
-//        });
-//
-//        return success;
-        return true;
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://185.252.30.32:7700/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String phoneNumber = getIntent().getStringExtra("phoneNumber");
+        String token = getIntent().getStringExtra("token");
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(new TypeEditUserDetails(phoneNumber
+                        , textInputLayoutName.getEditText().toString()
+                        , textInputLayoutSurname.getEditText().toString()
+                        , textInputLayoutEmail.getEditText().toString())
+                ));
+
+        patoghApi.editUserDetails("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String responseBody = response.body().string();
+                    Log.d("~~~~~~~~~~~~~~~~~", responseBody);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                success = true;
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                new StyleableToast
+                        .Builder(SignUpActivity.this)
+                        .text("لطفا اتصال اینترنت را بررسی نمایید و سپس مجددا تلاش نمایید.")
+                        .textColor(Color.WHITE)
+                        .backgroundColor(Color.argb(255, 255, 94, 100))
+                        .show();
+                success = false;
+            }
+        });
+
+        return success;
     }
 
 

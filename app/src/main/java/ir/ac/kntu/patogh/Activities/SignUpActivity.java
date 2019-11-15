@@ -177,7 +177,7 @@ public class SignUpActivity extends AppCompatActivity {
                         , textInputLayoutEmail.getEditText().toString())
                 ));
 
-        patoghApi.editUserDetails(requestBody).enqueue(new Callback<ResponseBody>() {
+        patoghApi.editUserDetails("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {

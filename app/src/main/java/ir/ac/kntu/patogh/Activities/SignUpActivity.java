@@ -39,9 +39,6 @@ import retrofit2.Retrofit;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    public static final String EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X";
-    public static final String EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y";
-
     @BindView(R.id.edt_signup_name)
     EditText editTextName;
     @BindView(R.id.edt_signup_surname)
@@ -66,9 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
-        buttonSignUp.setOnClickListener(view -> {
-            checkFields();
-        });
+        buttonSignUp.setOnClickListener(view -> checkFields());
 
         Glide.with(this.getApplicationContext())
                 .load(R.drawable.back)

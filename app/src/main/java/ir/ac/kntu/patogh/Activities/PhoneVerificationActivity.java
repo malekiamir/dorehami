@@ -4,16 +4,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 
@@ -49,6 +56,13 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     @BindView(R.id.btn_phoneverification_submit)
     CircularProgressButton btnSubmit;
     boolean success = false;
+    @BindView(R.id.tv_phone_verification_timer)
+    TextView tvTimer;
+    @BindView(R.id.phone_verification_constraint_layout)
+    ConstraintLayout layout;
+
+
+    boolean doubleBackToExitPressedOnce = false;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -57,10 +71,32 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_verification);
         ButterKnife.bind(this);
+
         Glide.with(this.getApplicationContext())
                 .load(R.drawable.back)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
                 .into((ImageView) findViewById(R.id.img_phone_verification_background));
+        new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                tvTimer.setText("کد تایید تا " + millisUntilFinished / 1000 + " ثانیه دیگر برای شما ارسال خواهد شد.");
+            }
+
+            public void onFinish() {
+                tvTimer.setText("در صورت عدم دریافت کد مجددا تلاش نمایید.");
+            }
+        }.start();
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(edtVerification.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    edtVerification.clearFocus();
+                }
+                return true;
+            }
+        });
     }
 
 
@@ -82,7 +118,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                     .makeSceneTransitionAnimation(
                             PhoneVerificationActivity.this, btnSubmit, Objects.requireNonNull(ViewCompat.getTransitionName(btnSubmit)));
             startActivity(intent, activityOptionsCompat.toBundle());
-
+            finish();
         }
     }
 
@@ -127,9 +163,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    String responseBody = Objects.requireNonNull(response.body()).string();
-                    Log.d("~~~~~~~~~~~~~~~~~", responseBody);
-                    if (!responseBody.contains("value")) {
+                    if (response.code()!=200) {
                         new StyleableToast
                                 .Builder(PhoneVerificationActivity.this)
                                 .text("کد صحیح نمی باشد.")
@@ -140,7 +174,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                         btnSubmit.revertAnimation();
                     } else {
                         btnSubmit.revertAnimation();
-                        JsonObject jsonObject1 = new Gson().fromJson(responseBody, JsonObject.class);
+                        JsonObject jsonObject1 = new Gson().fromJson(response.body().string(), JsonObject.class);
                         String returnValue = jsonObject1.get("returnValue").toString();
                         JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
                         String token = jsonObject2.get("value").getAsString();
@@ -176,6 +210,18 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         intent.putExtra("phoneNumber", phoneNumber);
         intent.putExtra("token", token);
         startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "برای خروج دوباره دکمه بازگشت را فشار دهید", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce=false, 2000);
     }
 }
 

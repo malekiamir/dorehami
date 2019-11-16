@@ -4,18 +4,21 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.transition.Explode;
-import android.transition.Fade;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 
@@ -27,6 +30,7 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import java.io.IOException;
 import java.util.Objects;
 
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeRequestLogin;
@@ -46,10 +50,14 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.edt_mainpage_phonenumber)
     EditText edtPhone;
     @BindView(R.id.btn_mainpage_submit)
-    Button btnSubmit;
+    CircularProgressButton btnSubmit;
     @BindView(R.id.img_mainpage_background)
     ImageView imgBackground;
+    @BindView(R.id.main_constraint_layout)
+    ConstraintLayout layout;
+
     boolean success = false;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +74,17 @@ public class MainActivity extends AppCompatActivity {
         edtPhone.setOnFocusChangeListener((view, b) -> {
             if (b) {
                 edtPhone.setHint(null);
+            }
+        });
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(edtPhone.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    edtPhone.clearFocus();
+                }
+                return true;
             }
         });
     }
@@ -101,10 +120,12 @@ public class MainActivity extends AppCompatActivity {
                     .show();
             return false;
         }
+        btnSubmit.startAnimation();
         return requestLogin(phoneNo);
     }
 
     private boolean requestLogin(String phoneNumber) {
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://185.252.30.32:7700/api/")
                 .build();
@@ -113,13 +134,22 @@ public class MainActivity extends AppCompatActivity {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
                 , gson.toJson(new TypeRequestLogin(phoneNumber)));
         patoghApi.requestLogin(requestBody).enqueue(new Callback<ResponseBody>() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Log.d("~~~~~~~~~~~~~~~~~", Objects.requireNonNull(response.body()).string());
-                    success = true;
-                    goToNextPage();
+                    if(!response.body().string().equals(null)) {
+                        Log.d("~~~~~~~~~~~~~~~~~", Objects.requireNonNull(response.body()).string());
+                        success = true;
+                        btnSubmit.revertAnimation();
+                        goToNextPage();
+                    } else {
+                        new StyleableToast
+                                .Builder(MainActivity.this)
+                                .text("لطفا از قطع بودن فیلترشکن اطمینان پیدا کنید.")
+                                .textColor(Color.WHITE)
+                                .backgroundColor(Color.argb(255, 255, 94, 100))
+                                .show();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -133,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                         .textColor(Color.WHITE)
                         .backgroundColor(Color.argb(255, 255, 94, 100))
                         .show();
+                btnSubmit.revertAnimation();
                 success = false;
             }
         });
@@ -140,11 +171,8 @@ public class MainActivity extends AppCompatActivity {
         return success;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void goToNextPage() {
-//        Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
-//        Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
-        Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+        Intent intent = new Intent(MainActivity.this, PhoneVerificationActivity.class);
         intent.putExtra("phoneNumber", edtPhone.getText().toString());
         ActivityOptionsCompat options = ActivityOptionsCompat
                 .makeSceneTransitionAnimation(MainActivity.this
@@ -154,5 +182,17 @@ public class MainActivity extends AppCompatActivity {
                         , btnSubmit
                         , ViewCompat.getTransitionName(btnSubmit));
         startActivity(intent, options.toBundle());
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "برای خروج دوباره دکمه بازگشت را فشار دهید", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce=false, 2000);
     }
 }

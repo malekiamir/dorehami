@@ -3,15 +3,21 @@ package ir.ac.kntu.patogh.Activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -23,6 +29,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeEditUserDetails;
@@ -54,9 +61,13 @@ public class SignUpActivity extends AppCompatActivity {
     TextInputLayout textInputLayoutSurname;
 
     @BindView(R.id.btn_signup_register)
-    Button buttonSignUp;
+    CircularProgressButton buttonSignUp;
+
+    @BindView(R.id.sign_up_constraint_layout)
+    FrameLayout layout;
 
     boolean success = false;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +83,32 @@ public class SignUpActivity extends AppCompatActivity {
         editTextName.addTextChangedListener(signInTextWatcher);
         editTextSurname.addTextChangedListener(signInTextWatcher);
         editTextEmail.addTextChangedListener(signInTextWatcher);
-
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (editTextName.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    editTextName.clearFocus();
+                } else if (editTextSurname.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    editTextSurname.clearFocus();
+                } else if (editTextEmail.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    editTextEmail.clearFocus();
+                }
+                return true;
+            }
+        });
     }
 
     private void checkFields() {
-        if (isSurnameValid() && isSurnameValid()
+        if (isSurnameValid() && isNameValid()
                 && isEmailValid(textInputLayoutEmail.getEditText().getText().toString().trim())
-                && editUserDetails()) {
-
-            Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
-            startActivity(intent);
+        ) {
+            editUserDetails();
         }
         if (!(isNameValid())) {
             textInputLayoutName.setError("نام صحیح را وارد کنید.");
@@ -157,6 +184,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private boolean editUserDetails() {
+        buttonSignUp.startAnimation();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://185.252.30.32:7700/api/")
                 .build();
@@ -165,21 +193,24 @@ public class SignUpActivity extends AppCompatActivity {
         String phoneNumber = getIntent().getStringExtra("phoneNumber");
         String token = getIntent().getStringExtra("token");
 
+        TypeEditUserDetails te;
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
-                , gson.toJson(new TypeEditUserDetails(phoneNumber
-                        , textInputLayoutName.getEditText().toString()
-                        , textInputLayoutSurname.getEditText().toString()
-                        , textInputLayoutEmail.getEditText().toString())
+                , gson.toJson(te = new TypeEditUserDetails(phoneNumber
+                        , editTextName.getText().toString()
+                        , editTextSurname.getText().toString()
+                        , editTextEmail.getText().toString())
                 ));
+
+        Log.d("@@@@@@@@@", te.toString());
+
 
         patoghApi.editUserDetails("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String responseBody = response.body().string();
-                    Log.d("~~~~~~~~~~~~~~~~~", responseBody);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (response.code() == 200) {
+                    Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 success = true;
             }
@@ -195,9 +226,19 @@ public class SignUpActivity extends AppCompatActivity {
                 success = false;
             }
         });
-
+        buttonSignUp.revertAnimation();
         return success;
     }
 
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "برای خروج دوباره دکمه بازگشت را فشار دهید", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+    }
 
 }

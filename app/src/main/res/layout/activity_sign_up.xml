@@ -8,7 +8,6 @@
     android:layout_margin="0dp">
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
@@ -36,22 +35,60 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="#B1AF4C"
             android:elevation="10dp"
-            app:cardBackgroundColor="#f9fbe7"
-            app:cardCornerRadius="18dp"
+            app:cardBackgroundColor="#f5f1f1"
+            app:cardCornerRadius="5dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline15">
 
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                app:layout_constraintBottom_toTopOf="@+id/guideline16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline15">
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="365dp"
+                    app:layout_constraintGuide_percent="0.0" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="397dp"
+                    app:layout_constraintGuide_percent="0.35" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="467dp"
+                    app:layout_constraintGuide_percent="0.65" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="578dp"
+                    app:layout_constraintGuide_percent="1" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -59,17 +96,22 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:elevation="6dp"
+                    android:gravity="center"
                     android:hint="نام"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
                     app:counterEnabled="true"
                     app:counterMaxLength="20"
                     app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000">
+                    app:hintTextColor="#000"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline23"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline27">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_signup_name"
@@ -78,26 +120,33 @@
                         android:alpha="0.9"
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
+                        android:paddingTop="15dp"
                         android:maxLines="1"
                         android:textColor="#000" />
                 </com.google.android.material.textfield.TextInputLayout>
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout_signup_surnamefield"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:elevation="6dp"
+                    android:gravity="center"
                     android:hint="نام خانوادگی"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
                     app:counterEnabled="true"
-                    app:counterMaxLength="40"
+                    app:counterMaxLength="20"
                     app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000">
+                    app:hintTextColor="#000"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline23">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_signup_surname"
@@ -106,6 +155,7 @@
                         android:alpha="0.9"
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
+                        android:paddingTop="15dp"
                         android:maxLines="1"
                         android:textColor="#000" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -115,15 +165,22 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:elevation="6dp"
+                    android:gravity="center"
                     android:hint="ایمیل"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20"
                     app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000">
+                    app:hintTextColor="#000"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline28"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline24">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_signup_email"
@@ -132,11 +189,27 @@
                         android:alpha="0.9"
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
-                        android:inputType="textEmailAddress"
+                        android:paddingTop="15dp"
                         android:maxLines="1"
                         android:textColor="#000" />
                 </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="282dp"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="585dp"
+                    app:layout_constraintGuide_percent="0.95" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -164,7 +237,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="8dp"
-            app:layout_constraintGuide_percent="0.0"/>
+            app:layout_constraintGuide_percent="0.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline15"
@@ -172,7 +245,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="268dp"
-            app:layout_constraintGuide_percent="0.35"/>
+            app:layout_constraintGuide_percent="0.35" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline16"
@@ -180,7 +253,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="651dp"
-            app:layout_constraintGuide_percent="0.85"/>
+            app:layout_constraintGuide_percent="0.85" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline17"
@@ -188,8 +261,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="713dp"
-            app:layout_constraintGuide_percent="0.95"/>
-
+            app:layout_constraintGuide_percent="0.95" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
     android:orientation="vertical">
 
     <ImageView
@@ -13,7 +12,6 @@
         android:layout_height="match_parent"
         android:alpha="0.7"
         android:scaleType="centerCrop"
-        android:src="@drawable/back"
         android:transitionName="@string/transition_background_photo"
         tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="37dp" />
@@ -108,7 +106,7 @@
         android:layout_marginRight="50dp"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:drawableLeft="@drawable/ic_iranian_flag"
+        android:drawableLeft="@drawable/ic_applications"
         android:fontFamily="@font/iransans_font"
         android:gravity="right"
         android:hint="شماره همراه"

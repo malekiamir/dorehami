@@ -16,13 +16,6 @@
         tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="37dp" />
 
-    <TextView
-        android:id="@+id/success_check"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:text="false"/>
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
@@ -37,7 +30,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="104dp"
-        app:layout_constraintGuide_percent="0.15"/>
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
@@ -53,7 +46,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="364dp"
-        app:layout_constraintGuide_percent="0.55"/>
+        app:layout_constraintGuide_percent="0.55" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline10"
@@ -61,7 +54,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="500dp"
-        app:layout_constraintGuide_percent="0.70"/>
+        app:layout_constraintGuide_percent="0.70" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline11"
@@ -69,7 +62,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="619dp"
-        app:layout_constraintGuide_percent="0.85"/>
+        app:layout_constraintGuide_percent="0.85" />
 
     <ImageView
         android:id="@+id/img_mainpage_logo"
@@ -103,10 +96,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
         android:layout_marginTop="32dp"
-        android:ems="10"
+        android:layout_marginRight="50dp"
         android:drawableLeft="@drawable/ic_applications"
+        android:ems="10"
         android:fontFamily="@font/iransans_font"
         android:gravity="right"
         android:hint="شماره همراه"
@@ -125,9 +118,9 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_gravity="center"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="32dp"
         android:layout_marginRight="50dp"
         android:backgroundTint="#F0D919"
         android:fontFamily="@font/iransans_font"

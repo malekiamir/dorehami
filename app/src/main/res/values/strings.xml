@@ -10,5 +10,11 @@
     <string name="title_profile">Profile</string>
     <string name="transition_background_photo">transition background photo</string>
     <string name="transition_button">transition button</string>
+    <string name="main_edt_phone_number_hint">شماره همراه</string>
+    <string name="main_btn_submit_text">ادامه</string>
+    <string name="main_tv_moto_text">با پاتوق همه گزینه ها روی میزه!</string>
+    <string name="phone_verification_btn_submit_text">ادامه</string>
+    <string name="phone_verification_btn_edit_text">ویرایش</string>
+    <string name="phone_verification_tv_guide_text">لطفا کد ارسال شده را وارد نمایید</string>
 
 </resources>

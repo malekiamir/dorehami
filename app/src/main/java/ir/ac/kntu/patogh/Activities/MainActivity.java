@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Log.d("~~~~~~~~~~~~~~~~~", response.body().string());
+                    Log.d("~~~~~~~~~~~~~~~~~", Objects.requireNonNull(response.body()).string());
                     success = true;
                     goToNextPage();
                 } catch (IOException e) {

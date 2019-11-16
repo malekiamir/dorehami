@@ -11,14 +11,7 @@
         android:layout_height="match_parent"
         android:alpha="0.7"
         android:scaleType="centerCrop"
-        android:transitionName="@string/transition_background_photo"/>
-
-    <TextView
-        android:id="@+id/success_check"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="false"
-        android:visibility="gone" />
+        android:transitionName="@string/transition_background_photo" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -88,7 +81,7 @@
         android:layout_gravity="center"
         android:fontFamily="@font/iransans_font"
         android:gravity="center_horizontal"
-        android:text="با پاتوق همه گزینه ها روی میزه!"
+        android:text="@string/main_tv_moto_text"
         android:textColor="#f9fbe7"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
@@ -103,11 +96,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
-        android:drawableLeft="@drawable/ic_applications"
+        android:drawableStart="@drawable/ic_applications"
         android:ems="10"
         android:fontFamily="@font/iransans_font"
-        android:gravity="right"
-        android:hint="شماره همراه"
+        android:gravity="end"
+        android:hint="@string/main_edt_phone_number_hint"
         android:inputType="phone"
         android:maxLength="11"
         android:maxLines="1"
@@ -133,7 +126,7 @@
         android:backgroundTint="#F0D919"
         android:fontFamily="@font/iransans_font"
         android:onClick="clickHandler"
-        android:text="ادامه"
+        android:text="@string/main_btn_submit_text"
         android:textColor="#000000"
         android:textSize="18sp"
         android:transitionName="@string/transition_button"

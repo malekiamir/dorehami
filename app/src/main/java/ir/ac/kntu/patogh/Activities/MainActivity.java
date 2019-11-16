@@ -23,11 +23,12 @@ import com.google.gson.Gson;
 import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeRequestLogin;
+import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import okhttp3.MediaType;
@@ -37,8 +38,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
-import static android.app.ActivityOptions.makeSceneTransitionAnimation;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Log.d("~~~~~~~~~~~~~~~~~", response.body().string());
+                    Log.d("~~~~~~~~~~~~~~~~~", Objects.requireNonNull(response.body()).string());
                     success = true;
                     goToNextPage();
                 } catch (IOException e) {

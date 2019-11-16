@@ -23,6 +23,7 @@ public class AddFragment extends Fragment {
         addViewModel =
                 ViewModelProviders.of(this).get(AddViewModel.class);
         View root = inflater.inflate(R.layout.fragment_add, container, false);
+
         return root;
     }
 }

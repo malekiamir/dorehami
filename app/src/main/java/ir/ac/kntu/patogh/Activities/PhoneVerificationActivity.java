@@ -67,7 +67,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     public void clickHandler(View view) {
         if (view.getId() == R.id.btn_phoneverification_submit) {
             btnSubmit.startAnimation();
-            System.out.println(edtVerification.getText().toString());
+            System.out.println(Objects.requireNonNull(edtVerification.getText()).toString());
             checkVerificationCode();
         }
         if (view.getId() == R.id.btn_phoneverification_edit) {
@@ -80,14 +80,14 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             }
             ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat
                     .makeSceneTransitionAnimation(
-                            PhoneVerificationActivity.this, btnSubmit, ViewCompat.getTransitionName(btnSubmit));
+                            PhoneVerificationActivity.this, btnSubmit, Objects.requireNonNull(ViewCompat.getTransitionName(btnSubmit)));
             startActivity(intent, activityOptionsCompat.toBundle());
 
         }
     }
 
     private boolean checkVerificationCode() {
-        String verificationCode = edtVerification.getText().toString();
+        String verificationCode = Objects.requireNonNull(edtVerification.getText()).toString();
         if (verificationCode.equals("")) {
             Animation shake = AnimationUtils.loadAnimation(PhoneVerificationActivity.this, R.anim.shake);
             edtVerification.startAnimation(shake);

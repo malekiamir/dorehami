@@ -1,23 +1,9 @@
 package ir.ac.kntu.patogh.Activities;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.muddzdev.styleabletoast.StyleableToast;
-import com.mukesh.OtpView;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
-
 import android.transition.Explode;
 import android.transition.Fade;
 import android.util.Log;
@@ -26,13 +12,26 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.muddzdev.styleabletoast.StyleableToast;
+import com.mukesh.OtpView;
+
 import java.io.IOException;
+import java.util.Objects;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeAuthentication;
+import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import okhttp3.MediaType;
@@ -56,8 +55,6 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setEnterTransition(new Explode());
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
-//      bundle.getBundle("phoneNumber").toString();
         setContentView(R.layout.activity_phone_verification);
         ButterKnife.bind(this);
         Glide.with(this.getApplicationContext())
@@ -67,28 +64,24 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     }
 
 
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void clickHandler(View view) {
         if (view.getId() == R.id.btn_phoneverification_submit) {
             btnSubmit.startAnimation();
             System.out.println(edtVerification.getText().toString());
-            if (checkVerificationCode()) {
-//                btnSubmit.doneLoadingAnimation(Color.rgb(100,50,100)
-//                        , BitmapFactory.decodeResource(getResources(), R.drawable.back));
-            }
-
+            checkVerificationCode();
         }
-        if(view.getId() == R.id.btn_phoneverification_edit){
-            Intent intent = new Intent(PhoneVerificationActivity.this,MainActivity.class);
-            Fade fade = new Fade();
-            getWindow().setEnterTransition(fade);
-            getWindow().setExitTransition(fade);
+        if (view.getId() == R.id.btn_phoneverification_edit) {
+            Intent intent = new Intent(PhoneVerificationActivity.this, MainActivity.class);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Fade fade = new Fade();
+                getWindow().setEnterTransition(fade);
+                getWindow().setExitTransition(fade);
+            }
             ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat
                     .makeSceneTransitionAnimation(
-                            PhoneVerificationActivity.this,btnSubmit, ViewCompat.getTransitionName(btnSubmit));
-            startActivity(intent,activityOptionsCompat.toBundle());
+                            PhoneVerificationActivity.this, btnSubmit, ViewCompat.getTransitionName(btnSubmit));
+            startActivity(intent, activityOptionsCompat.toBundle());
 
         }
     }
@@ -104,12 +97,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                     .textColor(Color.WHITE)
                     .backgroundColor(Color.argb(255, 255, 94, 100))
                     .show();
-            btnSubmit.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    btnSubmit.revertAnimation();
-                }
-            }, 500);
+            btnSubmit.postDelayed(() -> btnSubmit.revertAnimation(), 500);
             return false;
         } else if (verificationCode.length() != 4) {
             Animation shake = AnimationUtils.loadAnimation(PhoneVerificationActivity.this, R.anim.shake);
@@ -120,12 +108,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                     .textColor(Color.WHITE)
                     .backgroundColor(Color.argb(255, 255, 94, 100))
                     .show();
-            btnSubmit.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    btnSubmit.revertAnimation();
-                }
-            }, 500);
+            btnSubmit.postDelayed(() -> btnSubmit.revertAnimation(), 500);
             return false;
         }
         return authenticate(edtVerification.getText().toString());
@@ -144,8 +127,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Response<ResponseBody> saveResponse = response;
-                    String responseBody = response.body().string();
+                    String responseBody = Objects.requireNonNull(response.body()).string();
                     Log.d("~~~~~~~~~~~~~~~~~", responseBody);
                     if (!responseBody.contains("value")) {
                         new StyleableToast

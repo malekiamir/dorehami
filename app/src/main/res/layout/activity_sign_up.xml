@@ -2,11 +2,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frame1"
+    android:id="@+id/sign_up_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="0dp">
-
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,6 +79,7 @@
                         android:alpha="0.9"
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
+                        android:inputType="textPersonName"
                         android:maxLines="1"
                         android:textColor="#000" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -104,6 +106,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
+                        android:inputType="textPersonName"
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
                         android:maxLines="1"
@@ -140,7 +143,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <Button
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/btn_signup_register"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
@@ -164,7 +167,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="8dp"
-            app:layout_constraintGuide_percent="0.0"/>
+            app:layout_constraintGuide_percent="0.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline15"
@@ -172,7 +175,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="268dp"
-            app:layout_constraintGuide_percent="0.35"/>
+            app:layout_constraintGuide_percent="0.35" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline16"
@@ -180,7 +183,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="651dp"
-            app:layout_constraintGuide_percent="0.85"/>
+            app:layout_constraintGuide_percent="0.85" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline17"
@@ -188,7 +191,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="713dp"
-            app:layout_constraintGuide_percent="0.95"/>
+            app:layout_constraintGuide_percent="0.95" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

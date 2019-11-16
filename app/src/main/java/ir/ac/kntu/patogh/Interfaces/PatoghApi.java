@@ -16,4 +16,7 @@ public interface PatoghApi {
 
     @POST("/api/User/editUserDetails")
     Call<ResponseBody> editUserDetails(@Header("Authorization")String token, @Body RequestBody requestBody);
+
+    @POST("/api/User/getUserDetails")
+    Call<ResponseBody> getUserDetails(@Header("Authorization")String token);
 }

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/phone_verification_constraint_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <ImageView
         android:id="@+id/img_phone_verification_background"
@@ -61,7 +64,7 @@
         android:backgroundTint="#00000000"
         android:fontFamily="@font/iransans_font"
         android:onClick="clickHandler"
-        android:text="ویرایش"
+        android:text="@string/phone_verification_btn_edit_text"
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:transitionName="@string/transition_button"
@@ -136,4 +139,16 @@
         app:layout_constraintGuide_percent="0.95" />
 
 
+    <TextView
+        android:id="@+id/tv_phone_verification_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.9"
+        android:fontFamily="@font/iransans_font"
+        android:textColor="#FFF"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_verification"
+        app:layout_constraintVertical_bias="0.88" />
 </androidx.constraintlayout.widget.ConstraintLayout>

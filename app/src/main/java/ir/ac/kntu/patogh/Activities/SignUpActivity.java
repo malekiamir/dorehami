@@ -10,14 +10,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -25,7 +23,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.muddzdev.styleabletoast.StyleableToast;
 
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -229,6 +226,7 @@ public class SignUpActivity extends AppCompatActivity {
         buttonSignUp.revertAnimation();
         return success;
     }
+
 
     @Override
     public void onBackPressed() {

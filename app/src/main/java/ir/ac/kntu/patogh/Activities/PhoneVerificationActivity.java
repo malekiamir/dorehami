@@ -219,6 +219,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             super.onBackPressed();
             return;
         }
+
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "برای خروج دوباره دکمه بازگشت را فشار دهید", Toast.LENGTH_SHORT).show();
         new Handler().postDelayed(() -> doubleBackToExitPressedOnce=false, 2000);

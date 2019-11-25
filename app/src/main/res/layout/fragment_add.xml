@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,4 +22,174 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guideline53"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintGuide_begin="39dp" />-->
+
+
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/floatingActionButton"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="28dp"-->
+    <!--        android:layout_marginBottom="50dp"-->
+    <!--        android:clickable="true"-->
+    <!--        app:backgroundTint="#F1DA3C"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:srcCompat="@android:drawable/checkbox_on_background" />-->
+
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center_vertical"-->
+    <!--        android:layout_marginLeft="18dp"-->
+    <!--        android:layout_marginRight="18dp"-->
+    <!--        android:elevation="6dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:hint="نام رویداد"-->
+    <!--        android:textColorHint="#000"-->
+    <!--        app:boxStrokeColor="@color/text_input_color"-->
+    <!--        app:counterEnabled="false"-->
+    <!--        app:counterMaxLength="20"-->
+    <!--        app:hintTextAppearance="@style/TextLabel"-->
+    <!--        app:hintTextColor="#000"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/guideline56"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/guideline55"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/guideline54"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/guideline53">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:alpha="0.9"-->
+    <!--            android:fontFamily="@font/iransans_font"-->
+    <!--            android:gravity="right"-->
+    <!--            android:inputType="textPersonName"-->
+    <!--            android:maxLines="1"-->
+    <!--            android:paddingTop="15dp"-->
+    <!--            android:textColor="#000" />-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guideline54"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintGuide_begin="28dp" />-->
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guideline55"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintGuide_begin="383dp" />-->
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guideline56"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintGuide_begin="138dp" />-->
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guideline57"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintGuide_begin="274dp" />-->
+
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_gravity="center_vertical"-->
+    <!--        android:layout_marginLeft="18dp"-->
+    <!--        android:layout_marginRight="18dp"-->
+    <!--        android:layout_marginBottom="8dp"-->
+    <!--        android:elevation="6dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:hint="توضیحات رویداد"-->
+    <!--        android:inputType="textMultiLine"-->
+    <!--        android:textColorHint="#000"-->
+    <!--        app:boxStrokeColor="@color/text_input_color"-->
+    <!--        app:counterEnabled="false"-->
+    <!--        app:counterMaxLength="20"-->
+    <!--        app:hintTextAppearance="@style/TextLabel"-->
+    <!--        app:hintTextColor="#000"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/guideline57"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/guideline55"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/guideline54"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/guideline56">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:alpha="0.9"-->
+    <!--            android:fontFamily="@font/iransans_font"-->
+    <!--            android:gravity="right"-->
+    <!--            android:inputType="textMultiLine"-->
+    <!--            android:paddingTop="15dp"-->
+    <!--            android:textColor="#000" />-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guideline58"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintGuide_begin="211dp" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView4"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fontFamily="@font/iransans_font"-->
+    <!--        android:textColor="#000"-->
+    <!--        android:text="زمان شروع"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/guideline55"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/guideline58"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/guideline57" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView5"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fontFamily="@font/iransans_font"-->
+    <!--        android:text="زمان پایان"-->
+    <!--        android:textColor="#000"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/guideline58"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/guideline54"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/guideline57" />-->
+
+    <!--    <CalendarView-->
+    <!--        android:id="@+id/calendarView"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:outlineAmbientShadowColor="#000"-->
+    <!--        android:outlineSpotShadowColor="#000"-->
+    <!--        android:weekNumberColor="#000"-->
+    <!--        style="@style/Widget.MaterialComponents.MaterialCalendar"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/guideline58"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/guideline54"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView5" />-->
+
+    <!--    <CalendarView-->
+    <!--        android:id="@+id/calendarView2"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/guideline55"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/guideline58"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

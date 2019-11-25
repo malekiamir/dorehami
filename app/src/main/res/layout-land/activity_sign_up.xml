@@ -2,10 +2,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frame1"
+    android:id="@+id/sign_up_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="0dp">
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +21,6 @@
             android:layout_height="match_parent"
             android:alpha="0.7"
             android:scaleType="centerCrop"
-            android:src="@drawable/back"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="294dp" />
 
@@ -56,7 +57,7 @@
             android:layout_height="0dp"
             android:background="#B1AF4C"
             android:elevation="10dp"
-            app:cardBackgroundColor="#f9fbe7"
+            app:cardBackgroundColor="#f5f1f1"
             app:cardCornerRadius="5dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline17"
             app:layout_constraintEnd_toStartOf="@+id/guideline18"
@@ -145,6 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
+                        android:inputType="textPersonName"
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
                         android:maxLines="1"
@@ -163,8 +165,6 @@
                     android:hint="نام خانوادگی"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="20"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     app:hintTextAppearance="@style/TextLabel"
@@ -179,6 +179,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
+                        android:inputType="textPersonName"
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
                         android:paddingTop="15dp"
@@ -199,8 +200,6 @@
                     android:hint="ایمیل"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="20"
                     app:hintTextAppearance="@style/TextLabel"
                     app:hintTextColor="#000"
                     app:layout_constraintBottom_toTopOf="@+id/guideline41"
@@ -212,6 +211,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
+                        android:inputType="textEmailAddress"
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
                         android:paddingTop="15dp"
@@ -219,7 +219,7 @@
                         android:textColor="#000" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
                     android:id="@+id/btn_signup_register"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"

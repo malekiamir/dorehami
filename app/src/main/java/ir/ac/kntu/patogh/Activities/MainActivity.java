@@ -65,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
             getWindow().setSharedElementExitTransition(new Explode());
         }
         super.onCreate(savedInstanceState);
+//        if(savedInstanceState!=null && savedInstanceState.containsKey("phoneNumber")) {
+//            String phoneNumebr = savedInstanceState.getString("phoneNumber");
+//            edtPhone.setText(phoneNumebr);
+//        }
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         Glide.with(this.getApplicationContext())
@@ -137,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    if(!response.body().string().equals(null)) {
+                    if(response.code()==200) {
                         Log.d("~~~~~~~~~~~~~~~~~", Objects.requireNonNull(response.body()).string());
                         success = true;
                         btnSubmit.revertAnimation();
@@ -183,6 +187,21 @@ public class MainActivity extends AppCompatActivity {
                         , ViewCompat.getTransitionName(btnSubmit));
         startActivity(intent, options.toBundle());
         finish();
+    }
+
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("phoneNumber", edtPhone.getText().toString());
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String phoneNumber = savedInstanceState.getString("phoneNumber");
+        edtPhone.setText(phoneNumber);
     }
 
     @Override

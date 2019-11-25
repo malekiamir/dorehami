@@ -34,6 +34,7 @@ public class HomePageActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
+//        navView.setItemTextAppearanceActive();
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
 //                navController.navigate(destination.getId());
             if (!destination.getLabel().equals("Home")) {

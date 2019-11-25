@@ -10,6 +10,7 @@
     android:focusableInTouchMode="true">
 
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
@@ -21,38 +22,73 @@
             android:layout_height="match_parent"
             android:alpha="0.7"
             android:scaleType="centerCrop"
-            android:src="@drawable/back"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="294dp" />
 
         <ImageView
             android:id="@+id/imageView_signup_logo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="75dp"
+            android:layout_height="66dp"
             android:background="@drawable/ic_logo"
-            app:layout_constraintBottom_toTopOf="@+id/guideline15"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/img_signuppage_background" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline30"
+            app:layout_constraintEnd_toStartOf="@+id/guideline32"
+            app:layout_constraintStart_toStartOf="@+id/guideline31"
+            app:layout_constraintTop_toTopOf="@+id/guideline29" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="#B1AF4C"
             android:elevation="10dp"
-            app:cardBackgroundColor="#f9fbe7"
-            app:cardCornerRadius="18dp"
+            app:cardBackgroundColor="#f5f1f1"
+            app:cardCornerRadius="5dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline33"
+            app:layout_constraintStart_toStartOf="@+id/guideline34"
             app:layout_constraintTop_toTopOf="@+id/guideline15">
 
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                app:layout_constraintBottom_toTopOf="@+id/guideline16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline15">
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="365dp"
+                    app:layout_constraintGuide_percent="0.0" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="397dp"
+                    app:layout_constraintGuide_percent="0.35" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="467dp"
+                    app:layout_constraintGuide_percent="0.65" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="578dp"
+                    app:layout_constraintGuide_percent="1" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -60,17 +96,22 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
                     android:elevation="6dp"
+                    android:gravity="center"
                     android:hint="نام"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
-                    app:counterEnabled="true"
+                    app:counterEnabled="false"
                     app:counterMaxLength="20"
                     app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000">
+                    app:hintTextColor="#000"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline23"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline27">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_signup_name"
@@ -79,6 +120,7 @@
                         android:alpha="0.9"
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
+                        android:paddingTop="15dp"
                         android:inputType="textPersonName"
                         android:maxLines="1"
                         android:textColor="#000" />
@@ -89,17 +131,22 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
                     android:elevation="6dp"
+                    android:gravity="center"
                     android:hint="نام خانوادگی"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="40"
+                    app:counterEnabled="false"
+                    app:counterMaxLength="30"
                     app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000">
+                    app:hintTextColor="#000"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline23">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_signup_surname"
@@ -109,6 +156,7 @@
                         android:inputType="textPersonName"
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
+                        android:paddingTop="15dp"
                         android:maxLines="1"
                         android:textColor="#000" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -118,15 +166,21 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    android:elevation="6dp"
+                    android:gravity="center"
                     android:hint="ایمیل"
                     android:textColorHint="#000"
                     app:boxStrokeColor="@color/text_input_color"
+                    app:counterEnabled="false"
                     app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000">
+                    app:hintTextColor="#000"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline28"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline24">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_signup_email"
@@ -136,17 +190,34 @@
                         android:fontFamily="@font/iransans_font"
                         android:gravity="right"
                         android:inputType="textEmailAddress"
+                        android:paddingTop="15dp"
                         android:maxLines="1"
                         android:textColor="#000" />
                 </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="282dp"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="585dp"
+                    app:layout_constraintGuide_percent="0.95" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/btn_signup_register"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#F0D919"
             android:enabled="false"
@@ -157,8 +228,8 @@
             android:text="ثبت نام"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline17"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline32"
+            app:layout_constraintStart_toStartOf="@+id/guideline31"
             app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -175,7 +246,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="268dp"
-            app:layout_constraintGuide_percent="0.35" />
+            app:layout_constraintGuide_percent="0.38" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline16"
@@ -183,7 +254,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="651dp"
-            app:layout_constraintGuide_percent="0.85" />
+            app:layout_constraintGuide_percent="0.80" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline17"
@@ -193,6 +264,53 @@
             app:layout_constraintGuide_begin="713dp"
             app:layout_constraintGuide_percent="0.95" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="72dp"
+            app:layout_constraintGuide_percent="0.12"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="194dp"
+            app:layout_constraintGuide_percent="0.26"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="84dp"
+            app:layout_constraintGuide_percent="0.33"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="316dp"
+            app:layout_constraintGuide_percent="0.65"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="36dp"
+            app:layout_constraintGuide_percent="0.94"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="362dp"
+            app:layout_constraintGuide_percent="0.06"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

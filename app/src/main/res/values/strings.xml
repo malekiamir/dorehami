@@ -16,5 +16,6 @@
     <string name="phone_verification_btn_submit_text">ادامه</string>
     <string name="phone_verification_btn_edit_text">تلاش مجدد</string>
     <string name="phone_verification_tv_guide_text">لطفا کد ارسال شده را وارد نمایید</string>
+    <string name="title_activity_event">EventActivity</string>
 
 </resources>

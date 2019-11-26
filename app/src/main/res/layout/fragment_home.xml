@@ -91,73 +91,81 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
-        android:id="@+id/scroll_home_page"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    <ScrollView-->
+<!--        android:id="@+id/scroll_home_page"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_events"
             android:paddingTop="60dp"
-            android:paddingBottom="100dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-            <include
-                layout="@layout/card_event"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
 
-            <include
-                layout="@layout/card_event2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:paddingTop="60dp"-->
+<!--            android:paddingBottom="100dp">-->
 
-            <include
-                layout="@layout/card_event3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
+<!--            <include-->
+<!--                layout="@layout/card_event"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_marginBottom="5dp" />-->
 
-            <include
-                layout="@layout/card_event4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
+<!--            <include-->
+<!--                layout="@layout/card_event2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_marginBottom="5dp" />-->
 
-            <include
-                layout="@layout/card_event"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
+<!--            <include-->
+<!--                layout="@layout/card_event3"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_marginBottom="5dp" />-->
 
-            <include
-                layout="@layout/card_event3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
-        </LinearLayout>
-    </ScrollView>
+<!--            <include-->
+<!--                layout="@layout/card_event4"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_marginBottom="5dp" />-->
+
+<!--            <include-->
+<!--                layout="@layout/card_event"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_marginBottom="5dp" />-->
+
+<!--            <include-->
+<!--                layout="@layout/card_event3"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_marginBottom="5dp" />-->
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

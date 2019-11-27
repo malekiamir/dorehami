@@ -1,21 +1,19 @@
 package ir.ac.kntu.patogh.ui.home;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import ir.ac.kntu.patogh.Activities.HomePageActivity;
 import ir.ac.kntu.patogh.Event;
 import ir.ac.kntu.patogh.EventActivity;
 import ir.ac.kntu.patogh.EventAdapter;
@@ -138,7 +135,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         intent.putExtra("event_desc", selectedEvent.getDesc());
         intent.putExtra("event_date", selectedEvent.getDate());
         intent.putExtra("event_capacity", selectedEvent.getCapacity());
-        context.startActivity(intent);
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeCustomAnimation(context, R.anim.slide_up, R.anim.slide_up);
+        context.startActivity(intent, options.toBundle());
+
 
     }
 }

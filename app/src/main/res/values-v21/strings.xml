@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="phone_verification_btn_edit_text">تلاش مجدد</string>
+    <string name="event_img_transition_name">event_image</string>
+    <string name="event_name_transition_name">event_name_transition</string>
 </resources>

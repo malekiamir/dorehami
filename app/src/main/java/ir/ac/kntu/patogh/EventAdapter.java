@@ -17,7 +17,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     private final EventAdapterOnClickHandler mClickHandler;
 
     public interface EventAdapterOnClickHandler {
-        void onClick(Event weatherForDay);
+        void onClick(Event weatherForDay, TextView v);
     }
 
     public EventAdapter(EventAdapterOnClickHandler clickHandler) {
@@ -44,7 +44,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
             Event selectedEvent = eventsData[adapterPosition];
-            mClickHandler.onClick(selectedEvent);
+            mClickHandler.onClick(selectedEvent, eventNameTextView);
         }
     }
 

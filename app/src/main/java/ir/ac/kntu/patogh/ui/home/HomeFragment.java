@@ -1,18 +1,23 @@
 package ir.ac.kntu.patogh.ui.home;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Interpolator;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,11 +26,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import ir.ac.kntu.patogh.Activities.HomePageActivity;
+import ir.ac.kntu.patogh.Activities.MainActivity;
 import ir.ac.kntu.patogh.Event;
 import ir.ac.kntu.patogh.EventActivity;
 import ir.ac.kntu.patogh.EventAdapter;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.KeyboardUtils;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, EventAdapter.EventAdapterOnClickHandler {
 
@@ -56,9 +68,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         rvEvents.setLayoutManager(layoutManager);
 
         rvEvents.setHasFixedSize(true);
+        rvEvents.setItemAnimator(new SlideInLeftAnimator());
         eventAdapter = new EventAdapter(this);
 
-        rvEvents.setAdapter(eventAdapter);
+        AlphaInAnimationAdapter a = new AlphaInAnimationAdapter(eventAdapter);
+        a.setDuration(200);
+        a.setFirstOnly(false);
+        ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(a);
+        scaleInAnimationAdapter.setDuration(150);
+        scaleInAnimationAdapter.setFirstOnly(false);
+        rvEvents.setAdapter(scaleInAnimationAdapter);
         loadEventsData();
 
 
@@ -126,7 +145,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
     }
 
     @Override
-    public void onClick(Event selectedEvent) {
+    public void onClick(Event selectedEvent, TextView v) {
         Context context = getContext();
 //        Toast.makeText(context, weatherForDay.getName(), Toast.LENGTH_SHORT)
 //                .show();
@@ -135,9 +154,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         intent.putExtra("event_desc", selectedEvent.getDesc());
         intent.putExtra("event_date", selectedEvent.getDate());
         intent.putExtra("event_capacity", selectedEvent.getCapacity());
-        ActivityOptionsCompat options =
-                ActivityOptionsCompat.makeCustomAnimation(context, R.anim.slide_up, R.anim.slide_up);
-        context.startActivity(intent, options.toBundle());
+        Pair[] pairs = new Pair[1];
+        pairs[0] = new Pair<View, String>(v, getResources().getString(R.string.event_name_transition_name));
+//        pairs[0] = new Pair<View, String>(v.findViewById(R.id.event_img), getResources().getString(R.string.event_img_transition_name));
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//            ActivityOptions options =
+//                    ActivityOptions.makeSceneTransitionAnimation(getActivity(),v, "event_name_transition");
+            ActivityOptionsCompat options = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(getActivity()
+                            , v
+                            , ViewCompat.getTransitionName(v));
+            context.startActivity(intent, options.toBundle());
+        }
 
 
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +18,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     private final EventAdapterOnClickHandler mClickHandler;
 
     public interface EventAdapterOnClickHandler {
-        void onClick(Event weatherForDay, TextView v);
+        void onClick(Event weatherForDay, TextView v, ImageView imageView);
     }
 
     public EventAdapter(EventAdapterOnClickHandler clickHandler) {
@@ -32,11 +33,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 //        @BindView(R.id.tv_card_view_date_capacity)
         TextView eventDateCapacityTextView;
 
+        ImageView eventImage;
+
         public EventAdapterViewHolder(View view) {
             super(view);
             eventNameTextView = view.findViewById(R.id.tv_card_view_event_name);
             eventSummaryTextView = view.findViewById(R.id.tv_card_view_event_summary);
             eventDateCapacityTextView = view.findViewById(R.id.tv_card_view_date_capacity);
+            eventImage = view.findViewById(R.id.img_card_view_event_pic);
+
             view.setOnClickListener(this);
         }
 
@@ -44,7 +49,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
             Event selectedEvent = eventsData[adapterPosition];
-            mClickHandler.onClick(selectedEvent, eventNameTextView);
+            mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
         }
     }
 

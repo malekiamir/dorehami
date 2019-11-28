@@ -1,6 +1,5 @@
 package ir.ac.kntu.patogh.ui.home;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -9,14 +8,13 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Interpolator;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -26,8 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import ir.ac.kntu.patogh.Activities.HomePageActivity;
-import ir.ac.kntu.patogh.Activities.MainActivity;
 import ir.ac.kntu.patogh.Event;
 import ir.ac.kntu.patogh.EventActivity;
 import ir.ac.kntu.patogh.EventAdapter;
@@ -35,8 +31,6 @@ import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.KeyboardUtils;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, EventAdapter.EventAdapterOnClickHandler {
@@ -145,28 +139,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
     }
 
     @Override
-    public void onClick(Event selectedEvent, TextView v) {
+    public void onClick(Event selectedEvent, TextView textView, ImageView imageView) {
         Context context = getContext();
-//        Toast.makeText(context, weatherForDay.getName(), Toast.LENGTH_SHORT)
-//                .show();
         Intent intent = new Intent(context, EventActivity.class);
         intent.putExtra("event_name", selectedEvent.getName());
         intent.putExtra("event_desc", selectedEvent.getDesc());
         intent.putExtra("event_date", selectedEvent.getDate());
         intent.putExtra("event_capacity", selectedEvent.getCapacity());
-        Pair[] pairs = new Pair[1];
-        pairs[0] = new Pair<View, String>(v, getResources().getString(R.string.event_name_transition_name));
-//        pairs[0] = new Pair<View, String>(v.findViewById(R.id.event_img), getResources().getString(R.string.event_img_transition_name));
+        Pair[] pairs = new Pair[2];
+        pairs[0] = new Pair<View, String>(textView, ViewCompat.getTransitionName(textView));
+        pairs[1] = new Pair<View, String>(imageView, ViewCompat.getTransitionName(imageView));
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//            ActivityOptions options =
-//                    ActivityOptions.makeSceneTransitionAnimation(getActivity(),v, "event_name_transition");
-            ActivityOptionsCompat options = ActivityOptionsCompat
-                    .makeSceneTransitionAnimation(getActivity()
-                            , v
-                            , ViewCompat.getTransitionName(v));
+            ActivityOptions options = ActivityOptions
+                    .makeSceneTransitionAnimation(getActivity(), pairs);
             context.startActivity(intent, options.toBundle());
         }
-
 
     }
 }

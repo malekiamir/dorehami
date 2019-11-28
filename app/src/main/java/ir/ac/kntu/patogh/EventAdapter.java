@@ -1,9 +1,11 @@
 package ir.ac.kntu.patogh;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,14 +28,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     }
 
     public class EventAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-//        @BindView(R.id.tv_card_view_event_name)
         TextView eventNameTextView;
-//        @BindView(R.id.tv_card_view_event_summary)
         TextView eventSummaryTextView;
-//        @BindView(R.id.tv_card_view_date_capacity)
         TextView eventDateCapacityTextView;
-
         ImageView eventImage;
+        ImageButton eventLikeButton;
 
         public EventAdapterViewHolder(View view) {
             super(view);
@@ -41,15 +40,20 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             eventSummaryTextView = view.findViewById(R.id.tv_card_view_event_summary);
             eventDateCapacityTextView = view.findViewById(R.id.tv_card_view_date_capacity);
             eventImage = view.findViewById(R.id.img_card_view_event_pic);
-
+            eventLikeButton = view.findViewById(R.id.btn_img_card_view_like);
+            eventLikeButton.setOnClickListener(this);
             view.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            int adapterPosition = getAdapterPosition();
-            Event selectedEvent = eventsData[adapterPosition];
-            mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
+            if(v != eventLikeButton) {
+                int adapterPosition = getAdapterPosition();
+                Event selectedEvent = eventsData[adapterPosition];
+                mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
+            } else {
+                eventLikeButton.setBackgroundColor(Color.parseColor("#F0D919"));
+            }
         }
     }
 

@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.ac.kntu.patogh.Event;
-import ir.ac.kntu.patogh.EventActivity;
+import ir.ac.kntu.patogh.Activities.EventActivity;
 import ir.ac.kntu.patogh.EventAdapter;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.KeyboardUtils;

@@ -9,6 +9,13 @@
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
     </style>
 
+    <style name="FirstPageTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">#c6a700</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
+    </style>
+
     <style name="AppTheme.Transparent" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

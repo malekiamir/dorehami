@@ -7,16 +7,17 @@
     tools:context=".Activities.FirstPageActivity"
     android:background="#F0D919">
 
-
     <ImageView
         android:id="@+id/img_first_page_animation"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/avd_anim"
+        app:srcCompat = "@drawable/avd_anim"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -46,20 +47,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.50" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/iransans_bold"
-        android:gravity="center_horizontal"
-        android:text="پــــاتوق"
-        android:textColor="#11103d"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/guideline9" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
@@ -74,19 +61,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.62" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="پاتوقتو اینجا پیدا کن"
-        android:fontFamily="@font/iransans_bold"
-        android:textSize="16sp"
-        android:gravity="center_horizontal"
-        android:textColor="#11103d"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
@@ -108,5 +82,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.52" />
+
+    <ir.ac.kntu.patogh.Activities.Typewriter
+        android:id="@+id/tv_firstPage_animated_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="پاتوق"
+        android:textColor="#11103d"
+        android:textSize="24dp"
+        android:fontFamily="@font/iransans_bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

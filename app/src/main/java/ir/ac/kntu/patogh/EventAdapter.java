@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.like.LikeButton;
+import com.like.OnLikeListener;
+
 import butterknife.BindView;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapterViewHolder> {
@@ -32,7 +35,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         TextView eventSummaryTextView;
         TextView eventDateCapacityTextView;
         ImageView eventImage;
-        ImageButton eventLikeButton;
+        LikeButton likeButton;
 
         public EventAdapterViewHolder(View view) {
             super(view);
@@ -40,22 +43,39 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             eventSummaryTextView = view.findViewById(R.id.tv_card_view_event_summary);
             eventDateCapacityTextView = view.findViewById(R.id.tv_card_view_date_capacity);
             eventImage = view.findViewById(R.id.img_card_view_event_pic);
-            eventLikeButton = view.findViewById(R.id.btn_img_card_view_like);
-            eventLikeButton.setOnClickListener(this);
+            likeButton = view.findViewById(R.id.btn_img_card_view_like);
+          likeButton.setLiked(true);
+            likeButton.setEnabled(false);
+           // likeButton.setOnLikeListener((OnLikeListener) this);
+            likeButton.setOnLikeListener(new OnLikeListener() {
+                @Override
+                public void liked(LikeButton likeButton) {
+
+                }
+
+                @Override
+                public void unLiked(LikeButton likeButton) {
+
+                }
+            });
             view.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if(v != eventLikeButton) {
+            if(v != likeButton) {
                 int adapterPosition = getAdapterPosition();
                 Event selectedEvent = eventsData[adapterPosition];
                 mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
-            } else {
-                eventLikeButton.setBackgroundColor(Color.parseColor("#F0D919"));
             }
+            //else {
+               // likeButton.setBackgroundColor(Color.parseColor("#F0D919"));
+
+           // }
         }
     }
+
+
 
     @Override
     public EventAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {

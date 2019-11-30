@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@drawable/rounded_rect_white"
+    android:elevation="1dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/img_card_view_event_pic"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pic2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_card_view_event_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="@font/yekan_font"
+        android:gravity="right"
+        android:maxLength="35"
+        android:maxLines="1"
+        android:text="پاک سازی جنگل"
+        android:textColor="@android:color/black"
+        android:textDirection="ltr"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_card_view_event_summary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/img_card_view_event_pic"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <TextView
+        android:id="@+id/tv_card_view_event_summary"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:fontFamily="@font/iransans_font"
+        android:paddingTop="5dp"
+        android:text="میخوایم زباله های پارک جنگلی سرخه حصار رو جمع کنیم."
+        android:textColor="@android:color/black"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="4dp"
+        android:textDirection="rtl"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/tableView_card_view_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@id/img_card_view_event_pic"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img_card_view_event_pic"
+        app:layout_constraintTop_toBottomOf="@+id/tv_card_view_event_name" />
+
+    <TableRow
+        android:id="@+id/tableView_card_view_divider"
+        android:layout_width="0dp"
+        android:layout_height="1.5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="#ECE2BF"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/tv_card_view_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.724"
+        app:layout_constraintLeft_toRightOf="@id/img_card_view_event_pic"
+        app:layout_constraintStart_toEndOf="@+id/img_card_view_event_pic"
+        app:layout_constraintTop_toBottomOf="@id/tv_card_view_event_summary">
+
+    </TableRow>
+
+    <TextView
+        android:id="@+id/tv_card_view_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/yekan_font"
+        android:layout_marginLeft="15dp"
+        android:lineSpacingExtra="3dp"
+        android:text="تاریخ : 98/11/8\nظرفیت : نامحدود"
+        android:textColor="@color/material_blue_grey_95"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/img_card_view_event_pic"
+        app:layout_constraintTop_toBottomOf="@+id/tableView_card_view_divider"
+        app:layout_constraintVertical_bias="0.652" />
+
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_fav"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tv_card_view_date"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableView_card_view_divider" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

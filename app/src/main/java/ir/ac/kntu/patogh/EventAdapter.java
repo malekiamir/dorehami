@@ -44,17 +44,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             eventDateCapacityTextView = view.findViewById(R.id.tv_card_view_date_capacity);
             eventImage = view.findViewById(R.id.img_card_view_event_pic);
             likeButton = view.findViewById(R.id.btn_img_card_view_like);
-          likeButton.setLiked(true);
-            likeButton.setEnabled(false);
+            likeButton.setEnabled(true);
            // likeButton.setOnLikeListener((OnLikeListener) this);
             likeButton.setOnLikeListener(new OnLikeListener() {
                 @Override
                 public void liked(LikeButton likeButton) {
+                    likeButton.setLiked(true);
 
                 }
 
                 @Override
                 public void unLiked(LikeButton likeButton) {
+                    likeButton.setLiked(false);
 
                 }
             });

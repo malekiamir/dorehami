@@ -55,5 +55,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.0.0'
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+    implementation 'neshan-android-sdk:mobile-sdk:0.9.5'
 
 }

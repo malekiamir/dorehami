@@ -171,5 +171,6 @@
     <orderEntry type="library" name="Gradle: com.muddzdev:styleabletoast:2.2.3@aar" level="project" />
     <orderEntry type="library" name="Gradle: br.com.simplepass:loading-button-android:2.2.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: jp.wasabeef:recyclerview-animators:3.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: neshan-android-sdk:mobile-sdk:0.9.5@aar" level="project" />
   </component>
 </module>

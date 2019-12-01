@@ -1,7 +1,9 @@
 package ir.ac.kntu.patogh.Activities;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -40,7 +42,7 @@ public class EventActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        ExtendedFloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +78,18 @@ public class EventActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_favorite) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if(item.getTitle().equals("heart")) {
+                    item.setIcon(getDrawable(R.drawable.ic_heart_1));
+                    item.setTitle("heart1");
+                } else {
+                    item.setIcon(getDrawable(R.drawable.ic_heart));
+                    item.setTitle("heart");
+                }
+//                else
+//                    item.setIcon(getDrawable(R.drawable.ic_heart));
+
+            }
             Toast.makeText(EventActivity.this, "Liked", Toast.LENGTH_LONG).show();
             return true;
         }

@@ -76,6 +76,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 .load(R.drawable.back)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
                 .into((ImageView) findViewById(R.id.img_phone_verification_background));
+
         new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {

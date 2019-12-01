@@ -19,7 +19,8 @@ import butterknife.BindView;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapterViewHolder> {
 
     private Event[] eventsData;
-
+    private long mLastClickTime = System.currentTimeMillis();
+    private static final long CLICK_TIME_INTERVAL = 300;
     private final EventAdapterOnClickHandler mClickHandler;
 
     public interface EventAdapterOnClickHandler {
@@ -63,15 +64,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
         @Override
         public void onClick(View v) {
-            if(v != likeButton) {
-                int adapterPosition = getAdapterPosition();
-                Event selectedEvent = eventsData[adapterPosition];
-                mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
+            long now = System.currentTimeMillis();
+            if (now - mLastClickTime < CLICK_TIME_INTERVAL) {
+                return;
             }
-            //else {
-               // likeButton.setBackgroundColor(Color.parseColor("#F0D919"));
-
-           // }
+            mLastClickTime = now;
+            int adapterPosition = getAdapterPosition();
+            Event selectedEvent = eventsData[adapterPosition];
+            mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
         }
     }
 

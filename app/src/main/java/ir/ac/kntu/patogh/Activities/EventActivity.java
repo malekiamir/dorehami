@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.neshan.core.Bounds;
 import org.neshan.core.LngLat;
 import org.neshan.layers.VectorElementLayer;
 import org.neshan.services.NeshanMapStyle;
@@ -66,20 +67,21 @@ public class EventActivity extends AppCompatActivity {
             }
         });
         LngLat focalPoint = new LngLat(51.336434, 35.6990015);
-        map.setFocalPointPosition(focalPoint, 0f);
-        map.setZoom(15,2);
+        map.setFocalPointPosition(focalPoint, 1);
+        map.setZoom(15,1);
         markerLayer = NeshanServices.createVectorElementLayer();
-        map.getLayers().add(NeshanServices.createBaseMap(NeshanMapStyle.STANDARD_DAY));
+        map.getLayers().add(NeshanServices.createBaseMap(NeshanMapStyle.NESHAN));
         map.getLayers().add(markerLayer);
+        map.getOptions().setPanBounds(new Bounds(focalPoint, focalPoint));
 
-        markerLayer.clear();
+//        markerLayer.clear();
 
-        AnimationStyleBuilder animStBl = new AnimationStyleBuilder();
-        animStBl.setFadeAnimationType(AnimationType.ANIMATION_TYPE_SMOOTHSTEP);
-        animStBl.setSizeAnimationType(AnimationType.ANIMATION_TYPE_SPRING);
-        animStBl.setPhaseInDuration(0.5f);
-        animStBl.setPhaseOutDuration(0.5f);
-        AnimationStyle animSt = animStBl.buildStyle();
+//        AnimationStyleBuilder animStBl = new AnimationStyleBuilder();
+//        animStBl.setFadeAnimationType(AnimationType.ANIMATION_TYPE_SMOOTHSTEP);
+//        animStBl.setSizeAnimationType(AnimationType.ANIMATION_TYPE_SPRING);
+//        animStBl.setPhaseInDuration(0.5f);
+//        animStBl.setPhaseOutDuration(0.5f);
+//        AnimationStyle animSt = animStBl.buildStyle();
 
         // Creating marker style. We should use an object of type MarkerStyleCreator, set all features on it
         // and then call buildStyle method on it. This method returns an object of type MarkerStyle
@@ -87,7 +89,7 @@ public class EventActivity extends AppCompatActivity {
         markStCr.setSize(20f);
         markStCr.setBitmap(BitmapUtils.createBitmapFromAndroidBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_marker)));
         // AnimationStyle object - that was created before - is used here
-        markStCr.setAnimationStyle(animSt);
+//        markStCr.setAnimationStyle(animSt);
         MarkerStyle markSt = markStCr.buildStyle();
 
         // Creating marker

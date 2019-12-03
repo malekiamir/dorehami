@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean requestLogin(String phoneNumber) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://185.252.30.32:7700/api/")
+                .baseUrl("http://94.139.171.236:7701/api/")
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);

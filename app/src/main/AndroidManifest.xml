@@ -32,7 +32,8 @@
         <activity
             android:name=".Activities.PhoneVerificationActivity"
             android:label="@string/title_activity_phone_verification"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
         <activity android:name=".Activities.SignInActivity" />
         <activity
             android:name=".Activities.SignUpActivity"
@@ -40,7 +41,9 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Activities.MainActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme">
+
+        </activity>
     </application>
 
 </manifest>

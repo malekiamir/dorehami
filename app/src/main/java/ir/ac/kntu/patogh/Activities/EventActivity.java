@@ -3,9 +3,17 @@ package ir.ac.kntu.patogh.Activities;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.transition.ChangeBounds;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionSet;
+import android.transition.Visibility;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,11 +43,11 @@ import ir.ac.kntu.patogh.R;
 
 public class EventActivity extends AppCompatActivity {
 
-    @BindView(R.id.event_name)
+    @BindView(R.id.tv_event_name)
     TextView tvName;
-    @BindView(R.id.event_desc)
+    @BindView(R.id.tv_event_desc)
     TextView tvDesc;
-    @BindView(R.id.event_date)
+    @BindView(R.id.tv_event_date)
     TextView tvDate;
     @BindView(R.id.map)
     MapView map;
@@ -49,6 +57,7 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        setupWindowAnimations();
         ButterKnife.bind(this);
         getIncomingIntent();
 
@@ -68,7 +77,7 @@ public class EventActivity extends AppCompatActivity {
         });
         LngLat focalPoint = new LngLat(51.336434, 35.6990015);
         map.setFocalPointPosition(focalPoint, 1);
-        map.setZoom(15,1);
+        map.setZoom(15, 1);
         markerLayer = NeshanServices.createVectorElementLayer();
         map.getLayers().add(NeshanServices.createBaseMap(NeshanMapStyle.NESHAN));
         map.getLayers().add(markerLayer);
@@ -101,10 +110,29 @@ public class EventActivity extends AppCompatActivity {
 
     }
 
+    private void setupWindowAnimations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Fade fade = new Fade();
+            fade.setDuration(300);
+            getWindow().setEnterTransition(fade);
+
+            Fade fadeOut = new Fade(Visibility.MODE_OUT);
+            fadeOut.setDuration(300);
+            getWindow().setExitTransition(fadeOut);
+        }
+    }
+
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        map.setVisibility(View.GONE);
     }
 
     public void getIncomingIntent() {
@@ -128,7 +156,7 @@ public class EventActivity extends AppCompatActivity {
 
         if (id == R.id.action_favorite) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                if(item.getTitle().equals("heart")) {
+                if (item.getTitle().equals("heart")) {
                     item.setIcon(getDrawable(R.drawable.ic_heart_1));
                     item.setTitle("heart1");
                 } else {

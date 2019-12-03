@@ -1,11 +1,9 @@
-package ir.ac.kntu.patogh;
+package ir.ac.kntu.patogh.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,14 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
-import butterknife.BindView;
+import ir.ac.kntu.patogh.Utils.Event;
+import ir.ac.kntu.patogh.R;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapterViewHolder> {
 
     private Event[] eventsData;
     private long mLastClickTime = System.currentTimeMillis();
-    private static final long CLICK_TIME_INTERVAL = 300;
+    private static final long CLICK_TIME_INTERVAL = 1000;
     private final EventAdapterOnClickHandler mClickHandler;
+    long now;
 
     public interface EventAdapterOnClickHandler {
         void onClick(Event weatherForDay, TextView v, ImageView imageView);
@@ -45,9 +45,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             eventDateCapacityTextView = view.findViewById(R.id.tv_card_view_date_capacity);
             eventImage = view.findViewById(R.id.img_card_view_event_pic);
             likeButton = view.findViewById(R.id.btn_img_card_view_like);
-          likeButton.setLiked(false);
+            likeButton.setLiked(false);
             likeButton.setEnabled(true);
-           // likeButton.setOnLikeListener((OnLikeListener) this);
             likeButton.setOnLikeListener(new OnLikeListener() {
                 @Override
                 public void liked(LikeButton likeButton) {
@@ -64,7 +63,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
         @Override
         public void onClick(View v) {
-            long now = System.currentTimeMillis();
+            now = System.currentTimeMillis();
             if (now - mLastClickTime < CLICK_TIME_INTERVAL) {
                 return;
             }
@@ -74,7 +73,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
         }
     }
-
 
 
     @Override
@@ -95,7 +93,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         eventAdapterViewHolder.eventSummaryTextView.setText(selectedEvent.getDesc());
         eventAdapterViewHolder.eventDateCapacityTextView.setText(String.format("%s\n%s"
                 , selectedEvent.getDate(), selectedEvent.getCapacity()));
-
     }
 
 

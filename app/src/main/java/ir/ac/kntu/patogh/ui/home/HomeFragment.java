@@ -3,8 +3,16 @@ package ir.ac.kntu.patogh.ui.home;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.ArcMotion;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.TransitionSet;
+import android.transition.Visibility;
 import android.util.Pair;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +32,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import ir.ac.kntu.patogh.Event;
+import ir.ac.kntu.patogh.Utils.Event;
 import ir.ac.kntu.patogh.Activities.EventActivity;
-import ir.ac.kntu.patogh.EventAdapter;
+import ir.ac.kntu.patogh.Adapters.EventAdapter;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.KeyboardUtils;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
@@ -54,6 +62,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        setupWindowAnimations();
         unbinder = ButterKnife.bind(this, root);
 
         LinearLayoutManager layoutManager
@@ -87,6 +96,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         btnImgSort.setOnClickListener(this);
         loadEventsData();
         return root;
+    }
+
+    private void setupWindowAnimations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            TransitionSet transitionSet = new TransitionSet();
+            transitionSet.setOrdering(TransitionSet.ORDERING_TOGETHER);
+            Slide slideIn = new Slide(Gravity.BOTTOM);
+            Fade fade = new Fade(Visibility.MODE_IN);
+            transitionSet.addTransition(fade);
+            transitionSet.addTransition(slideIn);
+            transitionSet.setDuration(300);
+            getActivity().getWindow().setReenterTransition(transitionSet);
+
+            TransitionSet set = new TransitionSet();
+            set.setOrdering(TransitionSet.ORDERING_TOGETHER);
+            Slide slide = new Slide(Gravity.BOTTOM);
+            Fade fadeOut = new Fade(Visibility.MODE_OUT);
+            set.addTransition(fadeOut);
+            set.addTransition(slide);
+            set.setDuration(700);
+            getActivity().getWindow().setExitTransition(set);
+        }
     }
 
     public String generateRandomString(int length) {

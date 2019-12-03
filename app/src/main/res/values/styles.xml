@@ -30,4 +30,9 @@
         <item name="android:textColor">#000</item>
     </style>
 
+    <style name="AppTheme.HomePageActivity">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

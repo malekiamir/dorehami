@@ -22,7 +22,7 @@
             android:name=".Activities.HomePageActivity"
             android:label="@string/title_activity_home_page"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.HomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

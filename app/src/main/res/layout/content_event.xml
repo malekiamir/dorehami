@@ -18,20 +18,19 @@
 
 
             <ImageView
-                android:id="@+id/event_img"
-                android:transitionName="@string/event_img_transition_name"
+                android:id="@+id/img_event"
                 android:layout_width="wrap_content"
-                android:layout_height="200dp"
+                android:layout_height="230dp"
                 android:scaleType="centerCrop"
+                android:transitionName="@string/event_img_transition_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/back" />
 
             <TextView
-                android:id="@+id/event_name"
+                android:id="@+id/tv_event_name"
                 android:layout_width="wrap_content"
-                android:transitionName="@string/event_name_transition_name"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
@@ -41,22 +40,21 @@
                 android:textColor="#000000"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_img" />
+                app:layout_constraintTop_toBottomOf="@+id/img_event" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/img_time_icon"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:alpha="0.8"
-                android:tint="#A0000000"
+                android:padding="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_name"
-                app:srcCompat="@drawable/ic_calendar" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_name"
+                app:srcCompat="@drawable/ic_time" />
 
             <TextView
-                android:id="@+id/event_date"
+                android:id="@+id/tv_event_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
@@ -65,25 +63,23 @@
                 android:text="7 دی ساعت 12:30"
                 android:textColor="#000000"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                app:layout_constraintEnd_toStartOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView2"
-                app:layout_constraintVertical_bias="0.6" />
+                app:layout_constraintBottom_toBottomOf="@+id/img_time_icon"
+                app:layout_constraintEnd_toStartOf="@+id/img_time_icon"
+                app:layout_constraintTop_toTopOf="@+id/img_time_icon" />
 
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/img_location_icon"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginTop="6dp"
-                android:tint="#000000"
-                app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                app:layout_constraintStart_toStartOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                app:srcCompat="@android:drawable/ic_menu_mylocation" />
+                app:layout_constraintEnd_toEndOf="@+id/img_time_icon"
+                app:layout_constraintStart_toStartOf="@+id/img_time_icon"
+                app:layout_constraintTop_toBottomOf="@+id/img_time_icon"
+                app:srcCompat="@drawable/ic_location" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tv_event_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
@@ -91,12 +87,12 @@
                 android:text="تهران"
                 android:textColor="#000000"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintEnd_toEndOf="@+id/event_date"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
+                app:layout_constraintBottom_toBottomOf="@+id/img_location_icon"
+                app:layout_constraintEnd_toEndOf="@+id/tv_event_date"
+                app:layout_constraintTop_toTopOf="@+id/img_location_icon" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tv_event_capacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
@@ -105,12 +101,12 @@
                 android:text="ظرفیت باقی مانده : 10 نفر"
                 android:textColor="#000000"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintEnd_toStartOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="@+id/textView" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_event_location"
+                app:layout_constraintEnd_toStartOf="@+id/tv_event_location"
+                app:layout_constraintTop_toTopOf="@+id/tv_event_location" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tv_event_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
@@ -118,31 +114,31 @@
                 android:text="ورزشی"
                 android:textColor="#000000"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                app:layout_constraintEnd_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="@+id/imageView3" />
+                app:layout_constraintBottom_toBottomOf="@+id/img_category_icon"
+                app:layout_constraintEnd_toEndOf="@+id/tv_event_location"
+                app:layout_constraintTop_toTopOf="@+id/img_category_icon" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="15dp"
-                android:background="@drawable/divider"
                 android:alpha="0.8"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintEnd_toStartOf="@+id/textView"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
-                app:layout_constraintTop_toTopOf="@+id/textView" />
+                android:background="@drawable/divider"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_event_location"
+                app:layout_constraintEnd_toStartOf="@+id/tv_event_location"
+                app:layout_constraintStart_toEndOf="@+id/tv_event_capacity"
+                app:layout_constraintTop_toTopOf="@+id/tv_event_location" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/img_category_icon"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginTop="6dp"
                 android:alpha="0.8"
-                android:tint="#000000"
-                app:layout_constraintEnd_toEndOf="@+id/imageView"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/imageView"
-                app:srcCompat="@android:drawable/ic_menu_edit" />
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="@+id/img_location_icon"
+                app:layout_constraintStart_toStartOf="@+id/img_location_icon"
+                app:layout_constraintTop_toBottomOf="@+id/img_location_icon"
+                app:srcCompat="@drawable/ic_category" />
 
             <View
                 android:id="@+id/view"
@@ -151,15 +147,82 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/divider"
                 android:alpha="0.3"
+                android:background="@drawable/divider"
                 android:elevation="0.5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_category" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.3"
+                android:background="@drawable/divider"
+                android:elevation="0.5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_desc" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tv_tags_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:alpha="0.7"
+                android:fontFamily="@font/yekan_font"
+                android:text="برچسب ها"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tags_header">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#e2e2e2"
+                    android:fontFamily="@font/iransans_font"
+                    android:text="ورزشی"
+                    android:textColor="#000" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#e2e2e2"
+                    android:fontFamily="@font/iransans_font"
+                    android:text="دوچرخه سواری"
+                    android:textColor="#000" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#e2e2e2"
+                    android:fontFamily="@font/iransans_font"
+                    android:text="سفری"
+                    android:textColor="#000" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/tv_desc_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -176,25 +239,25 @@
                 android:id="@+id/card_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
                 android:background="@drawable/rounded_rect_card"
+                android:elevation="2dp"
+                android:gravity="right"
+                android:orientation="vertical"
                 android:paddingTop="10dp"
                 android:paddingBottom="20dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
-                android:elevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:orientation="vertical"
-                android:gravity="right"
-                app:layout_constraintTop_toBottomOf="@+id/textView4">
+                app:layout_constraintTop_toBottomOf="@+id/tv_desc_header">
 
                 <TextView
-                    android:id="@+id/event_desc"
+                    android:id="@+id/tv_event_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:alpha="0.9"
                     android:layout_marginRight="16dp"
+                    android:alpha="0.9"
                     android:fontFamily="@font/iransans_font"
                     android:text="مسابقه دوچرخه سواری دور دریاچه خلیج فارس "
                     android:textColor="#000000"
@@ -219,7 +282,8 @@
                 android:id="@+id/map"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_marginBottom="100dp"
+
+                android:layout_marginBottom="50dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

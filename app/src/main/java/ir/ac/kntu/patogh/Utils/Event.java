@@ -1,4 +1,4 @@
-package ir.ac.kntu.patogh;
+package ir.ac.kntu.patogh.Utils;
 
 public class Event {
     private String name;

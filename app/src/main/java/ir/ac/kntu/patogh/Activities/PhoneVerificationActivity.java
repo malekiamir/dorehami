@@ -1,6 +1,7 @@
 package ir.ac.kntu.patogh.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -61,6 +62,8 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     @BindView(R.id.phone_verification_constraint_layout)
     ConstraintLayout layout;
 
+    private SharedPreferences sharedPreferences;
+
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -71,6 +74,9 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_verification);
         ButterKnife.bind(this);
+
+        sharedPreferences = getApplicationContext()
+                .getSharedPreferences("TokenPref",MODE_PRIVATE);
 
         Glide.with(this.getApplicationContext())
                 .load(R.drawable.back)
@@ -153,13 +159,15 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
     private boolean authenticate(String code) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://94.139.171.236:7701/api/")
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
                 .build();
         Gson gson = new Gson();
         String phoneNumber = getIntent().getStringExtra("phoneNumber");
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
                 , gson.toJson(new TypeAuthentication(phoneNumber, code)));
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+
         patoghApi.authenticate(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -180,6 +188,8 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                         JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
                         String token = jsonObject2.get("value").getAsString();
                         success = true;
+                        editor.putString("Token", token);
+                        editor.apply();
                         System.out.println("~~~" + token);
                         System.out.println(response.toString());
                         goToNextPage(token);

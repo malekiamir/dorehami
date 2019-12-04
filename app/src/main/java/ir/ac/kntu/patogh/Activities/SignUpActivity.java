@@ -1,6 +1,7 @@
 package ir.ac.kntu.patogh.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,6 +64,8 @@ public class SignUpActivity extends AppCompatActivity {
     @BindView(R.id.sign_up_constraint_layout)
     FrameLayout layout;
 
+    private SharedPreferences sharedPreferences;
+
     boolean success = false;
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -73,6 +76,8 @@ public class SignUpActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         buttonSignUp.setOnClickListener(view -> checkFields());
 
+         sharedPreferences = getApplicationContext()
+                .getSharedPreferences("TokenPref",0);
         Glide.with(this.getApplicationContext())
                 .load(R.drawable.back)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
@@ -183,13 +188,18 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean editUserDetails() {
         buttonSignUp.startAnimation();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://94.139.171.236:7701/api/")
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String phoneNumber = getIntent().getStringExtra("phoneNumber");
-        String token = getIntent().getStringExtra("token");
-
+//        String token = getIntent().getStringExtra("token");
+        String token = sharedPreferences.getString("Token", "none");
+        if(token.equals("none")) {
+            Intent intent = new Intent(SignUpActivity.this, PhoneVerificationActivity.class);
+            startActivity(intent);
+            finish();
+        }
         TypeEditUserDetails te;
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
                 , gson.toJson(te = new TypeEditUserDetails(phoneNumber

@@ -47,8 +47,9 @@ public class HomePageActivity extends AppCompatActivity {
             = item -> {
         switch (item.getItemId()) {
             case R.id.navigation_home:
-                if (active == fragment1)
+                if (active == fragment1) {
                     return false;
+                }
                 fm.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right).hide(active).show(fragment1).commit();
                 active = fragment1;
                 return true;

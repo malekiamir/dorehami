@@ -106,7 +106,7 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (gestureDetector.onTouchEvent(motionEvent)) {
-                    Uri geoLocationUri = Uri.parse("geo:" + 0 + "," + 0 + "q?=" + focalPoint.getY() + "," + focalPoint.getX());
+                    Uri geoLocationUri = Uri.parse("geo:" + 0 + "," + 0 + "?q=" + focalPoint.getY() + "," + focalPoint.getX());
                     Intent googleMapIntent = new Intent(Intent.ACTION_VIEW, geoLocationUri);
                     googleMapIntent.setPackage("com.google.android.apps.maps");
                     startActivity(googleMapIntent);

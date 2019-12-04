@@ -104,6 +104,8 @@
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_event_location"
                 app:layout_constraintEnd_toStartOf="@+id/tv_event_location"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_event_location" />
 
             <TextView
@@ -382,14 +384,16 @@
                 android:id="@+id/tv_event_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
                 android:alpha="0.9"
                 android:fontFamily="@font/iransans_font"
-                android:layout_marginEnd="24dp"
-                android:layout_marginTop="8dp"
                 android:text="خیابان آزادی کوچه امیری بن بست فراهانی سالن ملکی"
                 android:textColor="#000000"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_location_header" />
 
             <org.neshan.ui.MapView
@@ -413,10 +417,11 @@
                 app:layout_constraintTop_toTopOf="@id/map"
                 app:layout_constraintBottom_toBottomOf="@+id/map"
                 android:textColor="#FA000000"
-                android:textSize="20sp"
+                android:textSize="18sp"
+                android:fontFamily="@font/iransans_font"
+                android:background="@drawable/rounded_rect"
                 android:visibility="invisible"
-                android:text="برای مشاهده روی نقشه بزنید"
-                />
+                android:text="برای مشاهده کامل نقشه را لمس کنید" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

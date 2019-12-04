@@ -1,5 +1,6 @@
 package ir.ac.kntu.patogh.Activities;
 
+import android.animation.TimeInterpolator;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -17,7 +18,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.AnticipateInterpolator;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +62,8 @@ public class EventActivity extends AppCompatActivity {
     TextView tvDate;
     @BindView(R.id.map)
     MapView map;
+    @BindView(R.id.tv_map_hint)
+    TextView tvMapHint;
     VectorElementLayer markerLayer;
 
     @Override
@@ -75,7 +84,7 @@ public class EventActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "ثبت نام شما با موفقیت انجام شد.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -97,11 +106,15 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (gestureDetector.onTouchEvent(motionEvent)) {
-                    Uri geoLocationUri = Uri.parse("geo:" + 0 + "," + 0 + "q?=" + focalPoint.getY() + "," + focalPoint.getX() );
+                    Uri geoLocationUri = Uri.parse("geo:" + 0 + "," + 0 + "q?=" + focalPoint.getY() + "," + focalPoint.getX());
                     Intent googleMapIntent = new Intent(Intent.ACTION_VIEW, geoLocationUri);
                     googleMapIntent.setPackage("com.google.android.apps.maps");
                     startActivity(googleMapIntent);
                     return true;
+                } else {
+                    tvMapHint.setAlpha(1.0f);
+                    tvMapHint.setVisibility(View.VISIBLE);
+                    tvMapHint.animate().alpha(0.0f).setDuration(2000).setInterpolator(new AnticipateInterpolator()).start();
                 }
                 return false;
             }
@@ -161,9 +174,6 @@ public class EventActivity extends AppCompatActivity {
                     item.setIcon(getDrawable(R.drawable.ic_heart_toolbar));
                     item.setTitle("heart");
                 }
-//                else
-//                    item.setIcon(getDrawable(R.drawable.ic_heart));
-
             }
             Toast.makeText(EventActivity.this, "Liked", Toast.LENGTH_LONG).show();
             return true;

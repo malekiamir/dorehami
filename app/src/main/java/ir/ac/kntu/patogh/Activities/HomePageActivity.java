@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
+import ir.ac.kntu.patogh.Utils.KeyboardUtils;
 import ir.ac.kntu.patogh.ui.add.AddFragment;
 import ir.ac.kntu.patogh.ui.calendar.CalendarFragment;
 import ir.ac.kntu.patogh.ui.home.HomeFragment;
@@ -62,6 +63,7 @@ public class HomePageActivity extends AppCompatActivity {
                 } else if (active == fragment3 || active == fragment4) {
                     fm.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right).hide(active).show(fragment2).commit();
                 }
+                KeyboardUtils.hideKeyboard(this);
                 active = fragment2;
                 return true;
 
@@ -73,6 +75,7 @@ public class HomePageActivity extends AppCompatActivity {
                 } else if (active == fragment4) {
                     fm.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right).hide(active).show(fragment3).commit();
                 }
+                KeyboardUtils.hideKeyboard(this);
                 active = fragment3;
                 return true;
 
@@ -80,6 +83,7 @@ public class HomePageActivity extends AppCompatActivity {
                 if (active == fragment4)
                     return false;
                 fm.beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left).hide(active).show(fragment4).commit();
+                KeyboardUtils.hideKeyboard(this);
                 active = fragment4;
                 return true;
         }

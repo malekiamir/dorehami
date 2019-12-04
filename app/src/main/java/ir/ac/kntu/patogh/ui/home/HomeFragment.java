@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         edtSearch.setOnFocusChangeListener((view, b) -> {
             if (b) {
                 edtSearch.setText(null);
-                btnImgSort.setVisibility(View.INVISIBLE);
+                btnImgSort.setVisibility(View.GONE);
                 btnImgCancel.setVisibility(View.VISIBLE);
             }
         });
@@ -156,7 +156,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
             Toast.makeText(view.getContext(), "search", Toast.LENGTH_SHORT).show();
         } else if (view.getId() == R.id.btn_img_search_bar_cancel) {
             btnImgSort.setVisibility(View.VISIBLE);
-            btnImgCancel.setVisibility(View.INVISIBLE);
+            btnImgCancel.setVisibility(View.GONE);
             edtSearch.clearFocus();
             edtSearch.setText(R.string.edt_home_page_search_hint);
             KeyboardUtils.hideKeyboard(this.getActivity());

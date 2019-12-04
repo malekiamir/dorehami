@@ -55,6 +55,8 @@ public class EventActivity extends AppCompatActivity {
     TextView tvDate;
     @BindView(R.id.map)
     MapView map;
+    @BindView(R.id.tv_map_hint)
+    TextView tvMapHint;
     VectorElementLayer markerLayer;
 
     @Override
@@ -97,11 +99,13 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (gestureDetector.onTouchEvent(motionEvent)) {
-                    Uri geoLocationUri = Uri.parse("geo:" + 0 + "," + 0 + "q?=" + focalPoint.getY() + "," + focalPoint.getX() );
+                    Uri geoLocationUri = Uri.parse("geo:" + 0 + "," + 0 + "q?=" + focalPoint.getY() + "," + focalPoint.getX());
                     Intent googleMapIntent = new Intent(Intent.ACTION_VIEW, geoLocationUri);
                     googleMapIntent.setPackage("com.google.android.apps.maps");
                     startActivity(googleMapIntent);
                     return true;
+                } else {
+                    tvMapHint.setVisibility(View.VISIBLE);
                 }
                 return false;
             }

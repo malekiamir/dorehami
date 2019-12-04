@@ -417,10 +417,11 @@
                 app:layout_constraintTop_toTopOf="@id/map"
                 app:layout_constraintBottom_toBottomOf="@+id/map"
                 android:textColor="#FA000000"
-                android:textSize="20sp"
+                android:textSize="18sp"
+                android:fontFamily="@font/iransans_font"
                 android:background="@drawable/rounded_rect"
                 android:visibility="invisible"
-                android:text="برای مشاهده روی نقشه بزنید" />
+                android:text="برای مشاهده کامل نقشه را لمس کنید" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

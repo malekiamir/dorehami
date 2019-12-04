@@ -56,5 +56,6 @@ dependencies {
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
     implementation 'neshan-android-sdk:mobile-sdk:0.9.5'
+    implementation 'com.mikhaellopez:circularimageview:4.1.0'
 
 }

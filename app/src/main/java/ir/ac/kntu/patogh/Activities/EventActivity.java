@@ -1,6 +1,8 @@
 package ir.ac.kntu.patogh.Activities;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.ChangeBounds;
@@ -10,8 +12,10 @@ import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionSet;
 import android.transition.Visibility;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.TextView;
@@ -82,32 +86,26 @@ public class EventActivity extends AppCompatActivity {
         map.getLayers().add(NeshanServices.createBaseMap(NeshanMapStyle.NESHAN));
         map.getLayers().add(markerLayer);
         map.getOptions().setPanBounds(new Bounds(focalPoint, focalPoint));
-
-//        markerLayer.clear();
-
-//        AnimationStyleBuilder animStBl = new AnimationStyleBuilder();
-//        animStBl.setFadeAnimationType(AnimationType.ANIMATION_TYPE_SMOOTHSTEP);
-//        animStBl.setSizeAnimationType(AnimationType.ANIMATION_TYPE_SPRING);
-//        animStBl.setPhaseInDuration(0.5f);
-//        animStBl.setPhaseOutDuration(0.5f);
-//        AnimationStyle animSt = animStBl.buildStyle();
-
-        // Creating marker style. We should use an object of type MarkerStyleCreator, set all features on it
-        // and then call buildStyle method on it. This method returns an object of type MarkerStyle
         MarkerStyleCreator markStCr = new MarkerStyleCreator();
         markStCr.setSize(20f);
         markStCr.setBitmap(BitmapUtils.createBitmapFromAndroidBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_marker)));
-        // AnimationStyle object - that was created before - is used here
-//        markStCr.setAnimationStyle(animSt);
         MarkerStyle markSt = markStCr.buildStyle();
-
-        // Creating marker
         Marker marker = new Marker(focalPoint, markSt);
-
-        // Adding marker to markerLayer, or showing marker on map!
         markerLayer.add(marker);
-
-
+        GestureDetector gestureDetector = new GestureDetector(this, new SingleTapConfirm());
+        map.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (gestureDetector.onTouchEvent(motionEvent)) {
+                    Uri geoLocationUri = Uri.parse("geo:" + 0 + "," + 0 + "q?=" + focalPoint.getY() + "," + focalPoint.getX() );
+                    Intent googleMapIntent = new Intent(Intent.ACTION_VIEW, geoLocationUri);
+                    googleMapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(googleMapIntent);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void setupWindowAnimations() {
@@ -160,7 +158,7 @@ public class EventActivity extends AppCompatActivity {
                     item.setIcon(getDrawable(R.drawable.ic_heart_1));
                     item.setTitle("heart1");
                 } else {
-                    item.setIcon(getDrawable(R.drawable.ic_heart));
+                    item.setIcon(getDrawable(R.drawable.ic_heart_toolbar));
                     item.setTitle("heart");
                 }
 //                else
@@ -172,6 +170,14 @@ public class EventActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent event) {
+            return true;
+        }
     }
 
 }

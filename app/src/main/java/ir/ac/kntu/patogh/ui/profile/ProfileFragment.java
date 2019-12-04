@@ -40,22 +40,22 @@ public class ProfileFragment extends Fragment {
 //                .load(R.drawable.back)
 //                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
 //                .into((ImageView)root.findViewById(R.id.img_profile_back_pic));
-//
-//        Glide.with(this) //1
-//                .load(R.drawable.back)
-//                .placeholder(R.drawable.back)
-//                .error(R.drawable.back)
-//                .skipMemoryCache(true) //2
-//                .diskCacheStrategy(DiskCacheStrategy.NONE) //3
-//                .into((ImageView)root.findViewById(R.id.img_profile_back_pic));
-//        Glide.with(this) //1
-//                .load(R.drawable.back)
-//                .placeholder(R.drawable.back)
-//                .error(R.drawable.back)
-//                .circleCrop()
-//                .skipMemoryCache(true) //2
-//                .diskCacheStrategy(DiskCacheStrategy.NONE) //3
-//                .into((ImageView)root.findViewById(R.id.img_profile_circlar_pic));
+
+        Glide.with(this) //1
+                .load(R.drawable.back)
+                .placeholder(R.drawable.back)
+                .error(R.drawable.back)
+                .skipMemoryCache(true) //2
+                .diskCacheStrategy(DiskCacheStrategy.NONE) //3
+                .into((ImageView)root.findViewById(R.id.img_profile_back_pic));
+        Glide.with(this) //1
+                .load(R.drawable.back)
+                .placeholder(R.drawable.back)
+                .error(R.drawable.back)
+                .circleCrop()
+                .skipMemoryCache(true) //2
+                .diskCacheStrategy(DiskCacheStrategy.NONE) //3
+                .into((ImageView)root.findViewById(R.id.img_profile_circlar_pic));
         return root;
     }
 

@@ -49,9 +49,9 @@ public class ProfileFragment extends Fragment {
         setHasOptionsMenu(true);
 
         Glide.with(this.getContext())
-                .load(R.drawable.back)
+                .load(R.drawable.sixth_back)
                 .centerCrop()
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation(12, 3)))
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(5, 3)))
                 .into((ImageView)root.findViewById(R.id.img_profile_back_pic));
 
   //      ImageView imageView;
@@ -64,14 +64,14 @@ public class ProfileFragment extends Fragment {
 //                .skipMemoryCache(true) //2
 //                .diskCacheStrategy(DiskCacheStrategy.NONE) //3
 //                .into((ImageView)root.findViewById(R.id.img_profile_back_pic));
-//        Glide.with(this) //1
-//                .load(R.drawable.back)
-//                .placeholder(R.drawable.back)
-//                .error(R.drawable.back)
-//                .circleCrop()
-//                .skipMemoryCache(true) //2
-//                .diskCacheStrategy(DiskCacheStrategy.NONE) //3
-//                .into((ImageView)root.findViewById(R.id.img_profile_circlar_pic));
+        Glide.with(this) //1
+                .load(R.drawable.back)
+                .placeholder(R.drawable.back)
+                .error(R.drawable.back)
+                .circleCrop()
+                .skipMemoryCache(true) //2
+                .diskCacheStrategy(DiskCacheStrategy.NONE) //3
+                .into((ImageView)root.findViewById(R.id.img_profile_circlar_pic));
         return root;
     }
 

@@ -9,6 +9,13 @@
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
     </style>
 
+    <style name="AppTheme.ProfileTheme">
+        <item name="colorPrimaryDark">#33ff12</item>
+        <item name="colorAccent">#121290</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColor">#FAFAFA</item>
+    </style>
 
     <style name="AppTheme.Transparent" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item>

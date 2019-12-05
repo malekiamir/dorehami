@@ -109,4 +109,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         eventsData = eventData;
         notifyDataSetChanged();
     }
+
+    public void clear() {
+        eventsData.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(ArrayList<Event> list) {
+        eventsData.addAll(list);
+        notifyDataSetChanged();
+    }
 }

@@ -31,6 +31,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -81,6 +82,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
     ImageButton btnImgCancel;
     @BindView(R.id.rv_events)
     RecyclerView rvEvents;
+    @BindView(R.id.swipeContainer)
+    SwipeRefreshLayout swipeContainer;
+
     private EventAdapter eventAdapter;
     private Unbinder unbinder;
     private SharedPreferences sharedPreferences;
@@ -92,9 +96,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        events = new ArrayList<>();
         setupWindowAnimations();
         unbinder = ButterKnife.bind(this, root);
-        events = new ArrayList<>();
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getDorehami();
+            }
+        });
+        swipeContainer.setColorSchemeResources(R.color.patoghYellow, R.color.patoghBlue);
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref",0);
 
@@ -212,6 +223,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
+
+                    eventAdapter.clear();
                     System.out.println(response.body());
                     String res = response.body().string();
                     System.out.println(res);
@@ -224,6 +237,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                         events.add(new Event(dorehami.getName(), dorehami.getDescription()
                                 , dorehami.getStartTime(),dorehami.getSize()+""));
                     }
+                    eventAdapter.addAll(events);
+                    swipeContainer.setRefreshing(false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

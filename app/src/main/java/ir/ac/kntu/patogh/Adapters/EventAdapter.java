@@ -12,19 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
+import java.util.ArrayList;
+
 import ir.ac.kntu.patogh.Utils.Event;
 import ir.ac.kntu.patogh.R;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapterViewHolder> {
 
-    private Event[] eventsData;
+    private ArrayList<Event> eventsData;
     private long mLastClickTime = System.currentTimeMillis();
     private static final long CLICK_TIME_INTERVAL = 1000;
     private final EventAdapterOnClickHandler mClickHandler;
     long now;
 
     public interface EventAdapterOnClickHandler {
-        void onClick(Event weatherForDay, TextView v, ImageView imageView);
+        void onClick(Event selectedEvent, TextView v, ImageView imageView);
     }
 
     public EventAdapter(EventAdapterOnClickHandler clickHandler) {
@@ -69,7 +71,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             }
             mLastClickTime = now;
             int adapterPosition = getAdapterPosition();
-            Event selectedEvent = eventsData[adapterPosition];
+            Event selectedEvent = eventsData.get(adapterPosition);
             mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
         }
     }
@@ -88,7 +90,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
     @Override
     public void onBindViewHolder(EventAdapterViewHolder eventAdapterViewHolder, int position) {
-        Event selectedEvent = eventsData[position];
+        Event selectedEvent = eventsData.get(position);
         eventAdapterViewHolder.eventNameTextView.setText(selectedEvent.getName());
         eventAdapterViewHolder.eventSummaryTextView.setText(selectedEvent.getDesc());
         eventAdapterViewHolder.eventDateCapacityTextView.setText(String.format("%s\n%s"
@@ -99,12 +101,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     @Override
     public int getItemCount() {
         if (null == eventsData) return 0;
-        return eventsData.length;
+        return eventsData.size();
     }
 
 
-    public void setEventData(Event[] eventData) {
+    public void setEventData(ArrayList<Event> eventData) {
         eventsData = eventData;
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        eventsData.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(ArrayList<Event> list) {
+        eventsData.addAll(list);
         notifyDataSetChanged();
     }
 }

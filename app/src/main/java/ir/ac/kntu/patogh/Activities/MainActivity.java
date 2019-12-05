@@ -1,6 +1,7 @@
 package ir.ac.kntu.patogh.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,10 +26,15 @@ import androidx.core.view.ViewCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
@@ -36,6 +42,8 @@ import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeRequestLogin;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
+import ir.ac.kntu.patogh.Utils.Dorehami;
+import ir.ac.kntu.patogh.Utils.Event;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -58,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean success = false;
     private boolean doubleBackToExitPressedOnce = false;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +80,13 @@ public class MainActivity extends AppCompatActivity {
 //        }
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        sharedPreferences = getApplicationContext()
+                .getSharedPreferences("TokenPref",0);
         Glide.with(this.getApplicationContext())
                 .load(R.drawable.back)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
                 .into((ImageView) findViewById(R.id.img_mainpage_background));
+        checkValidToken();
         edtPhone.setOnFocusChangeListener((view, b) -> {
             if (b) {
                 edtPhone.setHint(null);
@@ -99,6 +111,44 @@ public class MainActivity extends AppCompatActivity {
                 goToNextPage();
             }
         }
+    }
+
+    public void checkValidToken() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            return;
+        }
+
+        patoghApi.getUserDetails("Bearer " + token).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    System.out.println(response.body());
+                    String res = response.body().string();
+                    System.out.println(res);
+                    JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
+                    String returnValue = jsonObject1.get("returnValue").toString();
+                    JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
+                    String firstName = jsonObject2.get("firstName").getAsString();
+                    if(firstName != null) {
+                        Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
     }
 
     private boolean checkPhone() {

@@ -27,18 +27,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
-            android:focusedByDefault="false"
-            android:nextFocusUp="@id/edt_home_page_search_bar"
-            android:nextFocusLeft="@id/edt_home_page_search_bar"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="#00000000"
             android:focusable="true"
+            android:focusedByDefault="false"
             android:fontFamily="@font/iransans_font"
             android:gravity="right|center_vertical"
             android:inputType="textAutoComplete"
             android:maxLines="1"
+            android:nextFocusLeft="@id/edt_home_page_search_bar"
+            android:nextFocusUp="@id/edt_home_page_search_bar"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
             android:text="@string/edt_home_page_search_hint"
@@ -96,12 +96,19 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_events"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="60dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/home_page_search_bar">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_events"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="60dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

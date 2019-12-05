@@ -31,10 +31,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.ac.kntu.patogh.Activities.EventActivity;
-import ir.ac.kntu.patogh.Adapters.EventAdapter;
 import ir.ac.kntu.patogh.Adapters.FavoriteAdapter;
 import ir.ac.kntu.patogh.R;
-import ir.ac.kntu.patogh.Utils.Event;
+import ir.ac.kntu.patogh.Utils.EqualSpacingItemDecoration;
 import ir.ac.kntu.patogh.Utils.FavoriteEvent;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import com.bumptech.glide.annotation.GlideModule;
@@ -64,6 +63,8 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
         rvFavoriteEvents.setLayoutManager(layoutManager);
         favoriteAdapter = new FavoriteAdapter(this);
+        rvFavoriteEvents.setAdapter(favoriteAdapter);
+        rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(16));
         loadEventsData();
 
         Toolbar toolbar = root.findViewById(R.id.toolbar_profile_page);
@@ -134,14 +135,16 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     @Override
     public void onClick(FavoriteEvent selectedEvent) {
-//        Context context = getContext();
-//        Intent intent = new Intent(context, EventActivity.class);
-//        intent.putExtra("event_name", selectedEvent.getName());
-//        intent.putExtra("event_date", selectedEvent.getDate());
-//        intent.putExtra("event_capacity", selectedEvent.getCapacity());
-//        Pair[] pairs = new Pair[2];
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//            context.startActivity(intent);
-//        }
+        Context context = getContext();
+        Intent intent = new Intent(context, EventActivity.class);
+        intent.putExtra("event_name", selectedEvent.getName());
+        intent.putExtra("event_date", selectedEvent.getDate());
+        intent.putExtra("event_capacity", selectedEvent.getCapacity());
+        Pair[] pairs = new Pair[2];
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            context.startActivity(intent);
+        }
     }
+
+
 }

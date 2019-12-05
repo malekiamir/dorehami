@@ -1,15 +1,11 @@
 package ir.ac.kntu.patogh.Interfaces;
 
-import java.util.List;
-
-import ir.ac.kntu.patogh.Utils.Dorehami;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface PatoghApi {
@@ -27,4 +23,10 @@ public interface PatoghApi {
 
     @GET("/api/Dorehami/get")
     Call<ResponseBody> getDorehami(@Header("Authorization")String token);
+
+    @POST("/api/User/FavDorehamiAdd")
+    Call<ResponseBody> favDorehamiAdd(@Header("Authorization")String token, @Body RequestBody requestBody);
+
+    @POST("/api/User/JoinDorehamiAdd")
+    Call<ResponseBody> joinDorehamiAdd(@Header("Authorization")String token, @Body RequestBody requestBody);
 }

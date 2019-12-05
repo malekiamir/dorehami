@@ -1,21 +1,41 @@
 package ir.ac.kntu.patogh.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.ArrayList;
 
+import ir.ac.kntu.patogh.Activities.HomePageActivity;
+import ir.ac.kntu.patogh.Activities.PhoneVerificationActivity;
+import ir.ac.kntu.patogh.Activities.SignUpActivity;
+import ir.ac.kntu.patogh.ApiDataTypes.TypeEditUserDetails;
+import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
+import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.Utils.Event;
 import ir.ac.kntu.patogh.R;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapterViewHolder> {
 
@@ -24,6 +44,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     private static final long CLICK_TIME_INTERVAL = 1000;
     private final EventAdapterOnClickHandler mClickHandler;
     long now;
+    SharedPreferences sharedPreferences;
+    boolean success = false;
 
     public interface EventAdapterOnClickHandler {
         void onClick(Event selectedEvent, TextView v, ImageView imageView);
@@ -52,7 +74,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             likeButton.setOnLikeListener(new OnLikeListener() {
                 @Override
                 public void liked(LikeButton likeButton) {
-
+                    int adapterPosition = getAdapterPosition();
+                    favDorehamiAdd(eventsData.get(adapterPosition).getId());
                 }
 
                 @Override
@@ -74,12 +97,47 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             Event selectedEvent = eventsData.get(adapterPosition);
             mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
         }
+
+        public boolean favDorehamiAdd(String id) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                    .build();
+            Gson gson = new Gson();
+            PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+            String token = sharedPreferences.getString("Token", "none");
+            if(token.equals("none")) {
+                return false;
+            }
+            TypeFavDorehamiAdd te;
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                    , gson.toJson(te = new TypeFavDorehamiAdd(id)
+                    ));
+
+            Log.d("@@@@@@@@@", te.toString());
+            patoghApi.favDorehamiAdd("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.code() == 200) {
+                        System.out.println("liked event with id : " + id);
+                        success = true;
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    success = false;
+                }
+            });
+            return success;
+        }
     }
 
 
     @Override
     public EventAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
+        sharedPreferences = context
+                .getSharedPreferences("TokenPref",0);
         int layoutIdForListItem = R.layout.card_event;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
@@ -119,4 +177,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         eventsData.addAll(list);
         notifyDataSetChanged();
     }
+
+
 }

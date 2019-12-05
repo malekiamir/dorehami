@@ -4,16 +4,12 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.transition.ArcMotion;
-import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionSet;
 import android.transition.Visibility;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -36,33 +32,25 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import ir.ac.kntu.patogh.Activities.HomePageActivity;
+import ir.ac.kntu.patogh.Activities.EventActivity;
 import ir.ac.kntu.patogh.Activities.MainActivity;
-import ir.ac.kntu.patogh.Activities.PhoneVerificationActivity;
-import ir.ac.kntu.patogh.Activities.SignUpActivity;
-import ir.ac.kntu.patogh.ApiDataTypes.TypeEditUserDetails;
+import ir.ac.kntu.patogh.Adapters.EventAdapter;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
+import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.Dorehami;
 import ir.ac.kntu.patogh.Utils.Event;
-import ir.ac.kntu.patogh.Activities.EventActivity;
-import ir.ac.kntu.patogh.Adapters.EventAdapter;
-import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.KeyboardUtils;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -178,15 +166,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         showEventDataView();
         for (int i = 0; i < 20; i++) {
             events.add(new Event(generateRandomString(5), generateRandomString(25)
-                    , "98/08/18", "ظرفیت : " + (int) (Math.random() * 20 + 10) + ""));
+                    , "98/08/18", "ظرفیت : " + (int) (Math.random() * 20 + 10) + "","1"));
         }
         eventAdapter.setEventData(events);
     }
 
     private void showEventDataView() {
-        /* First, make sure the error is invisible */
-//        mErrorMessageDisplay.setVisibility(View.INVISIBLE);
-        /* Then, make sure the weather data is visible */
         rvEvents.setVisibility(View.VISIBLE);
     }
 
@@ -215,8 +200,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         String token = sharedPreferences.getString("Token", "none");
         if (token.equals("none")) {
             Toast.makeText(getContext(), "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(getActivity(), MainActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
         }
 
         patoghApi.getDorehami("Bearer " + token).enqueue(new Callback<ResponseBody>() {
@@ -235,7 +220,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                     for (Dorehami dorehami : dorehamis) {
                         System.out.println(dorehami.toString());
                         events.add(new Event(dorehami.getName(), dorehami.getDescription()
-                                , dorehami.getStartTime(),dorehami.getSize()+""));
+                                , dorehami.getStartTime(),dorehami.getSize()+"", dorehami.getId()));
                     }
                     eventAdapter.addAll(events);
                     swipeContainer.setRefreshing(false);
@@ -265,6 +250,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         intent.putExtra("event_desc", selectedEvent.getDesc());
         intent.putExtra("event_date", selectedEvent.getDate());
         intent.putExtra("event_capacity", selectedEvent.getCapacity());
+        intent.putExtra("event_id", selectedEvent.getId());
         Pair[] pairs = new Pair[2];
         pairs[0] = new Pair<View, String>(textView, ViewCompat.getTransitionName(textView));
         pairs[1] = new Pair<View, String>(imageView, ViewCompat.getTransitionName(imageView));

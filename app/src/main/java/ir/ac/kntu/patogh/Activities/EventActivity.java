@@ -2,6 +2,7 @@ package ir.ac.kntu.patogh.Activities;
 
 import android.animation.TimeInterpolator;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionSet;
 import android.transition.Visibility;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +35,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import org.neshan.core.Bounds;
 import org.neshan.core.LngLat;
@@ -48,9 +53,24 @@ import org.neshan.ui.MapView;
 import org.neshan.utils.BitmapUtils;
 import org.neshan.vectorelements.Marker;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
+import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
+import ir.ac.kntu.patogh.Utils.Dorehami;
+import ir.ac.kntu.patogh.Utils.Event;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class EventActivity extends AppCompatActivity {
 
@@ -65,6 +85,8 @@ public class EventActivity extends AppCompatActivity {
     @BindView(R.id.tv_map_hint)
     TextView tvMapHint;
     VectorElementLayer markerLayer;
+    SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +95,8 @@ public class EventActivity extends AppCompatActivity {
         setupWindowAnimations();
         ButterKnife.bind(this);
         getIncomingIntent();
+        sharedPreferences = getApplicationContext()
+                .getSharedPreferences("TokenPref", 0);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,8 +108,10 @@ public class EventActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "ثبت نام شما با موفقیت انجام شد.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(getIntent().hasExtra("event_id")) {
+                    String dorehamiId = getIntent().getStringExtra("event_id");
+                    joinDorehami(dorehamiId);
+                }
             }
         });
         LngLat focalPoint = new LngLat(51.336434, 35.6990015);
@@ -188,6 +214,42 @@ public class EventActivity extends AppCompatActivity {
         public boolean onSingleTapUp(MotionEvent event) {
             return true;
         }
+    }
+
+    public void joinDorehami(String id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            Toast.makeText(EventActivity.this, "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(EventActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        TypeFavDorehamiAdd te;
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(te = new TypeFavDorehamiAdd(id)
+                ));
+
+        Log.d("@@@@@@@@@", te.toString());
+        patoghApi.joinDorehamiAdd("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    System.out.println("joined event with id : " + id);
+                }
+                System.out.println("response code not 200" + " " + id + " " + response.code());
+                System.out.println(response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("no responseeeee");
+            }
+        });
     }
 
 }

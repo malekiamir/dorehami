@@ -3,6 +3,8 @@ package ir.ac.kntu.patogh.ui.home;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.ArcMotion;
@@ -11,6 +13,7 @@ import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionSet;
 import android.transition.Visibility;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,9 +32,26 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.muddzdev.styleabletoast.StyleableToast;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import ir.ac.kntu.patogh.Activities.HomePageActivity;
+import ir.ac.kntu.patogh.Activities.MainActivity;
+import ir.ac.kntu.patogh.Activities.PhoneVerificationActivity;
+import ir.ac.kntu.patogh.Activities.SignUpActivity;
+import ir.ac.kntu.patogh.ApiDataTypes.TypeEditUserDetails;
+import ir.ac.kntu.patogh.Interfaces.PatoghApi;
+import ir.ac.kntu.patogh.Utils.Dorehami;
 import ir.ac.kntu.patogh.Utils.Event;
 import ir.ac.kntu.patogh.Activities.EventActivity;
 import ir.ac.kntu.patogh.Adapters.EventAdapter;
@@ -40,6 +60,13 @@ import ir.ac.kntu.patogh.Utils.KeyboardUtils;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, EventAdapter.EventAdapterOnClickHandler {
 
@@ -56,6 +83,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
     RecyclerView rvEvents;
     private EventAdapter eventAdapter;
     private Unbinder unbinder;
+    private SharedPreferences sharedPreferences;
+    private ArrayList<Event> events;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +94,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         setupWindowAnimations();
         unbinder = ButterKnife.bind(this, root);
+        events = new ArrayList<>();
+        sharedPreferences = getActivity()
+                .getSharedPreferences("TokenPref",0);
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -122,22 +155,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
 
     public String generateRandomString(int length) {
         String out = "";
-        String []alphabet = {"ا","ب","ی","ت","س","ج","م","د","ر"};
+        String[] alphabet = {"ا", "ب", "ی", "ت", "س", "ج", "م", "د", "ر"};
 
         for (int i = 0; i < length; i++) {
-            out += alphabet[(int)(Math.random()*9)];
+            out += alphabet[(int) (Math.random() * 9)];
         }
         return out;
     }
 
     private void loadEventsData() {
         showEventDataView();
-        Event []events = new Event[20];
-        for (int i = 0; i < events.length; i++) {
-            events[i] = new Event(generateRandomString(5), generateRandomString(25)
-                    , "98/08/18", "ظرفیت : "+(int)(Math.random()*20+10)+ "");
+        for (int i = 0; i < 20; i++) {
+            events.add(new Event(generateRandomString(5), generateRandomString(25)
+                    , "98/08/18", "ظرفیت : " + (int) (Math.random() * 20 + 10) + ""));
         }
-//        System.out.println(events.length);
         eventAdapter.setEventData(events);
     }
 
@@ -154,6 +185,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
             Toast.makeText(view.getContext(), "sort", Toast.LENGTH_SHORT).show();
         } else if (view.getId() == R.id.btn_img_search_bar_search) {
             Toast.makeText(view.getContext(), "search", Toast.LENGTH_SHORT).show();
+            getDorehami();
         } else if (view.getId() == R.id.btn_img_search_bar_cancel) {
             btnImgSort.setVisibility(View.VISIBLE);
             btnImgCancel.setVisibility(View.GONE);
@@ -161,6 +193,47 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
             edtSearch.setText(R.string.edt_home_page_search_hint);
             KeyboardUtils.hideKeyboard(this.getActivity());
         }
+    }
+
+    public void getDorehami() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            Toast.makeText(getContext(), "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
+//            Intent intent = new Intent(getActivity(), MainActivity.class);
+//            startActivity(intent);
+        }
+
+        patoghApi.getDorehami("Bearer " + token).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    System.out.println(response.body());
+                    String res = response.body().string();
+                    System.out.println(res);
+                    JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
+                    String returnValue = jsonObject1.get("returnValue").toString();
+                    Type dorehamiType = new TypeToken<ArrayList<Dorehami>>(){}.getType();
+                    ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
+                    for (Dorehami dorehami : dorehamis) {
+                        System.out.println(dorehami.toString());
+                        events.add(new Event(dorehami.getName(), dorehami.getDescription()
+                                , dorehami.getStartTime(),dorehami.getSize()+""));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getContext(), "shit we should work on it", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

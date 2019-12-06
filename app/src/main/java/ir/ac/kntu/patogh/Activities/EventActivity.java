@@ -4,6 +4,7 @@ import android.animation.TimeInterpolator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.neshan.core.Bounds;
 import org.neshan.core.LngLat;
@@ -244,14 +246,27 @@ public class EventActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 200) {
                     System.out.println("joined event with id : " + id);
+                } else {
+                    System.out.println("response code not 200" + " " + id + " " + response.code());
+                    System.out.println(response.message());
+                    new StyleableToast
+                            .Builder(EventActivity.this)
+                            .text("خطایی رخ داده")
+                            .textColor(Color.WHITE)
+                            .backgroundColor(Color.argb(255, 255, 94, 100))
+                            .show();
                 }
-                System.out.println("response code not 200" + " " + id + " " + response.code());
-                System.out.println(response.message());
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 System.out.println("no responseeeee");
+                new StyleableToast
+                        .Builder(EventActivity.this)
+                        .text("لطفا اتصال اینترنت خود را بررسی نمایید")
+                        .textColor(Color.WHITE)
+                        .backgroundColor(Color.argb(255, 255, 94, 100))
+                        .show();
             }
         });
     }

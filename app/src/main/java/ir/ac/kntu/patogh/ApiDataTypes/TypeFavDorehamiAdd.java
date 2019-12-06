@@ -5,4 +5,8 @@ public class TypeFavDorehamiAdd {
     public TypeFavDorehamiAdd(String idString) {
         this.idString = idString;
     }
+
+    public String getIdString() {
+        return idString;
+    }
 }

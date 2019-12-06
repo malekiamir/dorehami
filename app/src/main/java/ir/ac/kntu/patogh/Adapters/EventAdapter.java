@@ -113,7 +113,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
                     , gson.toJson(te = new TypeFavDorehamiAdd(id)
                     ));
 
-            Log.d("@@@@@@@@@", te.toString());
+            Log.d("@@@@@@@@@", te.getIdString());
             patoghApi.favDorehamiAdd("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -177,6 +177,5 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         eventsData.addAll(list);
         notifyDataSetChanged();
     }
-
 
 }

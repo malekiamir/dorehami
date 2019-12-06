@@ -53,6 +53,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
     public EventAdapter(EventAdapterOnClickHandler clickHandler) {
         mClickHandler = clickHandler;
+        eventsData = new ArrayList<>();
     }
 
     public class EventAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -80,7 +81,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
                 @Override
                 public void unLiked(LikeButton likeButton) {
-
+                    int adapterPosition = getAdapterPosition();
+                    favDorehamiRemove(eventsData.get(adapterPosition).getId());
                 }
             });
             view.setOnClickListener(this);
@@ -98,7 +100,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
         }
 
-        public boolean favDorehamiAdd(String id) {
+        boolean favDorehamiAdd(String id) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://eg.potatogamers.ir:7701/api/")
                     .build();
@@ -130,6 +132,40 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             });
             return success;
         }
+
+        boolean favDorehamiRemove(String id) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                    .build();
+            Gson gson = new Gson();
+            PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+            String token = sharedPreferences.getString("Token", "none");
+            if(token.equals("none")) {
+                return false;
+            }
+            TypeFavDorehamiAdd te;
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                    , gson.toJson(te = new TypeFavDorehamiAdd(id)
+                    ));
+
+            Log.d("@@@@@@@@@", te.getIdString());
+            patoghApi.favDorehamiRemove("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.code() == 200) {
+                        System.out.println("disliked event with id : " + id);
+                        success = true;
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    success = false;
+                }
+            });
+            return success;
+        }
+
     }
 
 

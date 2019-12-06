@@ -111,6 +111,10 @@ public class EventActivity extends AppCompatActivity {
                 if(getIntent().hasExtra("event_id")) {
                     String dorehamiId = getIntent().getStringExtra("event_id");
                     joinDorehami(dorehamiId);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        fab.setIcon(getDrawable(R.drawable.ic_done_white_48dp));
+                        fab.setText("شما عضو رویداد هستید");
+                    }
                 }
             }
         });

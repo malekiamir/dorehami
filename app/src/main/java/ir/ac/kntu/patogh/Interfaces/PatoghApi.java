@@ -24,9 +24,12 @@ public interface PatoghApi {
     @GET("/api/Dorehami/get")
     Call<ResponseBody> getDorehami(@Header("Authorization")String token);
 
-    @POST("/api/User/FavDorehamiAdd")
+    @POST("/api/User/favDorehamiAdd")
     Call<ResponseBody> favDorehamiAdd(@Header("Authorization")String token, @Body RequestBody requestBody);
 
-    @POST("/api/User/JoinDorehamiAdd")
+    @POST("/api/User/favDorehamiRemove")
+    Call<ResponseBody> favDorehamiRemove(@Header("Authorization")String token, @Body RequestBody requestBody);
+
+    @POST("/api/User/joinDorehamiAdd")
     Call<ResponseBody> joinDorehamiAdd(@Header("Authorization")String token, @Body RequestBody requestBody);
 }

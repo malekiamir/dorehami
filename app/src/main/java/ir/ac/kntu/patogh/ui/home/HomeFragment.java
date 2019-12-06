@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         scaleInAnimationAdapter.setDuration(150);
         scaleInAnimationAdapter.setFirstOnly(false);
         rvEvents.setAdapter(scaleInAnimationAdapter);
-        loadEventsData();
+        getDorehami();
 
 
         edtSearch.setOnFocusChangeListener((view, b) -> {
@@ -126,7 +126,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         btnImgCancel.setOnClickListener(this);
         btnImgSearch.setOnClickListener(this);
         btnImgSort.setOnClickListener(this);
-        loadEventsData();
         return root;
     }
 
@@ -181,7 +180,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
             Toast.makeText(view.getContext(), "sort", Toast.LENGTH_SHORT).show();
         } else if (view.getId() == R.id.btn_img_search_bar_search) {
             Toast.makeText(view.getContext(), "search", Toast.LENGTH_SHORT).show();
-            getDorehami();
         } else if (view.getId() == R.id.btn_img_search_bar_cancel) {
             btnImgSort.setVisibility(View.VISIBLE);
             btnImgCancel.setVisibility(View.GONE);
@@ -210,6 +208,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                 try {
 
                     eventAdapter.clear();
+                    events.clear();
                     System.out.println(response.body());
                     String res = response.body().string();
                     System.out.println(res);

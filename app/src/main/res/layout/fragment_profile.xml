@@ -2,166 +2,134 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment"
-    android:theme="@style/AppTheme.ProfileTheme">
+    android:background="#eceff1"
+    android:theme="@style/AppTheme.ProfileTheme"
+    tools:context=".ui.profile.ProfileFragment">
 
 
-    <include
-        android:id="@+id/toolbar_profile_page"
-        layout="@layout/toolbar"/>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/img_profile_back_pic"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/img_profile_circlar_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:scaleType="fitCenter"
-            app:civ_border_color="#FFF8BC"
-            app:civ_border_width="1dp"
-            app:civ_shadow="true"
-            app:civ_shadow_color="#F0D919"
-            app:civ_shadow_radius="5"
-            app:layout_constraintBottom_toTopOf="@+id/guideline54"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline53"
-            app:layout_constraintVertical_bias="1.0" />
+            <include
+                android:id="@+id/toolbar_profile_page"
+                layout="@layout/toolbar" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline53"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_profie_page_user_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_profile_page">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline54"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.7" />
+                <ImageView
+                    android:id="@+id/img_profile_circlar_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline55"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.0" />
+            <TextView
+                android:id="@+id/tv_profile_page_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/iransans_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingBottom="4dp"
+                android:text="فرزان فراهانی"
+                android:textColor="#11103d"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_profie_page_user_image" />
 
-        <TextView
-            android:id="@+id/tv_profile_page_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/iransans_bold"
-            android:gravity="center"
-            android:text="فرزان فراهانی"
-            android:textColor="#fff176"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_profile_circlar_pic" />
+            <TextView
+                android:id="@+id/tv_profile_page_adjective"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/iransans"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="تازه وارد"
+                android:textColor="#11103d"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_name" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="164dp"
-            android:fontFamily="@font/iransans"
-            android:gravity="center"
-            android:text="تازه وارد"
-            android:textColor="#ffffa8"
-            android:textSize="17sp"
-            app:layout_constraintBottom_toTopOf="@id/guideline57"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/tv_profile_page_favorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="10dp"
+                android:alpha="0.6"
+                android:fontFamily="@font/iransans"
+                android:text="علاقمندیهای من"
+                android:textColor="#11103d"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_adjective" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline56"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.82" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline57"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.92" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_favorite_events"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="4dp"
+                android:visibility="invisible"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_favorites" />
 
 
+            <TextView
+                android:id="@+id/tv_profile_page_badges_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="15dp"
+                android:alpha="0.6"
+                android:fontFamily="@font/iransans"
+                android:includeFontPadding="false"
+                android:text="نشانهای من"
+                android:textColor="#11103d"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_favorite_events" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline70"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.37" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0.7"
-        android:text="علاقمندی های من"
-        android:textColor="#000000"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline68"
-        app:layout_constraintTop_toTopOf="@+id/guideline70" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_favorite_events"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintEnd_toStartOf="@+id/guideline68"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline67"
-        app:layout_constraintTop_toTopOf="@+id/guideline69" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline67"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline68"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline69"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.42" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_profile_page_badges"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="4dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_badges_text" />
 
 
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

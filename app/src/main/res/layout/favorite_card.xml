@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="150dp"
+    android:layout_width="154dp"
     android:layout_height="200dp"
-    android:background="#ffffffff"
     android:id="@+id/constraintLayout_favorite_card"
     android:elevation="2dp"
+    android:background="@drawable/rounded_favorite_card"
     >
 
     <ImageView
@@ -39,35 +39,34 @@
         android:id="@+id/tv_favorite_card_event_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="488dp"
-        android:text="دوچرخه سواری "
-        android:textSize="18sp"
-        android:textColor="#000000"
         android:fontFamily="@font/yekan_font"
-        app:layout_constraintBottom_toTopOf="@+id/tv_favorite_card_date"
+        android:text="دوچرخه سواری "
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline60"
         app:layout_constraintTop_toBottomOf="@+id/guideline59" />
 
     <ImageView
         android:id="@+id/img_favorite_card_date_icon"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
         android:src="@drawable/ic_time"
+        app:layout_constraintBottom_toTopOf="@+id/guideline64"
         app:layout_constraintEnd_toStartOf="@+id/guideline60"
-        app:layout_constraintTop_toBottomOf="@+id/tv_favorite_card_event_name" />
+        app:layout_constraintTop_toTopOf="@+id/guideline63" />
 
     <TextView
         android:id="@+id/tv_favorite_card_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0.6"
         android:fontFamily="@font/iransans_font"
         android:text="7 دی ساعت 12:30"
-        android:alpha="0.6"
         android:textColor="#000000"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/img_favorite_card_date_icon"
-        app:layout_constraintTop_toBottomOf="@+id/tv_favorite_card_event_name" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline64"
+        app:layout_constraintEnd_toStartOf="@+id/guideline66"
+        app:layout_constraintTop_toTopOf="@+id/guideline63" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline60"
@@ -79,23 +78,24 @@
     <ImageView
         android:id="@+id/img_favorite_card_capacity_icon"
         android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:src="@drawable/ic_time"
-        android:layout_marginTop="4.5dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_multiple_users_silhouette"
+        app:layout_constraintBottom_toTopOf="@+id/guideline65"
         app:layout_constraintEnd_toStartOf="@+id/guideline60"
-        app:layout_constraintTop_toBottomOf="@+id/img_favorite_card_date_icon" />
+        app:layout_constraintTop_toTopOf="@+id/guideline64" />
 
     <TextView
         android:id="@+id/tv_favorite_card_capacity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ظرفیت : 10 نفر"
         android:alpha="0.6"
         android:fontFamily="@font/iransans_font"
+        android:text="ظرفیت : 10 نفر"
         android:textColor="#000000"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/img_favorite_card_capacity_icon"
-        app:layout_constraintTop_toBottomOf="@+id/tv_favorite_card_date" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline65"
+        app:layout_constraintEnd_toStartOf="@+id/guideline66"
+        app:layout_constraintTop_toTopOf="@+id/guideline64" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline61"
@@ -132,5 +132,33 @@
         app:layout_constraintTop_toTopOf="@+id/tv_favorite_card_location"
         app:layout_constraintBottom_toBottomOf="@+id/tv_favorite_card_location"
         app:layout_constraintStart_toEndOf="@+id/tv_favorite_card_location"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline63"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.72" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline64"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.79" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline65"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.86" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline66"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.87" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

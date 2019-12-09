@@ -11,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,8 +33,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.ac.kntu.patogh.Activities.EventActivity;
+import ir.ac.kntu.patogh.Adapters.BadgeAdapter;
 import ir.ac.kntu.patogh.Adapters.FavoriteAdapter;
 import ir.ac.kntu.patogh.R;
+import ir.ac.kntu.patogh.Utils.Badge;
 import ir.ac.kntu.patogh.Utils.EqualSpacingItemDecoration;
 import ir.ac.kntu.patogh.Utils.FavoriteEvent;
 import jp.wasabeef.glide.transformations.BlurTransformation;
@@ -40,13 +44,18 @@ import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-public class ProfileFragment extends Fragment implements FavoriteAdapter.FavoriteAdapterOnClickHandler {
+import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
 
+public class ProfileFragment extends Fragment implements FavoriteAdapter.FavoriteAdapterOnClickHandler, BadgeAdapter.BadgeAdapterOnClickHandler {
 
+    @BindView(R.id.rv_profile_page_badges)
+    RecyclerView rvBadge;
     @BindView(R.id.rv_favorite_events)
     RecyclerView rvFavoriteEvents;
     private FavoriteAdapter favoriteAdapter;
+    private BadgeAdapter badgeAdapter;
     private Unbinder unbinder;
     private ProfileViewModel profileViewModel;
 
@@ -64,20 +73,31 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvFavoriteEvents.setLayoutManager(layoutManager);
         favoriteAdapter = new FavoriteAdapter(this);
         rvFavoriteEvents.setAdapter(favoriteAdapter);
-        rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(16));
+        rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(22));
         loadEventsData();
 
         Toolbar toolbar = root.findViewById(R.id.toolbar_profile_page);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_history);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         setHasOptionsMenu(true);
 
-        Glide.with(this.getContext())
-                .load(R.drawable.sixth_back)
-                .centerCrop()
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation(5, 3)))
-                .into((ImageView)root.findViewById(R.id.img_profile_back_pic));
+
+        LinearLayoutManager badgeLayoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvBadge.setLayoutManager(badgeLayoutManager);
+        badgeAdapter= new BadgeAdapter(this);
+        rvBadge.setAdapter(badgeAdapter);
+        rvBadge.addItemDecoration(new EqualSpacingItemDecoration(22));
+        loadBadges();
+
+//        Glide.with(this.getContext())
+//                .load(R.drawable.seventh_back)
+//                .centerCrop()
+//                .apply(RequestOptions.bitmapTransform(new BlurTransformation(3, 3)))
+//                .into((ImageView)root.findViewById(R.id.img_profile_back_pic));
 
   //      ImageView imageView;
 //        imageView = root.findViewById(R.id.img_profile_circlar_pic).bringToFront();
@@ -93,7 +113,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                 .load(R.drawable.back)
                 .placeholder(R.drawable.back)
                 .error(R.drawable.back)
-                .circleCrop()
+                //.circleCrop()
                 .skipMemoryCache(true) //2
                 .diskCacheStrategy(DiskCacheStrategy.NONE) //3
                 .into((ImageView)root.findViewById(R.id.img_profile_circlar_pic));
@@ -126,6 +146,16 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         favoriteAdapter.setEventData(events);
     }
 
+    private void loadBadges() {
+        ArrayList<Badge> badges = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            badges.add(new Badge(R.id.badge_icon));
+          //  badges.add(parseInt(String.valueOf(R.drawable.ic_badge)));
+        }
+//        System.out.println(events.length);
+        badgeAdapter.setEventData(badges);
+    }
+
     private void showEventDataView() {
         /* First, make sure the error is invisible */
 //        mErrorMessageDisplay.setVisibility(View.INVISIBLE);
@@ -147,4 +177,8 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     }
 
 
+    @Override
+    public void onClick(Badge selectedBadge, ImageView imageView) {
+
+    }
 }

@@ -15,6 +15,8 @@ public class Dorehami {
     String address;
     String province;
     String thumbnailId;
+    private boolean isJoined;
+    private boolean isFavorited;
 
     public String getSummery() {
         return summery;
@@ -128,6 +130,21 @@ public class Dorehami {
         this.longitude = longitude;
     }
 
+    public boolean isJoined() {
+        return isJoined;
+    }
+
+    public void setJoined(boolean joined) {
+        isJoined = joined;
+    }
+
+    public boolean isFavorited() {
+        return isFavorited;
+    }
+
+    public void setFavorited(boolean favorited) {
+        isFavorited = favorited;
+    }
 
     @Override
     public String toString() {
@@ -146,6 +163,8 @@ public class Dorehami {
                 ", address='" + address + '\'' +
                 ", province='" + province + '\'' +
                 ", thumbnailId='" + thumbnailId + '\'' +
+                ", isJoined=" + isJoined +
+                ", isFavorited=" + isFavorited +
                 '}';
     }
 }

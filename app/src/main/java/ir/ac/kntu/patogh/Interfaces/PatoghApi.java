@@ -21,8 +21,8 @@ public interface PatoghApi {
     @POST("/api/User/getUserDetails")
     Call<ResponseBody> getUserDetails(@Header("Authorization")String token);
 
-    @GET("/api/Dorehami/get")
-    Call<ResponseBody> getDorehami(@Header("Authorization")String token);
+    @GET("/api/Dorehami/getSummery")
+    Call<ResponseBody> getSummery(@Header("Authorization")String token);
 
     @POST("/api/User/favDorehamiAdd")
     Call<ResponseBody> favDorehamiAdd(@Header("Authorization")String token, @Body RequestBody requestBody);
@@ -35,4 +35,7 @@ public interface PatoghApi {
 
     @POST("/api/Image/downloadThumbnail")
     Call<ResponseBody> downloadThumbnail(@Header("Authorization")String token, @Body RequestBody requestBody);
+
+    @POST("/api/Image/downloadImage")
+    Call<ResponseBody> downloadImage(@Header("Authorization")String token, @Body RequestBody requestBody);
 }

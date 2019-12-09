@@ -38,10 +38,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     private long mLastClickTime = System.currentTimeMillis();
     private static final long CLICK_TIME_INTERVAL = 1000;
     private final EventAdapterOnClickHandler mClickHandler;
-    long now;
-    SharedPreferences sharedPreferences;
-    boolean success = false;
-    Context context;
+    private long now;
+    private SharedPreferences sharedPreferences;
+    private boolean success = false;
+    private Context context;
 
     public interface EventAdapterOnClickHandler {
         void onClick(Event selectedEvent, TextView v, ImageView imageView);
@@ -185,12 +185,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         eventAdapterViewHolder.eventSummaryTextView.setText(selectedEvent.getDesc());
         eventAdapterViewHolder.eventDateCapacityTextView.setText(String.format("%s\n%s"
                 , selectedEvent.getDate(), selectedEvent.getCapacity()));
+        eventAdapterViewHolder.likeButton.setLiked(selectedEvent.isFavorited());
         downloadThumbnail(selectedEvent.getThumbnailId(), eventAdapterViewHolder.eventImage);
-
     }
 
-
-    public void downloadThumbnail(String id, ImageView eventImage) {
+    private void downloadThumbnail(String id, ImageView eventImage) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://eg.potatogamers.ir:7701/api/")
                 .build();
@@ -211,7 +210,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 200) {
-
                     System.out.println("downloaded");
                     Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
                     Glide.with(context)
@@ -228,7 +226,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             }
         });
     }
-
 
     @Override
     public int getItemCount() {

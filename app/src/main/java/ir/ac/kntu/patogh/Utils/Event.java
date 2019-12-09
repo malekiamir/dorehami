@@ -7,17 +7,38 @@ public class Event {
     private String capacity;
     private String id;
     private String thumbnailId;
+    private boolean isJoined;
+    private boolean isFavorited;
 
     public Event() {
     }
 
-    public Event(String name, String desc, String date, String capacity, String id, String thumbnailId) {
+    public Event(String name, String desc, String date, String capacity, String id, String thumbnailId
+            , boolean isJoined, boolean isFavorited) {
         this.name = name;
         this.desc = desc;
         this.date = date;
         this.capacity = capacity;
         this.id = id;
         this.thumbnailId = thumbnailId;
+        this.isFavorited = isFavorited;
+        this.isJoined = isJoined;
+    }
+
+    public boolean isJoined() {
+        return isJoined;
+    }
+
+    public void setJoined(boolean joined) {
+        isJoined = joined;
+    }
+
+    public boolean isFavorited() {
+        return isFavorited;
+    }
+
+    public void setFavorited(boolean favorited) {
+        isFavorited = favorited;
     }
 
     public String getThumbnailId() {

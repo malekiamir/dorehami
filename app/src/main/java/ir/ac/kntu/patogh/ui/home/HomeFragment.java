@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getDorehami();
+                getSummery();
             }
         });
         swipeContainer.setColorSchemeResources(R.color.patoghYellow, R.color.patoghBlue);
@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         scaleInAnimationAdapter.setDuration(150);
         scaleInAnimationAdapter.setFirstOnly(false);
         rvEvents.setAdapter(scaleInAnimationAdapter);
-        getDorehami();
+        getSummery();
 
 
         edtSearch.setOnFocusChangeListener((view, b) -> {
@@ -166,7 +166,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         }
     }
 
-    public void getDorehami() {
+    public void getSummery() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://eg.potatogamers.ir:7701/api/")
                 .build();
@@ -179,11 +179,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
             startActivity(intent);
         }
 
-        patoghApi.getDorehami("Bearer " + token).enqueue(new Callback<ResponseBody>() {
+        patoghApi.getSummery("Bearer " + token).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-
                     eventAdapter.clear();
                     events.clear();
                     System.out.println(response.body());
@@ -195,8 +194,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                     ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
                     for (Dorehami dorehami : dorehamis) {
                         System.out.println(dorehami.toString());
-                        events.add(new Event(dorehami.getName(), dorehami.getDescription()
-                                , dorehami.getStartTime(),dorehami.getSize()+"", dorehami.getId(), dorehami.getThumbnailId()));
+                        events.add(new Event(dorehami.getName(), dorehami.getSummery()
+                                , dorehami.getStartTime(),dorehami.getSize()+"", dorehami.getId()
+                                , dorehami.getThumbnailId(), dorehami.isJoined(), dorehami.isFavorited()));
                     }
                     eventAdapter.addAll(events);
                     swipeContainer.setRefreshing(false);
@@ -233,7 +233,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptions options = ActivityOptions
                     .makeSceneTransitionAnimation(getActivity(), pairs);
-            context.startActivity(intent, options.toBundle());
+//            context.startActivity(intent, options.toBundle());
+            context.startActivity(intent);
         }
 
     }

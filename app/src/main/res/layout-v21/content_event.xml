@@ -25,8 +25,19 @@
                 android:transitionName="@string/event_img_transition_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/back" />
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/progress_event"
+                style="@style/SpinKitView.Large.Circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:SpinKit_Color="@color/patoghYellow"
+                app:layout_constraintBottom_toBottomOf="@+id/img_event"
+                app:layout_constraintEnd_toEndOf="@+id/img_event"
+                app:layout_constraintStart_toStartOf="@+id/img_event"
+                app:layout_constraintTop_toTopOf="@+id/img_event" />
 
             <TextView
                 android:id="@+id/tv_event_name"

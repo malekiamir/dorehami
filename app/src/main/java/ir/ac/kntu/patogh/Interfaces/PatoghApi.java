@@ -32,4 +32,7 @@ public interface PatoghApi {
 
     @POST("/api/User/joinDorehamiAdd")
     Call<ResponseBody> joinDorehamiAdd(@Header("Authorization")String token, @Body RequestBody requestBody);
+
+    @POST("/api/Image/downloadThumbnail")
+    Call<ResponseBody> downlaodThumbnail(@Header("Authorization")String token, @Body RequestBody requestBody);
 }

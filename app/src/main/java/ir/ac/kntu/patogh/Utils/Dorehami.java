@@ -6,12 +6,39 @@ public class Dorehami {
     String creatorId;
     String startTime;
     String endTime;
-    String address;
     int size;
     String description;
+    String summery;
     boolean isPhysical;
     String latitude;
     String longitude;
+    String address;
+    String province;
+    String thumbnailId;
+
+    public String getSummery() {
+        return summery;
+    }
+
+    public void setSummery(String summery) {
+        this.summery = summery;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getThumbnailId() {
+        return thumbnailId;
+    }
+
+    public void setThumbnailId(String thumbnailId) {
+        this.thumbnailId = thumbnailId;
+    }
 
     public String getId() {
         return id;
@@ -97,6 +124,11 @@ public class Dorehami {
         return longitude;
     }
 
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+
     @Override
     public String toString() {
         return "Dorehami{" +
@@ -105,18 +137,15 @@ public class Dorehami {
                 ", creatorId='" + creatorId + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
-                ", address='" + address + '\'' +
                 ", size=" + size +
                 ", description='" + description + '\'' +
+                ", summery='" + summery + '\'' +
                 ", isPhysical=" + isPhysical +
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
+                ", address='" + address + '\'' +
+                ", province='" + province + '\'' +
+                ", thumbnailId='" + thumbnailId + '\'' +
                 '}';
     }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-
 }

@@ -6,16 +6,26 @@ public class Event {
     private String date;
     private String capacity;
     private String id;
+    private String thumbnailId;
 
     public Event() {
     }
 
-    public Event(String name, String desc, String date, String capacity, String id) {
+    public Event(String name, String desc, String date, String capacity, String id, String thumbnailId) {
         this.name = name;
         this.desc = desc;
         this.date = date;
         this.capacity = capacity;
         this.id = id;
+        this.thumbnailId = thumbnailId;
+    }
+
+    public String getThumbnailId() {
+        return thumbnailId;
+    }
+
+    public void setThumbnailId(String thumbnailId) {
+        this.thumbnailId = thumbnailId;
     }
 
     public String getName() {

@@ -3,6 +3,8 @@ package ir.ac.kntu.patogh.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -21,7 +25,9 @@ import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.ArrayList;
 
+import ir.ac.kntu.patogh.Activities.EventActivity;
 import ir.ac.kntu.patogh.Activities.HomePageActivity;
+import ir.ac.kntu.patogh.Activities.MainActivity;
 import ir.ac.kntu.patogh.Activities.PhoneVerificationActivity;
 import ir.ac.kntu.patogh.Activities.SignUpActivity;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeEditUserDetails;
@@ -29,6 +35,7 @@ import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.Utils.Event;
 import ir.ac.kntu.patogh.R;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -46,6 +53,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     long now;
     SharedPreferences sharedPreferences;
     boolean success = false;
+    Context context;
 
     public interface EventAdapterOnClickHandler {
         void onClick(Event selectedEvent, TextView v, ImageView imageView);
@@ -171,7 +179,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
     @Override
     public EventAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        Context context = viewGroup.getContext();
+        context = viewGroup.getContext();
         sharedPreferences = context
                 .getSharedPreferences("TokenPref",0);
         int layoutIdForListItem = R.layout.card_event;
@@ -189,6 +197,48 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         eventAdapterViewHolder.eventSummaryTextView.setText(selectedEvent.getDesc());
         eventAdapterViewHolder.eventDateCapacityTextView.setText(String.format("%s\n%s"
                 , selectedEvent.getDate(), selectedEvent.getCapacity()));
+        downloadThumbnail(selectedEvent.getThumbnailId(), eventAdapterViewHolder.eventImage);
+
+    }
+
+
+    public void downloadThumbnail(String id, ImageView eventImage) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            return;
+        }
+
+        TypeFavDorehamiAdd te;
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(te = new TypeFavDorehamiAdd(id)
+                ));
+
+        Log.d("@@@@@@@@@", te.toString());
+        patoghApi.downlaodThumbnail("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+
+                    System.out.println("downloaded");
+                    Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
+                    Glide.with(context)
+                            .load(bmp)
+                            .into(eventImage);
+                } else {
+                    System.out.println("failed to download");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("no responseeeee");
+            }
+        });
     }
 
 

@@ -151,29 +151,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         }
     }
 
-    public String generateRandomString(int length) {
-        String out = "";
-        String[] alphabet = {"ا", "ب", "ی", "ت", "س", "ج", "م", "د", "ر"};
-
-        for (int i = 0; i < length; i++) {
-            out += alphabet[(int) (Math.random() * 9)];
-        }
-        return out;
-    }
-
-    private void loadEventsData() {
-        showEventDataView();
-        for (int i = 0; i < 20; i++) {
-            events.add(new Event(generateRandomString(5), generateRandomString(25)
-                    , "98/08/18", "ظرفیت : " + (int) (Math.random() * 20 + 10) + "","1"));
-        }
-        eventAdapter.setEventData(events);
-    }
-
-    private void showEventDataView() {
-        rvEvents.setVisibility(View.VISIBLE);
-    }
-
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_img_search_bar_sort) {
@@ -219,7 +196,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                     for (Dorehami dorehami : dorehamis) {
                         System.out.println(dorehami.toString());
                         events.add(new Event(dorehami.getName(), dorehami.getDescription()
-                                , dorehami.getStartTime(),dorehami.getSize()+"", dorehami.getId()));
+                                , dorehami.getStartTime(),dorehami.getSize()+"", dorehami.getId(), dorehami.getThumbnailId()));
                     }
                     eventAdapter.addAll(events);
                     swipeContainer.setRefreshing(false);

@@ -110,7 +110,7 @@ public class EventActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getIntent().hasExtra("event_id")) {
+                if (getIntent().hasExtra("event_id")) {
                     String dorehamiId = getIntent().getStringExtra("event_id");
                     joinDorehami(dorehamiId);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

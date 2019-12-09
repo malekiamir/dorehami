@@ -1,41 +1,29 @@
 package ir.ac.kntu.patogh.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
-import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.ArrayList;
 
-import ir.ac.kntu.patogh.Activities.EventActivity;
-import ir.ac.kntu.patogh.Activities.HomePageActivity;
-import ir.ac.kntu.patogh.Activities.MainActivity;
-import ir.ac.kntu.patogh.Activities.PhoneVerificationActivity;
-import ir.ac.kntu.patogh.Activities.SignUpActivity;
-import ir.ac.kntu.patogh.ApiDataTypes.TypeEditUserDetails;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
-import ir.ac.kntu.patogh.Utils.Event;
 import ir.ac.kntu.patogh.R;
-import jp.wasabeef.glide.transformations.BlurTransformation;
+import ir.ac.kntu.patogh.Utils.Event;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -115,7 +103,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             Gson gson = new Gson();
             PatoghApi patoghApi = retrofit.create(PatoghApi.class);
             String token = sharedPreferences.getString("Token", "none");
-            if(token.equals("none")) {
+            if (token.equals("none")) {
                 return false;
             }
             TypeFavDorehamiAdd te;
@@ -148,7 +136,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             Gson gson = new Gson();
             PatoghApi patoghApi = retrofit.create(PatoghApi.class);
             String token = sharedPreferences.getString("Token", "none");
-            if(token.equals("none")) {
+            if (token.equals("none")) {
                 return false;
             }
             TypeFavDorehamiAdd te;
@@ -181,7 +169,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     public EventAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         context = viewGroup.getContext();
         sharedPreferences = context
-                .getSharedPreferences("TokenPref",0);
+                .getSharedPreferences("TokenPref", 0);
         int layoutIdForListItem = R.layout.card_event;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
@@ -219,7 +207,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
                 ));
 
         Log.d("@@@@@@@@@", te.toString());
-        patoghApi.downlaodThumbnail("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+        patoghApi.downloadThumbnail("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 200) {

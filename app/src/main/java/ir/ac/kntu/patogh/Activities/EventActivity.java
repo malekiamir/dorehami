@@ -33,6 +33,10 @@ import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.neshan.core.Bounds;
@@ -46,11 +50,17 @@ import org.neshan.ui.MapView;
 import org.neshan.utils.BitmapUtils;
 import org.neshan.vectorelements.Marker;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
+import ir.ac.kntu.patogh.Utils.Dorehami;
+import ir.ac.kntu.patogh.Utils.Event;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -67,6 +77,10 @@ public class EventActivity extends AppCompatActivity {
     TextView tvDesc;
     @BindView(R.id.tv_event_date)
     TextView tvDate;
+    @BindView(R.id.tv_event_capacity)
+    TextView tvCapacity;
+    @BindView(R.id.tv_event_address)
+    TextView tvAddress;
     @BindView(R.id.map)
     MapView map;
     @BindView(R.id.tv_map_hint)
@@ -75,10 +89,13 @@ public class EventActivity extends AppCompatActivity {
     ImageView imgEvent;
     @BindView(R.id.progress_event)
     ProgressBar progressBar;
+    @BindView(R.id.btn_img_event_like)
+    LikeButton likeButton;
     VectorElementLayer markerLayer;
     SharedPreferences sharedPreferences;
     private String eventId = "";
-
+    private String baseURL = "http://eg.potatogamers.ir:7701/api/";
+    boolean success;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +115,7 @@ public class EventActivity extends AppCompatActivity {
         Sprite threeBounce = new ThreeBounce();
         progressBar.setIndeterminateDrawable(threeBounce);
         downloadImage(eventId);
+        getDetail(eventId);
         ExtendedFloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,25 +130,30 @@ public class EventActivity extends AppCompatActivity {
                 }
             }
         });
-        LngLat focalPoint = new LngLat(51.336434, 35.6990015);
-        map.setFocalPointPosition(focalPoint, 1);
-        map.setZoom(15, 1);
-        markerLayer = NeshanServices.createVectorElementLayer();
-        map.getLayers().add(NeshanServices.createBaseMap(NeshanMapStyle.NESHAN));
-        map.getLayers().add(markerLayer);
-        map.getOptions().setPanBounds(new Bounds(focalPoint, focalPoint));
-        MarkerStyleCreator markStCr = new MarkerStyleCreator();
-        markStCr.setSize(20f);
-        markStCr.setBitmap(BitmapUtils.createBitmapFromAndroidBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_marker)));
-        MarkerStyle markSt = markStCr.buildStyle();
-        Marker marker = new Marker(focalPoint, markSt);
-        markerLayer.add(marker);
+        if (getIntent().hasExtra("event_liked")) {
+            likeButton.setLiked(getIntent().getBooleanExtra("event_liked", false));
+        }
+        likeButton.setEnabled(true);
+        likeButton.bringToFront();
+        likeButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                favDorehamiAdd(eventId);
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                favDorehamiRemove(eventId);
+            }
+        });
         GestureDetector gestureDetector = new GestureDetector(this, new SingleTapConfirm());
         map.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (gestureDetector.onTouchEvent(motionEvent)) {
-                    Uri geoLocationUri = Uri.parse("geo:" + 0 + "," + 0 + "?q=" + focalPoint.getY() + "," + focalPoint.getX());
+                    Uri geoLocationUri = Uri.parse("geo:" + 0 + "," + 0 + "?q="
+                            + map.getFocalPointPosition().getY() + ","
+                            + map.getFocalPointPosition().getX());
                     Intent googleMapIntent = new Intent(Intent.ACTION_VIEW, geoLocationUri);
                     googleMapIntent.setPackage("com.google.android.apps.maps");
                     startActivity(googleMapIntent);
@@ -178,6 +201,7 @@ public class EventActivity extends AppCompatActivity {
             tvDesc.setText(getIntent().getStringExtra("event_desc"));
             tvDate.setText(getIntent().getStringExtra("event_date"));
             eventId = getIntent().getStringExtra("event_id");
+            tvCapacity.setText("ظرفیت باقی مانده : " + getIntent().getStringExtra("event_capacity") + " نفر");
         }
     }
 
@@ -218,7 +242,7 @@ public class EventActivity extends AppCompatActivity {
 
     public void joinDorehami(String id) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseURL)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
@@ -267,7 +291,7 @@ public class EventActivity extends AppCompatActivity {
 
     public void downloadImage(String id) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseURL)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
@@ -293,7 +317,6 @@ public class EventActivity extends AppCompatActivity {
                     Glide.with(getApplicationContext())
                             .load(bmp)
                             .signature(new ObjectKey(id))
-                            .placeholder(R.drawable.rounded_rect_bottom_calendar)
                             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                             .into(imgEvent);
                     progressBar.setVisibility(View.GONE);
@@ -321,5 +344,134 @@ public class EventActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void getDetail(String id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            Toast.makeText(EventActivity.this, "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(EventActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(new TypeFavDorehamiAdd(id)
+                ));
+
+        patoghApi.getDetail("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    System.out.println(response.body());
+                    String res = response.body().string();
+                    System.out.println(res);
+                    JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
+                    String returnValue = jsonObject1.get("returnValue").toString();
+                    Type dorehamiType = new TypeToken<Dorehami>() {
+                    }.getType();
+                    Dorehami dorehami = gson.fromJson(returnValue, dorehamiType);
+                    tvDesc.setText(dorehami.getDescription());
+                    tvAddress.setText(dorehami.getAddress());
+                    mapConfiguration(new LngLat(Double.valueOf(dorehami.getLongitude())
+                            , Double.valueOf(dorehami.getLatitude())));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+    }
+
+    private void mapConfiguration(LngLat focalPoint) {
+        map.setFocalPointPosition(focalPoint, 1);
+        map.setZoom(15, 1);
+        markerLayer = NeshanServices.createVectorElementLayer();
+        map.getLayers().add(NeshanServices.createBaseMap(NeshanMapStyle.NESHAN));
+        map.getLayers().add(markerLayer);
+        map.getOptions().setPanBounds(new Bounds(focalPoint, focalPoint));
+        MarkerStyleCreator markStCr = new MarkerStyleCreator();
+        markStCr.setSize(20f);
+        markStCr.setBitmap(BitmapUtils.createBitmapFromAndroidBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_marker)));
+        MarkerStyle markSt = markStCr.buildStyle();
+        Marker marker = new Marker(focalPoint, markSt);
+        markerLayer.add(marker);
+    }
+
+    boolean favDorehamiAdd(String id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            return false;
+        }
+        TypeFavDorehamiAdd te;
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(te = new TypeFavDorehamiAdd(id)
+                ));
+
+        Log.d("@@@@@@@@@", te.getIdString());
+        patoghApi.favDorehamiAdd("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    System.out.println("liked event with id : " + id);
+                    success = true;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                success = false;
+            }
+        });
+        return success;
+    }
+
+    boolean favDorehamiRemove(String id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            return false;
+        }
+        TypeFavDorehamiAdd te;
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(te = new TypeFavDorehamiAdd(id)
+                ));
+
+        Log.d("@@@@@@@@@", te.getIdString());
+        patoghApi.favDorehamiRemove("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    System.out.println("disliked event with id : " + id);
+                    success = true;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                success = false;
+            }
+        });
+        return success;
+    }
+
 
 }

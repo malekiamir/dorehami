@@ -224,6 +224,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         Intent intent = new Intent(context, EventActivity.class);
         intent.putExtra("event_name", selectedEvent.getName());
         intent.putExtra("event_desc", selectedEvent.getDesc());
+        intent.putExtra("event_liked", selectedEvent.isFavorited());
+        intent.putExtra("event_joined", selectedEvent.isJoined());
         intent.putExtra("event_date", selectedEvent.getDate());
         intent.putExtra("event_capacity", selectedEvent.getCapacity());
         intent.putExtra("event_id", selectedEvent.getId());

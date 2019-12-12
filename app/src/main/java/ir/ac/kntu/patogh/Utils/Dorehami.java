@@ -1,20 +1,20 @@
 package ir.ac.kntu.patogh.Utils;
 
 public class Dorehami {
-    String id;
-    String name;
-    String creatorId;
-    String startTime;
-    String endTime;
-    int size;
-    String description;
-    String summery;
-    boolean isPhysical;
-    String latitude;
-    String longitude;
-    String address;
-    String province;
-    String thumbnailId;
+    private String id;
+    private String name;
+    private String creatorId;
+    private String startTime;
+    private String endTime;
+    private int size;
+    private String description;
+    private String summery;
+    private boolean isPhysical;
+    private String latitude;
+    private String longitude;
+    private String address;
+    private String province;
+    private String thumbnailId;
     private boolean isJoined;
     private boolean isFavorited;
 

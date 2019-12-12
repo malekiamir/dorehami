@@ -70,4 +70,5 @@ dependencies {
     implementation 'neshan-android-sdk:mobile-sdk:0.9.5'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }

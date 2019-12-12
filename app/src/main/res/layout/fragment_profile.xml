@@ -77,8 +77,8 @@
                 android:id="@+id/tv_profile_page_favorites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
                 android:alpha="0.6"
                 android:fontFamily="@font/iransans"
                 android:text="علاقمندیهای من"
@@ -87,26 +87,39 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_adjective" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_favorite_events"
+            <LinearLayout
+                android:id="@+id/card_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="4dp"
-                android:visibility="invisible"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_height="215dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:background="#eeeeee"
+                android:elevation="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_favorites" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_favorites">
 
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_favorite_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:visibility="invisible"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_profile_page_badges_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginTop="15dp"
                 android:alpha="0.6"
                 android:fontFamily="@font/iransans"
                 android:includeFontPadding="false"
@@ -114,20 +127,19 @@
                 android:textColor="#11103d"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_favorite_events" />
+                app:layout_constraintTop_toBottomOf="@+id/card_recycler" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_profile_page_badges"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_badges_text" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

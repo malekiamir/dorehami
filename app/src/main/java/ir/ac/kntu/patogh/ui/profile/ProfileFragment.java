@@ -148,7 +148,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     private void loadBadges() {
         ArrayList<Badge> badges = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             badges.add(new Badge(R.id.badge_icon));
           //  badges.add(parseInt(String.valueOf(R.drawable.ic_badge)));
         }

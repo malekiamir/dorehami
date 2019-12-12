@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="80dp"
-    android:layout_height="80dp"
+    android:layout_width="70dp"
+    android:layout_height="70dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:background="#00ffffff"
     android:id="@+id/badge_card_layout">
 
-    <ImageView
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/badge_icon"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/ic_chevron"
-        app:layout_constraintBottom_toTopOf="@+id/guideline75"
-        app:layout_constraintEnd_toStartOf="@+id/guideline74"
-        app:layout_constraintStart_toStartOf="@+id/guideline73"
-        app:layout_constraintTop_toTopOf="@+id/guideline72" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline72"

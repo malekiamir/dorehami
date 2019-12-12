@@ -4,28 +4,28 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_icon_home"
         android:title="@string/title_home"
         android:iconTint="@drawable/nav_home_color"
         app:itemTextColor="@drawable/nav_home_color" />
 
     <item
         android:id="@+id/navigation_add"
-        android:icon="@drawable/ic_add"
+        android:icon="@drawable/ic_plus"
         android:title="@string/title_add"
         app:itemIconTint="@drawable/nav_add_color"
         app:itemTextColor="@drawable/nav_add_color" />
 
     <item
         android:id="@+id/navigation_calendar"
-        android:icon="@drawable/ic_calendar"
+        android:icon="@drawable/ic_calendar_nav"
         android:title="@string/title_calendar"
         app:itemIconTint="@drawable/nav_calendar_color"
         app:itemTextColor="@drawable/nav_calendar_color" />
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/ic_user"
         android:title="@string/title_profile"
         app:itemIconTint="@drawable/nav_profile_color"
         app:itemTextColor="@drawable/nav_profile_color" />

@@ -5,7 +5,7 @@
     android:id="@+id/profile_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eceff1"
+    android:background="#F6F6F8"
     android:theme="@style/AppTheme.ProfileTheme"
     tools:context=".ui.profile.ProfileFragment">
 
@@ -94,7 +94,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:background="#eeeeee"
+                android:background="#ffffff"
                 android:elevation="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.gson.Gson;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -214,6 +215,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
                     Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
                     Glide.with(context)
                             .load(bmp)
+                            .transform(new RoundedCorners(6))
                             .into(eventImage);
                 } else {
                     System.out.println("failed to download");

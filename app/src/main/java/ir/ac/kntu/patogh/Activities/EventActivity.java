@@ -215,17 +215,7 @@ public class EventActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_favorite) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                if (item.getTitle().equals("heart")) {
-                    item.setIcon(getDrawable(R.drawable.ic_heart_1));
-                    item.setTitle("heart1");
-                } else {
-                    item.setIcon(getDrawable(R.drawable.ic_heart_toolbar));
-                    item.setTitle("heart");
-                }
-            }
-            Toast.makeText(EventActivity.this, "Liked", Toast.LENGTH_LONG).show();
+        if (id == R.id.action_share) {
             return true;
         }
 

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: neshan-android-sdk:mobile-sdk:0.9.5@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5cd33cc52121744ba7991e625ba05b1d/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5cd33cc52121744ba7991e625ba05b1d/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5cd33cc52121744ba7991e625ba05b1d/jars/libs/neshan-mobile-sdk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

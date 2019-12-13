@@ -151,7 +151,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
        // for (int i = 0; i < 4; i++) {
             badges.add(new Badge(R.drawable.ic_best));
             badges.add(new Badge(R.drawable.ic_chevron));
-            badges.add(new Badge(R.drawable.ic_reward));
+            badges.add(new Badge(R.drawable.ic_best));
             badges.add(new Badge(R.drawable.ic_new));
           //  badges.add(parseInt(String.valueOf(R.drawable.ic_badge)));
       //  }

@@ -197,8 +197,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             PersianDate persianDateStart = new PersianDate(dateStart);
             PersianDateFormat pdformater = new PersianDateFormat("l j F H:i");
             String startDate = pdformater.format(persianDateStart);
-            eventAdapterViewHolder.eventDateTextView.setText(String.format("%s\n%s"
-                    , startDate, selectedEvent.getCapacity()));
+            eventAdapterViewHolder.eventDateTextView.setText(startDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }

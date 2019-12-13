@@ -56,7 +56,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     public class EventAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView eventNameTextView;
         TextView eventSummaryTextView;
-        TextView eventDateCapacityTextView;
+        TextView eventDateTextView;
+        TextView eventCapacityTextView;
         ImageView eventImage;
         LikeButton likeButton;
 
@@ -64,7 +65,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             super(view);
             eventNameTextView = view.findViewById(R.id.tv_card_view_event_name);
             eventSummaryTextView = view.findViewById(R.id.tv_card_view_event_summary);
-            eventDateCapacityTextView = view.findViewById(R.id.tv_card_view_date_capacity);
+            eventDateTextView = view.findViewById(R.id.tv_card_view_date);
+            eventCapacityTextView = view.findViewById(R.id.tv_card_view_capacity);
             eventImage = view.findViewById(R.id.img_card_view_event_pic);
             likeButton = view.findViewById(R.id.btn_img_card_view_like);
             likeButton.setLiked(false);
@@ -184,8 +186,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         Event selectedEvent = eventsData.get(position);
         eventAdapterViewHolder.eventNameTextView.setText(selectedEvent.getName());
         eventAdapterViewHolder.eventSummaryTextView.setText(selectedEvent.getDesc());
-        eventAdapterViewHolder.eventDateCapacityTextView.setText(String.format("%s\n%s"
-                , selectedEvent.getDate(), selectedEvent.getCapacity()));
+        eventAdapterViewHolder.eventDateTextView.setText(String.format(selectedEvent.getDate()));
+        eventAdapterViewHolder.eventCapacityTextView.setText(String.format(selectedEvent.getCapacity()));
         eventAdapterViewHolder.likeButton.setLiked(selectedEvent.isFavorited());
         downloadThumbnail(selectedEvent.getThumbnailId(), eventAdapterViewHolder.eventImage);
     }

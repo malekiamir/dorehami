@@ -34,10 +34,13 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.labters.lottiealertdialoglibrary.ClickListener;
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.muddzdev.styleabletoast.StyleableToast;
 
+import org.jetbrains.annotations.NotNull;
 import org.neshan.core.Bounds;
 import org.neshan.core.LngLat;
 import org.neshan.layers.VectorElementLayer;
@@ -85,6 +88,10 @@ public class EventActivity extends AppCompatActivity {
     TextView tvCapacity;
     @BindView(R.id.tv_event_address)
     TextView tvAddress;
+    @BindView(R.id.tv_event_location)
+    TextView tvCity;
+    @BindView(R.id.tv_event_category)
+    TextView tvCategory;
     @BindView(R.id.map)
     MapView map;
     @BindView(R.id.tv_map_hint)
@@ -136,11 +143,32 @@ public class EventActivity extends AppCompatActivity {
                             fab.setIcon(getDrawable(R.drawable.ic_done_white_48dp));
                         }
                     } else {
-                        leaveDorehami(dorehamiId);
-                        fab.setText("شرکت در رویداد");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            fab.setIcon(getDrawable(R.drawable.ic_add));
-                        }
+//                        LottieAlertDialog lottieAlertDialog = new LottieAlertDialog.Builder()
+//                                .setTitle("لغو عضویت")
+//                                .setDescription("آیا مطمئن هستید؟")
+//                                .setPositiveText("بله")
+//                                .setNegativeText("خیر")
+//                                .setNegativeListener(new ClickListener() {
+//                                    @Override
+//                                    public void onClick(@NotNull LottieAlertDialog lottieAlertDialog) {
+//                                        lottieAlertDialog.dismiss();
+//                                    }
+//                                })
+//                                .setPositiveListener(new ClickListener() {
+//                                    @Override
+//                                    public void onClick(@NotNull LottieAlertDialog lottieAlertDialog) {
+//                                        leaveDorehami(dorehamiId);
+//                                        fab.setText("شرکت در رویداد");
+//                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                                            fab.setIcon(getDrawable(R.drawable.ic_add));
+//                                        }
+//                                        lottieAlertDialog.dismiss();
+//                                    }
+//                                })
+//                                .build();
+//                        lottieAlertDialog.setCancelable(true);
+//                        lottieAlertDialog.show();
+
                     }
                 }
             }
@@ -426,12 +454,14 @@ public class EventActivity extends AppCompatActivity {
                     Type dorehamiType = new TypeToken<Dorehami>() {
                     }.getType();
                     Dorehami dorehami = gson.fromJson(returnValue, dorehamiType);
-                    tvDesc.setText(String.format("%s\n___________\n\n%s", dorehami.getSummery(), dorehami.getDescription()));
+                    tvDesc.setText(dorehami.getDescription());
                     tvAddress.setText(dorehami.getAddress());
                     mapConfiguration(new LngLat(Double.valueOf(dorehami.getLongitude())
                             , Double.valueOf(dorehami.getLatitude())));
                     isJoined = dorehami.isJoined();
                     isLiked = dorehami.isFavorited();
+                    tvCity.setText(dorehami.getProvince());
+//                    tvCategory.setText();
                     SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                     try {
                         Date dateStart = readingFormat.parse(dorehami.getStartTime());

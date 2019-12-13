@@ -199,7 +199,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
                     , startDate, selectedEvent.getCapacity()));
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }   
         eventAdapterViewHolder.likeButton.setLiked(selectedEvent.isFavorited());
         Glide.with(context)
                 .load(R.drawable.rounded_rect_image_not_loaded)

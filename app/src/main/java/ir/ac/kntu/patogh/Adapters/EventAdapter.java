@@ -19,7 +19,10 @@ import com.google.gson.Gson;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
@@ -32,6 +35,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapterViewHolder> {
 
@@ -184,9 +189,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         Event selectedEvent = eventsData.get(position);
         eventAdapterViewHolder.eventNameTextView.setText(selectedEvent.getName());
         eventAdapterViewHolder.eventSummaryTextView.setText(selectedEvent.getDesc());
-        eventAdapterViewHolder.eventDateCapacityTextView.setText(String.format("%s\n%s"
-                , selectedEvent.getDate(), selectedEvent.getCapacity()));
+        SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        try {
+            Date dateStart = readingFormat.parse(selectedEvent.getDate());
+            PersianDate persianDateStart = new PersianDate(dateStart);
+            PersianDateFormat pdformater = new PersianDateFormat("l j F H:i");
+            String startDate = pdformater.format(persianDateStart);
+            eventAdapterViewHolder.eventDateCapacityTextView.setText(String.format("%s\n%s"
+                    , startDate, selectedEvent.getCapacity()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         eventAdapterViewHolder.likeButton.setLiked(selectedEvent.isFavorited());
+        Glide.with(context)
+                .load(R.drawable.rounded_rect_image_not_loaded)
+                .into(eventAdapterViewHolder.eventImage);
         downloadThumbnail(selectedEvent.getThumbnailId(), eventAdapterViewHolder.eventImage);
     }
 

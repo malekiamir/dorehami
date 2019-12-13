@@ -36,6 +36,9 @@ public interface PatoghApi {
     @POST("/api/User/joinDorehamiAdd")
     Call<ResponseBody> joinDorehamiAdd(@Header("Authorization")String token, @Body RequestBody requestBody);
 
+    @POST("/api/User/joinDorehamiRemove")
+    Call<ResponseBody> joinDorehamiRemove(@Header("Authorization") String token, @Body RequestBody requestBody);
+
     @POST("/api/Image/downloadThumbnail")
     Call<ResponseBody> downloadThumbnail(@Header("Authorization")String token, @Body RequestBody requestBody);
 

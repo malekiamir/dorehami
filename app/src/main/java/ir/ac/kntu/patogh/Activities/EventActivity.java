@@ -29,7 +29,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.signature.ObjectKey;
 import com.github.ybq.android.spinkit.sprite.Sprite;
-import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
@@ -52,7 +51,10 @@ import org.neshan.vectorelements.Marker;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,6 +70,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 public class EventActivity extends AppCompatActivity {
 
@@ -96,6 +100,8 @@ public class EventActivity extends AppCompatActivity {
     private String eventId = "";
     private String baseURL = "http://eg.potatogamers.ir:7701/api/";
     boolean success;
+    boolean isLiked;
+    boolean isJoined;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,18 +120,27 @@ public class EventActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         Sprite threeBounce = new ThreeBounce();
         progressBar.setIndeterminateDrawable(threeBounce);
-        downloadImage(eventId);
         getDetail(eventId);
         ExtendedFloatingActionButton fab = findViewById(R.id.fab);
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (getIntent().hasExtra("event_id")) {
                     String dorehamiId = getIntent().getStringExtra("event_id");
-                    joinDorehami(dorehamiId);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        fab.setIcon(getDrawable(R.drawable.ic_done_white_48dp));
+                    if (fab.getText().toString().contains("شرکت")) {
+                        joinDorehami(dorehamiId);
                         fab.setText("شما عضو رویداد هستید");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            fab.setIcon(getDrawable(R.drawable.ic_done_white_48dp));
+                        }
+                    } else {
+                        leaveDorehami(dorehamiId);
+                        fab.setText("شرکت در رویداد");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            fab.setIcon(getDrawable(R.drawable.ic_add));
+                        }
                     }
                 }
             }
@@ -279,6 +294,55 @@ public class EventActivity extends AppCompatActivity {
         });
     }
 
+    public void leaveDorehami(String id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseURL)
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            Toast.makeText(EventActivity.this, "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(EventActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        TypeFavDorehamiAdd te;
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(te = new TypeFavDorehamiAdd(id)
+                ));
+
+        Log.d("@@@@@@@@@", te.toString());
+        patoghApi.joinDorehamiRemove("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    System.out.println("removed event with id : " + id);
+                } else {
+                    System.out.println("response code not 200" + " " + id + " " + response.code());
+                    System.out.println(response.message());
+                    new StyleableToast
+                            .Builder(EventActivity.this)
+                            .text("خطایی رخ داده")
+                            .textColor(Color.WHITE)
+                            .backgroundColor(Color.argb(255, 255, 94, 100))
+                            .show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("no responseeeee");
+                new StyleableToast
+                        .Builder(EventActivity.this)
+                        .text("لطفا اتصال اینترنت خود را بررسی نمایید")
+                        .textColor(Color.WHITE)
+                        .backgroundColor(Color.argb(255, 255, 94, 100))
+                        .show();
+            }
+        });
+    }
+
     public void downloadImage(String id) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
@@ -356,18 +420,42 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    System.out.println(response.body());
                     String res = response.body().string();
-                    System.out.println(res);
                     JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
                     String returnValue = jsonObject1.get("returnValue").toString();
                     Type dorehamiType = new TypeToken<Dorehami>() {
                     }.getType();
                     Dorehami dorehami = gson.fromJson(returnValue, dorehamiType);
-                    tvDesc.setText(dorehami.getDescription());
+                    tvDesc.setText(String.format("%s\n___________\n\n%s", dorehami.getSummery(), dorehami.getDescription()));
                     tvAddress.setText(dorehami.getAddress());
                     mapConfiguration(new LngLat(Double.valueOf(dorehami.getLongitude())
                             , Double.valueOf(dorehami.getLatitude())));
+                    isJoined = dorehami.isJoined();
+                    isLiked = dorehami.isFavorited();
+                    SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                    try {
+                        Date dateStart = readingFormat.parse(dorehami.getStartTime());
+                        PersianDate persianDateStart = new PersianDate(dateStart);
+                        PersianDateFormat pdformater = new PersianDateFormat("l j F H:i");
+                        String startDate = pdformater.format(persianDateStart);
+                        tvDate.setText(startDate);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    tvCapacity.setText(String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize()));
+                    ExtendedFloatingActionButton fab = findViewById(R.id.fab);
+                    if (isJoined) {
+                        fab.setText("شما عضو رویداد هستید");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            fab.setIcon(getDrawable(R.drawable.ic_done_white_48dp));
+                        }
+                    } else {
+                        fab.setText("شرکت در رویداد");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            fab.setIcon(getDrawable(R.drawable.ic_add));
+                        }
+                    }
+                    downloadImage(dorehami.getImagesIds()[0]);
 
                 } catch (IOException e) {
                     e.printStackTrace();

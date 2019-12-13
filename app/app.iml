@@ -120,6 +120,7 @@
     <orderEntry type="library" name="Gradle: androidx.navigation:navigation-ui:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.material:material:1.2.0-alpha02@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.jd-alexander:LikeButton:0.2.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.airbnb.android:lottie:2.7.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: cn.pedant.sweetalert:library:1.3@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.pnikosis:materialish-progress:1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat:1.1.0@aar" level="project" />
@@ -179,5 +180,7 @@
     <orderEntry type="library" name="Gradle: de.hdodenhof:circleimageview:3.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: neshan-android-sdk:mobile-sdk:0.9.5@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.ybq:Android-SpinKit:1.4.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.samanzamani.persiandate:PersianDate:0.7@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.mayuce:LottieAlertDialog:1.1@aar" level="project" />
   </component>
 </module>

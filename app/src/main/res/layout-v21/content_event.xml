@@ -14,7 +14,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <ImageView
@@ -23,11 +23,13 @@
                 android:layout_height="230dp"
                 android:elevation="2dp"
                 android:scaleType="centerCrop"
+                android:background="#77E2E2E2"
                 android:transitionName="@string/event_img_transition_name"
                 android:translationZ="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="عکس رویداد" />
 
             <View
                 android:layout_width="0dp"
@@ -353,6 +355,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
                     android:alpha="0.9"
+                    android:gravity="right"
                     android:fontFamily="@font/iransans_font"
                     android:text="مسابقه دوچرخه سواری دور دریاچه خلیج فارس "
                     android:textColor="#000000"

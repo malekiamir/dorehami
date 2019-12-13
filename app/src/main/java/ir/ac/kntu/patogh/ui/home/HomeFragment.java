@@ -77,6 +77,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
     private Unbinder unbinder;
     private SharedPreferences sharedPreferences;
     private ArrayList<Event> events;
+    private String serverResponse;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -183,20 +184,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    eventAdapter.clear();
-                    events.clear();
-                    System.out.println(response.body());
                     String res = response.body().string();
-                    System.out.println(res);
+                    if(serverResponse!=null && serverResponse.equals(res)) {
+                        swipeContainer.setRefreshing(false);
+                        return;
+                    } else {
+                        eventAdapter.clear();
+                        events.clear();
+                        serverResponse = res;
+                    }
                     JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
                     String returnValue = jsonObject1.get("returnValue").toString();
                     Type dorehamiType = new TypeToken<ArrayList<Dorehami>>(){}.getType();
                     ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
                     for (Dorehami dorehami : dorehamis) {
-                        System.out.println(dorehami.toString());
                         events.add(new Event(dorehami.getName(), dorehami.getSummery()
-                                , dorehami.getStartTime(),dorehami.getSize()+"", dorehami.getId()
-                                , dorehami.getThumbnailId(), dorehami.isJoined(), dorehami.isFavorited()));
+                                , dorehami.getStartTime(),String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
+                                , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
+                                , dorehami.isFavorited(), dorehami.getImagesIds()));
                     }
                     eventAdapter.addAll(events);
                     swipeContainer.setRefreshing(false);
@@ -207,7 +212,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(), "shit we should work on it", Toast.LENGTH_SHORT).show();
             }
         });
     }

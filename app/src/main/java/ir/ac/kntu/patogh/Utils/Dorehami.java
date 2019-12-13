@@ -1,5 +1,7 @@
 package ir.ac.kntu.patogh.Utils;
 
+import java.util.Arrays;
+
 public class Dorehami {
     private String id;
     private String name;
@@ -17,6 +19,15 @@ public class Dorehami {
     private String thumbnailId;
     private boolean isJoined;
     private boolean isFavorited;
+    private String[] imagesIds;
+
+    public String[] getImagesIds() {
+        return imagesIds;
+    }
+
+    public void setImagesIds(String[] imagesIds) {
+        this.imagesIds = imagesIds;
+    }
 
     public String getSummery() {
         return summery;
@@ -165,6 +176,7 @@ public class Dorehami {
                 ", thumbnailId='" + thumbnailId + '\'' +
                 ", isJoined=" + isJoined +
                 ", isFavorited=" + isFavorited +
+                ", imagesIds=" + Arrays.toString(imagesIds) +
                 '}';
     }
 }

@@ -9,12 +9,13 @@ public class Event {
     private String thumbnailId;
     private boolean isJoined;
     private boolean isFavorited;
+    private String[] imagesIds;
 
     public Event() {
     }
 
     public Event(String name, String desc, String date, String capacity, String id, String thumbnailId
-            , boolean isJoined, boolean isFavorited) {
+            , boolean isJoined, boolean isFavorited, String[] imagesIds) {
         this.name = name;
         this.desc = desc;
         this.date = date;
@@ -23,6 +24,15 @@ public class Event {
         this.thumbnailId = thumbnailId;
         this.isFavorited = isFavorited;
         this.isJoined = isJoined;
+        this.imagesIds = imagesIds;
+    }
+
+    public String[] getImagesIds() {
+        return imagesIds;
+    }
+
+    public void setImagesIds(String[] imagesIds) {
+        this.imagesIds = imagesIds;
     }
 
     public boolean isJoined() {

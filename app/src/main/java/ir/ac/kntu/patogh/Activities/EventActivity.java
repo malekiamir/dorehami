@@ -1,5 +1,6 @@
 package ir.ac.kntu.patogh.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -22,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -34,13 +36,10 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.labters.lottiealertdialoglibrary.ClickListener;
-import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.muddzdev.styleabletoast.StyleableToast;
 
-import org.jetbrains.annotations.NotNull;
 import org.neshan.core.Bounds;
 import org.neshan.core.LngLat;
 import org.neshan.layers.VectorElementLayer;
@@ -52,11 +51,9 @@ import org.neshan.ui.MapView;
 import org.neshan.utils.BitmapUtils;
 import org.neshan.vectorelements.Marker;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -65,7 +62,6 @@ import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.Dorehami;
-import ir.ac.kntu.patogh.Utils.Event;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -105,6 +101,7 @@ public class EventActivity extends AppCompatActivity {
     VectorElementLayer markerLayer;
     SharedPreferences sharedPreferences;
     private String eventId = "";
+    private AlertDialog dialog;
     private String baseURL = "http://eg.potatogamers.ir:7701/api/";
     boolean success;
     boolean isLiked;
@@ -143,31 +140,32 @@ public class EventActivity extends AppCompatActivity {
                             fab.setIcon(getDrawable(R.drawable.ic_done_white_48dp));
                         }
                     } else {
-//                        LottieAlertDialog lottieAlertDialog = new LottieAlertDialog.Builder()
-//                                .setTitle("لغو عضویت")
-//                                .setDescription("آیا مطمئن هستید؟")
-//                                .setPositiveText("بله")
-//                                .setNegativeText("خیر")
-//                                .setNegativeListener(new ClickListener() {
-//                                    @Override
-//                                    public void onClick(@NotNull LottieAlertDialog lottieAlertDialog) {
-//                                        lottieAlertDialog.dismiss();
-//                                    }
-//                                })
-//                                .setPositiveListener(new ClickListener() {
-//                                    @Override
-//                                    public void onClick(@NotNull LottieAlertDialog lottieAlertDialog) {
-//                                        leaveDorehami(dorehamiId);
-//                                        fab.setText("شرکت در رویداد");
-//                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                                            fab.setIcon(getDrawable(R.drawable.ic_add));
-//                                        }
-//                                        lottieAlertDialog.dismiss();
-//                                    }
-//                                })
-//                                .build();
-//                        lottieAlertDialog.setCancelable(true);
-//                        lottieAlertDialog.show();
+                        final View customLayout = getLayoutInflater().inflate(R.layout.dialog_leave_event, null);
+
+                        AlertDialog.Builder dialogBuilder  =
+                                new AlertDialog.Builder(EventActivity.this)
+                                        .setView(customLayout);
+                        dialog = dialogBuilder.create();
+                        dialog.show();
+
+                        customLayout.findViewById(R.id.dialog_accept).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                leaveDorehami(dorehamiId);
+                                fab.setText("شرکت در رویداد");
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    fab.setIcon(getDrawable(R.drawable.ic_add));
+                                }
+                                dialog.dismiss();
+                            }
+                        });
+
+                        customLayout.findViewById(R.id.dialog_reject).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.dismiss();
+                            }
+                        });
 
                     }
                 }
@@ -487,8 +485,6 @@ public class EventActivity extends AppCompatActivity {
                     }
                     downloadImage(dorehami.getImagesIds()[0]);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

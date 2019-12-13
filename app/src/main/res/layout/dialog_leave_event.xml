@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_rect_card">
+
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/dialog_subject"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        app:lottie_fileName="question.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dialog_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/iransans_font"
+        android:gravity="center"
+        android:text="آیا مایل به لغو عضویت هستید؟"
+        android:textColor="#DD000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_subject" />
+
+    <Button
+        android:id="@+id/dialog_accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/patoghYellow"
+        android:fontFamily="@font/iransans_font"
+        android:text="لغو عضویت"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dialog_reject"
+        app:layout_constraintTop_toBottomOf="@id/dialog_message" />
+
+    <Button
+        android:id="@+id/dialog_reject"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00000000"
+        android:fontFamily="@font/iransans_font"
+        android:text="عضو می مانم"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_accept"
+        app:layout_constraintEnd_toStartOf="@+id/dialog_accept"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_message"
+        app:layout_constraintTop_toTopOf="@id/dialog_accept" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

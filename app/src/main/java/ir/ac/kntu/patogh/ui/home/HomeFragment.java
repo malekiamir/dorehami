@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -63,7 +64,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
     @BindView(R.id.edt_home_page_search_bar)
     EditText edtSearch;
     @BindView(R.id.btn_img_search_bar_search)
-    ImageButton btnImgSearch;
+    LottieAnimationView btnImgSearch;
     @BindView(R.id.btn_img_search_bar_sort)
     ImageButton btnImgSort;
     @BindView(R.id.btn_img_search_bar_cancel)

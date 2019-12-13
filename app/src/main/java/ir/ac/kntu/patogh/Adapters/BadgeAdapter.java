@@ -48,7 +48,7 @@ public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.BadgeAdapter
     }
 
     public class BadgeAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        //ImageView badgeImage;
+        ImageView badgeImage;
 
         public BadgeAdapterViewHolder(View view) {
             super(view);
@@ -84,19 +84,7 @@ public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.BadgeAdapter
     @Override
     public void onBindViewHolder(@NonNull BadgeAdapterViewHolder holder, int position) {
         Badge selectedBadge = eventsData.get(position);
-        Glide.with(context)
-             .load(R.drawable.ic_best)
-                .placeholder(R.drawable.ic_best)
-                .override(400,200)
-                .centerCrop()
-                .into(badgeImage);
-        //selectedBadge.setImageId(R.id.badge_icon);
-        // Picasso.with(this).load(R.drawable.ic_chevron).into((Target) selectedBadge);
-//        Bitmap bm = BitmapFactory.decodeResource(contextt.getResources(),
-//                R.drawable.ic_chevron);
-//        Bitmap resized = Bitmap.createScaledBitmap(bm, 10, 10, true);
-//        Bitmap conv_bm = getRoundedRectBitmap(resized, 100);
-//        badgeImage.setImageBitmap(conv_bm);
+        holder.badgeImage.setImageResource(selectedBadge.getImageId());
     }
 
     @Override

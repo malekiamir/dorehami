@@ -1,126 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:background="@drawable/rounded_rect_white"
-    android:elevation="3dp"
-    android:clickable="true"
-    android:focusable="true"
+    android:layout_height="155dp"
     android:layout_marginLeft="10dp"
     android:layout_marginTop="5dp"
     android:layout_marginRight="10dp"
-    android:layout_marginBottom="5dp">
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/rounded_rect_white"
+    android:clickable="true"
+    android:elevation="3dp"
+    android:focusable="true">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline57"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline59"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.02" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline60"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.44" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline61"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.96" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline62"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline63"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.98" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline53"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.24" />
 
     <ImageView
         android:id="@+id/img_card_view_event_pic"
-        android:layout_width="150dp"
-        android:transitionName="@string/event_img_transition_name"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:transitionName="@string/event_img_transition_name"
+        app:layout_constraintBottom_toTopOf="@+id/guideline61"
+        app:layout_constraintEnd_toStartOf="@+id/guideline60"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline59"
+        app:layout_constraintTop_toTopOf="@+id/guideline57"
+        app:layout_constraintVertical_bias="1.0" />
+
+
 
     <TextView
         android:id="@+id/tv_card_view_event_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
         android:fontFamily="@font/yekan_font"
         android:gravity="right"
+        android:includeFontPadding="false"
         android:maxLength="35"
-        android:transitionName="@string/event_name_transition_name"
         android:maxLines="1"
         android:text="دوچرخه سواری"
         android:textColor="@android:color/black"
         android:textDirection="ltr"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_card_view_event_summary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/img_card_view_event_pic"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:transitionName="@string/event_name_transition_name"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintStart_toStartOf="@+id/guideline62"
+        app:layout_constraintTop_toTopOf="@+id/guideline57"
         app:layout_constraintVertical_bias="1.0" />
+
 
     <TextView
         android:id="@+id/tv_card_view_event_summary"
         android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:paddingTop="5dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
         android:fontFamily="@font/iransans_font"
         android:text="مسابقه دوچرخه سواری دور دریاچه خلیج فارس (چیتگر)"
         android:textColor="@android:color/black"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="4dp"
         android:textDirection="rtl"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableView_card_view_divider"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@id/img_card_view_event_pic"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_card_view_event_pic"
-        app:layout_constraintTop_toBottomOf="@+id/tv_card_view_event_name" />
+        app:layout_constraintStart_toStartOf="@+id/guideline62"
+        app:layout_constraintTop_toBottomOf="@+id/guideline53" />
 
-    <TableRow
-        android:id="@+id/tableView_card_view_divider"
-        android:layout_width="0dp"
-        android:layout_height="1.5dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:background="#ECE2BF"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/tv_card_view_date_capacity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.724"
-        app:layout_constraintLeft_toRightOf="@id/img_card_view_event_pic"
-        app:layout_constraintStart_toEndOf="@+id/img_card_view_event_pic"
-        app:layout_constraintTop_toBottomOf="@id/tv_card_view_event_summary">
-
-    </TableRow>
-
-    <TextView
-        android:id="@+id/tv_card_view_date_capacity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/yekan_font"
-        android:layout_marginLeft="15dp"
-        android:lineSpacingExtra="3dp"
-        android:text="تاریخ : 98/09/01\nظرفیت : نامحدود"
-        android:textColor="@color/material_blue_grey_95"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/img_card_view_event_pic"
-        app:layout_constraintTop_toBottomOf="@+id/tableView_card_view_divider"
-        app:layout_constraintVertical_bias="0.652" />
-
+    <View
+        android:id="@+id/view_event_divider"
+        android:layout_width="160dp"
+        android:layout_height="1dp"
+        android:background="#55000000"
+        android:paddingTop="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintStart_toStartOf="@+id/guideline62"
+        app:layout_constraintTop_toTopOf="@+id/guideline54" />
 
     <com.like.LikeButton
         android:id="@+id/btn_img_card_view_like"
-        app:icon_type="heart"
-        app:icon_size="20dp"
-        app:circle_start_color="#F5F1F1"
-        app:like_drawable="@drawable/ic_heart_1"
-        app:unlike_drawable="@drawable/ic_heart"
-        app:dots_primary_color="#F5F1F1"
-        app:dots_secondary_color="#F5F1F1"
-        app:circle_end_color="#F5F1F1"
-        app:liked="false"
-        app:anim_scale_factor="2"
-        app:is_enabled="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/tv_card_view_date_capacity"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableView_card_view_divider"/>
+        app:anim_scale_factor="2"
+        app:circle_end_color="#F5F1F1"
+        app:circle_start_color="#F5F1F1"
+        app:dots_primary_color="#d50000"
+        app:dots_secondary_color="#d50000"
+        app:icon_size="20dp"
+        app:icon_type="heart"
+        app:is_enabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/guideline61"
+        app:layout_constraintStart_toStartOf="@+id/guideline59"
+        app:like_drawable="@drawable/ic_heart_1"
+        app:liked="false"
+        app:unlike_drawable="@drawable/ic_heart" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <TextView
+        android:id="@+id/tv_card_view_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:fontFamily="@font/yekan_font"
+        android:gravity="center_horizontal"
+        android:text="تاریخ : 98/09/01"
+        android:textColor="@color/material_blue_grey_95"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline62"
+        app:layout_constraintTop_toBottomOf="@+id/view_event_divider" />
+
+    <TextView
+        android:id="@+id/tv_card_view_city_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.6"
+        android:text="تهران"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toTopOf="@+id/guideline58" />
 
 
+    <TextView
+        android:id="@+id/tv_card_view_capacity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:fontFamily="@font/yekan_font"
+        android:gravity="center_horizontal"
+        android:text="ظرفیت : نامحدود"
+        android:textColor="@color/material_blue_grey_95"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_card_view_city_name"
+        app:layout_constraintStart_toStartOf="@+id/guideline62" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
 </androidx.constraintlayout.widget.ConstraintLayout>

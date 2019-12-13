@@ -7,4 +7,5 @@
     <color name="color1">#949494</color>
     <color name="patoghYellow">#F0D919</color>
     <color name="patoghBlue">#11103D</color>
+    <color name="transparent">#00000000</color>
 </resources>

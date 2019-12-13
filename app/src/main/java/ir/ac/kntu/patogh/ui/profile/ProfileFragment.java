@@ -90,7 +90,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvBadge.setLayoutManager(badgeLayoutManager);
         badgeAdapter= new BadgeAdapter(this);
         rvBadge.setAdapter(badgeAdapter);
-        rvBadge.addItemDecoration(new EqualSpacingItemDecoration(22));
+        rvBadge.addItemDecoration(new EqualSpacingItemDecoration(14));
         loadBadges();
 
 //        Glide.with(this.getContext())
@@ -148,10 +148,13 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     private void loadBadges() {
         ArrayList<Badge> badges = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            badges.add(new Badge(R.id.badge_icon));
+       // for (int i = 0; i < 4; i++) {
+            badges.add(new Badge(R.drawable.ic_best));
+            badges.add(new Badge(R.drawable.ic_chevron));
+            badges.add(new Badge(R.drawable.ic_reward));
+            badges.add(new Badge(R.drawable.ic_new));
           //  badges.add(parseInt(String.valueOf(R.drawable.ic_badge)));
-        }
+      //  }
 //        System.out.println(events.length);
         badgeAdapter.setEventData(badges);
     }

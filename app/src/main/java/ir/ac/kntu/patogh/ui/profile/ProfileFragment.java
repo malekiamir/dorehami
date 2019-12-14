@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,8 +36,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.ac.kntu.patogh.Activities.EventActivity;
+import ir.ac.kntu.patogh.Activities.HomePageActivity;
 import ir.ac.kntu.patogh.Activities.MainActivity;
+import ir.ac.kntu.patogh.Activities.PhoneVerificationActivity;
 import ir.ac.kntu.patogh.Activities.SettingsActivity;
+import ir.ac.kntu.patogh.Activities.SignUpActivity;
 import ir.ac.kntu.patogh.Adapters.BadgeAdapter;
 import ir.ac.kntu.patogh.Adapters.FavoriteAdapter;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
@@ -57,6 +61,8 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     RecyclerView rvBadge;
     @BindView(R.id.rv_favorite_events)
     RecyclerView rvFavoriteEvents;
+    @BindView(R.id.tv_profile_page_name)
+    TextView nameTextView;
     private FavoriteAdapter favoriteAdapter;
     private BadgeAdapter badgeAdapter;
     private Unbinder unbinder;
@@ -84,7 +90,9 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref", 0);
 //        loadEventsData();
+        getUserDetails();
         getFavorites();
+
 
         Toolbar toolbar = root.findViewById(R.id.toolbar_profile_page);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -198,7 +206,6 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     }
 
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -245,6 +252,42 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
+            }
+        });
+    }
+
+    private void getUserDetails() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .build();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+        }
+
+        patoghApi.getUserDetails("Bearer " + token).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    System.out.println(response.body());
+                    String res = response.body().string();
+                    System.out.println(res);
+                    JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
+                    String returnValue = jsonObject1.get("returnValue").toString();
+                    JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
+                    String firstName = jsonObject2.get("firstName").getAsString();
+                    if (firstName != null) {
+                        nameTextView.setText(firstName);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
     }

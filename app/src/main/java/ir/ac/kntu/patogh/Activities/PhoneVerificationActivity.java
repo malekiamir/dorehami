@@ -209,7 +209,6 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
             }
         });
-
         return success;
     }
 

@@ -424,7 +424,7 @@ public class EventActivity extends AppCompatActivity {
                     Glide.with(getApplicationContext())
                             .load(bmp)
                             .signature(new ObjectKey(id))
-                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .into(imgEvent);
                     progressBar.setVisibility(View.GONE);
                 } else {

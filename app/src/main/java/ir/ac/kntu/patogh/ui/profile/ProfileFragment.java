@@ -42,7 +42,6 @@ import ir.ac.kntu.patogh.Utils.FavoriteEvent;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
-import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 

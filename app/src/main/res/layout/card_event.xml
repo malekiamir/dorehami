@@ -141,8 +141,8 @@
         app:anim_scale_factor="2"
         app:circle_end_color="#F5F1F1"
         app:circle_start_color="#F5F1F1"
-        app:dots_primary_color="#d50000"
-        app:dots_secondary_color="#d50000"
+        app:dots_primary_color="#ffffff"
+        app:dots_secondary_color="#ffffff"
         app:icon_size="20dp"
         app:icon_type="heart"
         app:is_enabled="true"
@@ -151,6 +151,18 @@
         app:like_drawable="@drawable/ic_heart_1"
         app:liked="false"
         app:unlike_drawable="@drawable/ic_heart" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/like_background"
+        android:padding="5dp"
+        android:translationZ="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/btn_img_card_view_like"
+        app:layout_constraintEnd_toEndOf="@id/btn_img_card_view_like"
+        app:layout_constraintStart_toStartOf="@id/btn_img_card_view_like"
+        app:layout_constraintTop_toTopOf="@id/btn_img_card_view_like"
+        android:alpha="0.3"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline54"
@@ -180,7 +192,7 @@
         android:textColor="@android:color/black"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline61"
-        app:layout_constraintStart_toStartOf="@+id/guideline62" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline63" />
 
     <TextView
         android:id="@+id/tv_card_view_capacity"

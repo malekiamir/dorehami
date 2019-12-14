@@ -87,19 +87,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_adjective" />
 
-            <LinearLayout
-                android:id="@+id/card_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="215dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
-                android:background="#ffffff"
-                android:elevation="6dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_favorites">
-
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_favorite_events"
@@ -110,9 +97,10 @@
                     android:layout_marginRight="3dp"
                     android:visibility="invisible"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_favorites"/>
 
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_profile_page_badges_text"
@@ -127,7 +115,7 @@
                 android:textColor="#11103d"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card_recycler" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_favorite_events" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_profile_page_badges"

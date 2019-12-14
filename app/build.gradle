@@ -65,12 +65,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.0.0'
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
-    implementation 'com.mikhaellopez:circularimageview:4.1.0'
-    implementation 'de.hdodenhof:circleimageview:3.0.1'
     implementation 'neshan-android-sdk:mobile-sdk:0.9.5'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.github.samanzamani.persiandate:PersianDate:0.7'
     implementation 'com.airbnb.android:lottie:3.3.1'
 

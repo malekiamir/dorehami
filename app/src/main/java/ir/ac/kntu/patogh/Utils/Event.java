@@ -6,8 +6,11 @@ public class Event {
     private String date;
     private String capacity;
     private String id;
+    private String city;
     private String thumbnailId;
     private boolean isJoined;
+    private String latitude;
+    private String longitude;
     private boolean isFavorited;
     private String[] imagesIds;
 
@@ -15,7 +18,7 @@ public class Event {
     }
 
     public Event(String name, String desc, String date, String capacity, String id, String thumbnailId
-            , boolean isJoined, boolean isFavorited, String[] imagesIds) {
+            , boolean isJoined, boolean isFavorited, String[] imagesIds, String city, String longitude, String latitude) {
         this.name = name;
         this.desc = desc;
         this.date = date;
@@ -25,6 +28,33 @@ public class Event {
         this.isFavorited = isFavorited;
         this.isJoined = isJoined;
         this.imagesIds = imagesIds;
+        this.city = city;
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String[] getImagesIds() {

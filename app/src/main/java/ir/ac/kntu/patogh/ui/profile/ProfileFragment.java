@@ -208,6 +208,12 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     }
 
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
+
     public void getFavorites() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://eg.potatogamers.ir:7701/api/")

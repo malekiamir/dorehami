@@ -29,7 +29,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -202,7 +201,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                         events.add(new Event(dorehami.getName(), dorehami.getSummery()
                                 , dorehami.getStartTime(),String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
                                 , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
-                                , dorehami.isFavorited(), dorehami.getImagesIds()));
+                                , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
+                                , dorehami.getLongitude(), dorehami.getLatitude()));
                     }
                     eventAdapter.addAll(events);
                     swipeContainer.setRefreshing(false);
@@ -234,13 +234,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         intent.putExtra("event_date", selectedEvent.getDate());
         intent.putExtra("event_capacity", selectedEvent.getCapacity());
         intent.putExtra("event_id", selectedEvent.getId());
-        Pair[] pairs = new Pair[2];
-        pairs[0] = new Pair<View, String>(textView, ViewCompat.getTransitionName(textView));
-        pairs[1] = new Pair<View, String>(imageView, ViewCompat.getTransitionName(imageView));
+        intent.putExtra("event_long", selectedEvent.getLongitude());
+        intent.putExtra("event_lat", selectedEvent.getLatitude());
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            ActivityOptions options = ActivityOptions
-                    .makeSceneTransitionAnimation(getActivity(), pairs);
-//            context.startActivity(intent, options.toBundle());
             context.startActivity(intent);
         }
 

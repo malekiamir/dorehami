@@ -90,7 +90,7 @@
         android:text="پاتوق"
         android:textColor="#11103d"
         android:textSize="24dp"
-        android:fontFamily="@font/iransans_bold"
+        android:fontFamily="@font/iransans_mobile_medium_font"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"

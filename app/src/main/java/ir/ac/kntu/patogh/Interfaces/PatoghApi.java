@@ -21,6 +21,9 @@ public interface PatoghApi {
     @POST("/api/User/getUserDetails")
     Call<ResponseBody> getUserDetails(@Header("Authorization")String token);
 
+    @POST("/api/User/favDorehamiGetSummery")
+    Call<ResponseBody> getFavorites(@Header("Authorization")String token);
+
     @GET("/api/Dorehami/getSummery")
     Call<ResponseBody> getSummery(@Header("Authorization")String token);
 

@@ -3,6 +3,7 @@ package ir.ac.kntu.patogh.ui.profile;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Pair;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,16 +35,31 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.ac.kntu.patogh.Activities.EventActivity;
+import ir.ac.kntu.patogh.Activities.MainActivity;
 import ir.ac.kntu.patogh.Adapters.BadgeAdapter;
 import ir.ac.kntu.patogh.Adapters.FavoriteAdapter;
+import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.Badge;
+import ir.ac.kntu.patogh.Utils.Dorehami;
 import ir.ac.kntu.patogh.Utils.EqualSpacingItemDecoration;
+import ir.ac.kntu.patogh.Utils.Event;
 import ir.ac.kntu.patogh.Utils.FavoriteEvent;
 import jp.wasabeef.glide.transformations.BlurTransformation;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
@@ -57,6 +74,9 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     private BadgeAdapter badgeAdapter;
     private Unbinder unbinder;
     private ProfileViewModel profileViewModel;
+    private SharedPreferences sharedPreferences;
+    private ArrayList<FavoriteEvent> favoriteEvents;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +85,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         profileViewModel =
                 ViewModelProviders.of(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
+        favoriteEvents = new ArrayList<>();
         unbinder = ButterKnife.bind(this, root);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -73,7 +94,10 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         favoriteAdapter = new FavoriteAdapter(this);
         rvFavoriteEvents.setAdapter(favoriteAdapter);
         rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(22));
-        loadEventsData();
+        sharedPreferences = getActivity()
+                .getSharedPreferences("TokenPref",0);
+//        loadEventsData();
+        getFavorites();
 
         Toolbar toolbar = root.findViewById(R.id.toolbar_profile_page);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -91,6 +115,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvBadge.setAdapter(badgeAdapter);
         rvBadge.addItemDecoration(new EqualSpacingItemDecoration(16));
         loadBadges();
+
 
 //        Glide.with(this.getContext())
 //                .load(R.drawable.seventh_back)
@@ -142,7 +167,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             events[i] = new FavoriteEvent(generateRandomString(5), "98/08/18", "ظرفیت : "+(int)(Math.random()*20+10)+ "");
         }
 //        System.out.println(events.length);
-        favoriteAdapter.setEventData(events);
+        favoriteAdapter.setEventData(favoriteEvents);
     }
 
     private void loadBadges() {
@@ -182,5 +207,49 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     @Override
     public void onClick(Badge selectedBadge, ImageView imageView) {
 
+    }
+
+    public void getFavorites() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            Toast.makeText(getContext(), "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+        }
+
+        patoghApi.getFavorites("Bearer " + token).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String res = response.body().string();
+                    System.out.println(response.code());
+                    System.out.println("BODYYYYYYY" +res);
+                    favoriteAdapter.clear();
+                    favoriteEvents.clear();
+                    JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
+                    String returnValue = jsonObject1.get("returnValue").toString();
+                    Type dorehamiType = new TypeToken<ArrayList<Dorehami>>(){}.getType();
+                    ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
+                    for (Dorehami dorehami : dorehamis) {
+                        favoriteEvents.add(new FavoriteEvent(dorehami.getName(), dorehami.getStartTime()
+                                ,String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())));
+                        System.out.println("~~~~" + dorehami.toString());
+                    }
+                    favoriteAdapter.addAll(favoriteEvents);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("RIIIIIIIIIIIIIIIIIDIIIIIIIIIIIIIII");
+            }
+        });
     }
 }

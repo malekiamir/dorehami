@@ -10,7 +10,6 @@
 
     <ImageView
         android:id="@+id/badge_icon"
-        android:src="@drawable/ic_new"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="parent"

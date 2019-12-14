@@ -115,7 +115,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         FavoriteEvent selectedEvent = eventsData.get(position);
         eventAdapterViewHolder.eventNameTextView.setText(selectedEvent.getName());
         eventAdapterViewHolder.eventCapacityTextView.setText(String.format("%s"
-                ,selectedEvent.getCapacity()));
+                , selectedEvent.getCapacity()));
 
         SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         try {
@@ -127,6 +127,12 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Glide.with(context)
+                .load(R.drawable.rounded_rect_image_not_loaded)
+                .override(100, 200)
+                .centerCrop()
+                .into(eventAdapterViewHolder.eventImage);
+        downloadThumbnail(selectedEvent.getThumbnailId(), eventAdapterViewHolder.eventImage);
     }
 
     private void downloadThumbnail(String id, ImageView eventImage) {
@@ -179,7 +185,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         eventsData = eventData;
         notifyDataSetChanged();
     }
-
 
 
 }

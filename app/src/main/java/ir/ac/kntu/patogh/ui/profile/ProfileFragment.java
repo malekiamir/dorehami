@@ -10,6 +10,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -95,15 +96,15 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvFavoriteEvents.setAdapter(favoriteAdapter);
         rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(22));
         sharedPreferences = getActivity()
-                .getSharedPreferences("TokenPref",0);
+                .getSharedPreferences("TokenPref", 0);
 //        loadEventsData();
         getFavorites();
 
         Toolbar toolbar = root.findViewById(R.id.toolbar_profile_page);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_history);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_history);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         setHasOptionsMenu(true);
 
@@ -111,7 +112,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         LinearLayoutManager badgeLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvBadge.setLayoutManager(badgeLayoutManager);
-        badgeAdapter= new BadgeAdapter(this);
+        badgeAdapter = new BadgeAdapter(this);
         rvBadge.setAdapter(badgeAdapter);
         rvBadge.addItemDecoration(new EqualSpacingItemDecoration(16));
         loadBadges();
@@ -123,7 +124,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 //                .apply(RequestOptions.bitmapTransform(new BlurTransformation(3, 3)))
 //                .into((ImageView)root.findViewById(R.id.img_profile_back_pic));
 
-  //      ImageView imageView;
+        //      ImageView imageView;
 //        imageView = root.findViewById(R.id.img_profile_circlar_pic).bringToFront();
 
 //        Glide.with(this) //1
@@ -140,7 +141,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                 //.circleCrop()
                 .skipMemoryCache(true) //2
                 .diskCacheStrategy(DiskCacheStrategy.NONE) //3
-                .into((ImageView)root.findViewById(R.id.img_profile_circlar_pic));
+                .into((ImageView) root.findViewById(R.id.img_profile_circlar_pic));
         return root;
     }
 
@@ -151,40 +152,31 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     }
 
     @Override
+    public boolean onOptionsItemSelected( MenuItem item) {
+       // return super.onOptionsItemSelected(item);
+        if(item.getItemId() == R.id.action_refresh){
+            getFavorites();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         getFavorites();
     }
 
-    public String generateRandomString(int length) {
-        String out = "";
-        String []alphabet = {"ا","ب","ی","ت","س","ج","م","د","ر"};
-
-        for (int i = 0; i < length; i++) {
-            out += alphabet[(int)(Math.random()*9)];
-        }
-        return out;
-    }
-
-    private void loadEventsData() {
-        showEventDataView();
-        FavoriteEvent []events = new FavoriteEvent[20];
-        for (int i = 0; i < events.length; i++) {
-            events[i] = new FavoriteEvent(generateRandomString(5), "98/08/18", "ظرفیت : "+(int)(Math.random()*20+10)+ "");
-        }
-//        System.out.println(events.length);
-        favoriteAdapter.setEventData(favoriteEvents);
-    }
 
     private void loadBadges() {
         ArrayList<Badge> badges = new ArrayList<>();
-       // for (int i = 0; i < 4; i++) {
-            badges.add(new Badge(R.drawable.ic_sport_badges));
-            badges.add(new Badge(R.drawable.ic_win));
-            badges.add(new Badge(R.drawable.ic_achievement));
-            badges.add(new Badge(R.drawable.ic_success));
-          //  badges.add(parseInt(String.valueOf(R.drawable.ic_badge)));
-      //  }
+        // for (int i = 0; i < 4; i++) {
+        badges.add(new Badge(R.drawable.ic_sport_badges));
+        badges.add(new Badge(R.drawable.ic_win));
+        badges.add(new Badge(R.drawable.ic_achievement));
+        badges.add(new Badge(R.drawable.ic_success));
+        //  badges.add(parseInt(String.valueOf(R.drawable.ic_badge)));
+        //  }
 //        System.out.println(events.length);
         badgeAdapter.setEventData(badges);
     }
@@ -203,7 +195,8 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         intent.putExtra("event_name", selectedEvent.getName());
         intent.putExtra("event_date", selectedEvent.getDate());
         intent.putExtra("event_capacity", selectedEvent.getCapacity());
-        Pair[] pairs = new Pair[2];
+        intent.putExtra("event_id", selectedEvent.getId());
+        intent.putExtra("class", "favorite");
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             context.startActivity(intent);
         }
@@ -238,11 +231,13 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                     favoriteEvents.clear();
                     JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
                     String returnValue = jsonObject1.get("returnValue").toString();
-                    Type dorehamiType = new TypeToken<ArrayList<Dorehami>>(){}.getType();
+                    Type dorehamiType = new TypeToken<ArrayList<Dorehami>>() {
+                    }.getType();
                     ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
                     for (Dorehami dorehami : dorehamis) {
                         favoriteEvents.add(new FavoriteEvent(dorehami.getName(), dorehami.getStartTime()
-                                ,String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())));
+                                , String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
+                                , dorehami.getId(), dorehami.getThumbnailId()));
                     }
                     System.out.println(favoriteEvents.size());
                     favoriteAdapter.addAll(favoriteEvents);
@@ -253,7 +248,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                System.out.println("RIIIIIIIIIIIIIIIIIDIIIIIIIIIIIIIII");
+
             }
         });
     }

@@ -6,15 +6,17 @@ public class FavoriteEvent {
     private String date;
     private String capacity;
     private String id;
+    private String thumbnailId;
 
     public FavoriteEvent() {
     }
 
-    public FavoriteEvent(String name,String date, String capacity, String id) {
+    public FavoriteEvent(String name, String date, String capacity, String id, String thumbnailId) {
         this.name = name;
         this.date = date;
         this.capacity = capacity;
         this.id = id;
+        this.thumbnailId = thumbnailId;
     }
 
     public String getId() {
@@ -47,6 +49,12 @@ public class FavoriteEvent {
 
     public void setCapacity(String capacity) {
         this.capacity = capacity;
+    }
+
+    public String getThumbnailId() { return thumbnailId; }
+
+    public void setThumbnailId(String thumbnailId) {
+        this.thumbnailId = thumbnailId;
     }
 
 }

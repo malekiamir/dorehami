@@ -52,9 +52,26 @@ public class FirstPageActivity extends AppCompatActivity {
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String token = sharedPreferences.getString("Token", "none");
         if (token.equals("none")) {
-            Intent intent = new Intent(FirstPageActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            long t2 = System.currentTimeMillis();
+            if(t2-t1 >= 1450) {
+                Intent intent = new Intent(FirstPageActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                new Thread()  {
+                    @Override
+                    public void run() {
+                        try {
+                            sleep(1450-t2+t1);
+                            Intent intent = new Intent(FirstPageActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+            }
             return;
         }
 
@@ -91,9 +108,27 @@ public class FirstPageActivity extends AppCompatActivity {
                             }.start();
                         }
                     } else {
-                        Intent intent = new Intent(FirstPageActivity.this, SignUpActivity.class);
-                        startActivity(intent);
-                        finish();
+                        long t2 = System.currentTimeMillis();
+                        if(t2-t1 >= 1450) {
+                            Intent intent = new Intent(FirstPageActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            new Thread()  {
+                                @Override
+                                public void run() {
+                                    try {
+                                        sleep(1450-t2+t1);
+                                        Intent intent = new Intent(FirstPageActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }.start();
+                        }
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

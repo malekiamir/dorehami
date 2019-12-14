@@ -1,28 +1,21 @@
 package ir.ac.kntu.patogh.ui.profile;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,31 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import ir.ac.kntu.patogh.Activities.EventActivity;
-import ir.ac.kntu.patogh.Activities.MainActivity;
-import ir.ac.kntu.patogh.Adapters.BadgeAdapter;
-import ir.ac.kntu.patogh.Adapters.FavoriteAdapter;
-import ir.ac.kntu.patogh.Interfaces.PatoghApi;
-import ir.ac.kntu.patogh.R;
-import ir.ac.kntu.patogh.Utils.Badge;
-import ir.ac.kntu.patogh.Utils.Dorehami;
-import ir.ac.kntu.patogh.Utils.EqualSpacingItemDecoration;
-import ir.ac.kntu.patogh.Utils.Event;
-import ir.ac.kntu.patogh.Utils.FavoriteEvent;
-import jp.wasabeef.glide.transformations.BlurTransformation;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -63,7 +31,25 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import static java.lang.Integer.parseInt;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import ir.ac.kntu.patogh.Activities.EventActivity;
+import ir.ac.kntu.patogh.Activities.MainActivity;
+import ir.ac.kntu.patogh.Activities.SettingsActivity;
+import ir.ac.kntu.patogh.Adapters.BadgeAdapter;
+import ir.ac.kntu.patogh.Adapters.FavoriteAdapter;
+import ir.ac.kntu.patogh.Interfaces.PatoghApi;
+import ir.ac.kntu.patogh.R;
+import ir.ac.kntu.patogh.Utils.Badge;
+import ir.ac.kntu.patogh.Utils.Dorehami;
+import ir.ac.kntu.patogh.Utils.EqualSpacingItemDecoration;
+import ir.ac.kntu.patogh.Utils.FavoriteEvent;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ProfileFragment extends Fragment implements FavoriteAdapter.FavoriteAdapterOnClickHandler, BadgeAdapter.BadgeAdapterOnClickHandler {
 
@@ -153,9 +139,13 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     @Override
     public boolean onOptionsItemSelected( MenuItem item) {
-       // return super.onOptionsItemSelected(item);
         if(item.getItemId() == R.id.action_refresh){
             getFavorites();
+            return true;
+        } else if (item.getItemId() == R.id.action_gear) {
+            Context context = getContext();
+            Intent intent = new Intent(context, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
         return false;

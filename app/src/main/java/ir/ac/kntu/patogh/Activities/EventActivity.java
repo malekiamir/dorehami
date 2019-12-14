@@ -1,6 +1,5 @@
 package ir.ac.kntu.patogh.Activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -99,7 +98,7 @@ public class EventActivity extends AppCompatActivity {
     @BindView(R.id.btn_img_event_like)
     LikeButton likeButton;
     VectorElementLayer markerLayer;
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
     private String eventId = "";
     private AlertDialog dialog;
     private String baseURL = "http://eg.potatogamers.ir:7701/api/";

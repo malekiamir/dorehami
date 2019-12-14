@@ -81,30 +81,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <com.airbnb.lottie.LottieAnimationView
+        <ImageButton
             android:id="@+id/btn_img_search_bar_search"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:lottie_fileName="12199-searching.json"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.9"
+            android:background="#00000000"
+            android:src="@android:drawable/ic_menu_search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-<!--        <ImageButton-->
-<!--            android:id="@+id/btn_img_search_bar_search"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginBottom="8dp"-->
-<!--            android:alpha="0.9"-->
-<!--            android:background="#00000000"-->
-<!--            android:src="@android:drawable/ic_menu_search"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
     @BindView(R.id.edt_home_page_search_bar)
     EditText edtSearch;
     @BindView(R.id.btn_img_search_bar_search)
-    LottieAnimationView btnImgSearch;
+    ImageButton btnImgSearch;
     @BindView(R.id.btn_img_search_bar_sort)
     ImageButton btnImgSort;
     @BindView(R.id.btn_img_search_bar_cancel)

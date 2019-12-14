@@ -61,7 +61,7 @@ public class FirstPageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sleep(1200);
+                    sleep(3000);
                     Intent intent = new Intent(FirstPageActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

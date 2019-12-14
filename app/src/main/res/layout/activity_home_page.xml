@@ -14,7 +14,7 @@
         app:itemRippleColor="#c5cae9"
         android:elevation="12dp"
         android:translationZ="12dp"
-        android:background="#ffffff"
+        android:background="@color/patoghBlue"
         app:itemTextColor="@drawable/nav_calendar_color"
         app:itemIconTint="@drawable/nav_calendar_color"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -11,14 +11,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.gson.Gson;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
@@ -32,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteAdapterViewHolder> {
@@ -68,7 +72,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         TextView eventDateTextView;
         TextView eventCapacityTextView;
         ImageView eventImage;
-        ConstraintLayout constraintLayout;
 
 
         public FavoriteAdapterViewHolder(View view) {
@@ -77,7 +80,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             eventDateTextView = view.findViewById(R.id.tv_favorite_card_date);
             eventCapacityTextView = view.findViewById(R.id.tv_favorite_card_capacity);
             eventImage = view.findViewById(R.id.img_favorite_card_event_image);
-            constraintLayout = view.findViewById(R.id.constraintLayout_favorite_card);
             view.setOnClickListener(this);
         }
 
@@ -112,10 +114,19 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     public void onBindViewHolder(FavoriteAdapter.FavoriteAdapterViewHolder eventAdapterViewHolder, int position) {
         FavoriteEvent selectedEvent = eventsData.get(position);
         eventAdapterViewHolder.eventNameTextView.setText(selectedEvent.getName());
-        eventAdapterViewHolder.eventDateTextView.setText(String.format("%s"
-                , selectedEvent.getDate()));
         eventAdapterViewHolder.eventCapacityTextView.setText(String.format("%s"
                 ,selectedEvent.getCapacity()));
+
+        SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        try {
+            Date dateStart = readingFormat.parse(selectedEvent.getDate());
+            PersianDate persianDateStart = new PersianDate(dateStart);
+            PersianDateFormat pdformater = new PersianDateFormat("l j F H:i");
+            String startDate = pdformater.format(persianDateStart);
+            eventAdapterViewHolder.eventDateTextView.setText(startDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void downloadThumbnail(String id, ImageView eventImage) {
@@ -156,7 +167,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             }
         });
     }
-
 
     @Override
     public int getItemCount() {

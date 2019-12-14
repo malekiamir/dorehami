@@ -5,14 +5,24 @@ public class FavoriteEvent {
     private String name;
     private String date;
     private String capacity;
+    private String id;
 
     public FavoriteEvent() {
     }
 
-    public FavoriteEvent(String name,String date, String capacity) {
+    public FavoriteEvent(String name,String date, String capacity, String id) {
         this.name = name;
         this.date = date;
         this.capacity = capacity;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -235,14 +235,24 @@ public class EventActivity extends AppCompatActivity {
     }
 
     public void getIncomingIntent() {
-        if (getIntent().hasExtra("event_name") && getIntent().hasExtra("event_desc")
-                && getIntent().hasExtra("event_date") && getIntent().hasExtra("event_capacity")
-                && getIntent().hasExtra("event_id")) {
+        if(getIntent().hasExtra("event_name")) {
             tvName.setText(getIntent().getStringExtra("event_name"));
+        }
+        if(getIntent().hasExtra("event_desc")) {
             tvDesc.setText(getIntent().getStringExtra("event_desc"));
+        }
+        if(getIntent().hasExtra("event_date")) {
             tvDate.setText(getIntent().getStringExtra("event_date"));
+        }
+        if(getIntent().hasExtra("event_id")) {
             eventId = getIntent().getStringExtra("event_id");
+        }
+        if(getIntent().hasExtra("event_capacity")) {
             tvCapacity.setText("ظرفیت باقی مانده : " + getIntent().getStringExtra("event_capacity") + " نفر");
+        }
+        if(getIntent().hasExtra("class") && getIntent().getStringExtra("class").equals("favorite")) {
+            likeButton.setLiked(true);
+            isLiked=true;
         }
     }
 

@@ -63,6 +63,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         TextView eventSummaryTextView;
         TextView eventDateTextView;
         TextView eventCapacityTextView;
+        TextView eventCityTextView;
         ImageView eventImage;
         LikeButton likeButton;
 
@@ -72,6 +73,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             eventSummaryTextView = view.findViewById(R.id.tv_card_view_event_summary);
             eventDateTextView = view.findViewById(R.id.tv_card_view_date);
             eventCapacityTextView = view.findViewById(R.id.tv_card_view_capacity);
+            eventCityTextView = view.findViewById(R.id.tv_card_view_city_name);
             eventImage = view.findViewById(R.id.img_card_view_event_pic);
             likeButton = view.findViewById(R.id.btn_img_card_view_like);
             likeButton.setLiked(false);
@@ -191,6 +193,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         Event selectedEvent = eventsData.get(position);
         eventAdapterViewHolder.eventNameTextView.setText(selectedEvent.getName());
         eventAdapterViewHolder.eventSummaryTextView.setText(selectedEvent.getDesc());
+        eventAdapterViewHolder.eventCityTextView.setText(selectedEvent.getCity());
         SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         try {
             Date dateStart = readingFormat.parse(selectedEvent.getDate());

@@ -142,7 +142,7 @@ public class EventActivity extends AppCompatActivity {
                     } else {
                         final View customLayout = getLayoutInflater().inflate(R.layout.dialog_leave_event, null);
 
-                        AlertDialog.Builder dialogBuilder  =
+                        AlertDialog.Builder dialogBuilder =
                                 new AlertDialog.Builder(EventActivity.this)
                                         .setView(customLayout);
                         dialog = dialogBuilder.create();
@@ -235,24 +235,42 @@ public class EventActivity extends AppCompatActivity {
     }
 
     public void getIncomingIntent() {
-        if(getIntent().hasExtra("event_name")) {
+        if (getIntent().hasExtra("event_name")) {
             tvName.setText(getIntent().getStringExtra("event_name"));
         }
-        if(getIntent().hasExtra("event_desc")) {
+        if (getIntent().hasExtra("event_desc")) {
             tvDesc.setText(getIntent().getStringExtra("event_desc"));
         }
-        if(getIntent().hasExtra("event_date")) {
-            tvDate.setText(getIntent().getStringExtra("event_date"));
+        if (getIntent().hasExtra("event_date")) {
+            SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            try {
+                Date dateStart = readingFormat.parse(getIntent().getStringExtra("event_date"));
+                PersianDate persianDateStart = new PersianDate(dateStart);
+                PersianDateFormat pdformater = new PersianDateFormat("l j F H:i");
+                String startDate = pdformater.format(persianDateStart);
+                tvDate.setText(startDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
-        if(getIntent().hasExtra("event_id")) {
+        if (getIntent().hasExtra("event_id")) {
             eventId = getIntent().getStringExtra("event_id");
         }
-        if(getIntent().hasExtra("event_capacity")) {
-            tvCapacity.setText("ظرفیت باقی مانده : " + getIntent().getStringExtra("event_capacity") + " نفر");
+        if (getIntent().hasExtra("event_liked")) {
+            likeButton.setLiked(getIntent().getBooleanExtra("event_liked", false));
         }
-        if(getIntent().hasExtra("class") && getIntent().getStringExtra("class").equals("favorite")) {
+        if (getIntent().hasExtra("event_capacity")) {
+            tvCapacity.setText(getIntent().getStringExtra("event_capacity"));
+        }
+        if (getIntent().hasExtra("event_long") && getIntent().hasExtra("event_lat")) {
+            if (getIntent().getStringExtra("event_long") != null && getIntent().getStringExtra("event_lat") != null) {
+                mapConfiguration(new LngLat(Double.valueOf(getIntent().getStringExtra("event_long"))
+                        , Double.valueOf(getIntent().getStringExtra("event_lat"))));
+            }
+        }
+        if (getIntent().hasExtra("class") && getIntent().getStringExtra("class").equals("favorite")) {
             likeButton.setLiked(true);
-            isLiked=true;
+            isLiked = true;
         }
     }
 
@@ -464,22 +482,9 @@ public class EventActivity extends AppCompatActivity {
                     Dorehami dorehami = gson.fromJson(returnValue, dorehamiType);
                     tvDesc.setText(dorehami.getDescription());
                     tvAddress.setText(dorehami.getAddress());
-                    mapConfiguration(new LngLat(Double.valueOf(dorehami.getLongitude())
-                            , Double.valueOf(dorehami.getLatitude())));
                     isJoined = dorehami.isJoined();
                     isLiked = dorehami.isFavorited();
                     tvCity.setText(dorehami.getProvince());
-//                    tvCategory.setText();
-                    SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                    try {
-                        Date dateStart = readingFormat.parse(dorehami.getStartTime());
-                        PersianDate persianDateStart = new PersianDate(dateStart);
-                        PersianDateFormat pdformater = new PersianDateFormat("l j F H:i");
-                        String startDate = pdformater.format(persianDateStart);
-                        tvDate.setText(startDate);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
                     tvCapacity.setText(String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize()));
                     ExtendedFloatingActionButton fab = findViewById(R.id.fab);
                     if (isJoined) {

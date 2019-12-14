@@ -14,18 +14,55 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <ImageView
                 android:id="@+id/img_event"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="230dp"
+                android:background="#77E2E2E2"
+                android:contentDescription="عکس رویداد"
+                android:elevation="2dp"
                 android:scaleType="centerCrop"
                 android:transitionName="@string/event_img_transition_name"
+                android:translationZ="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha="0.3"
+                android:background="@drawable/like_background"
+                android:padding="5dp"
+                android:translationZ="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/btn_img_event_like"
+                app:layout_constraintEnd_toEndOf="@id/btn_img_event_like"
+                app:layout_constraintStart_toStartOf="@id/btn_img_event_like"
+                app:layout_constraintTop_toTopOf="@id/btn_img_event_like" />
+
+            <com.like.LikeButton
+                android:id="@+id/btn_img_event_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:translationZ="7dp"
+                app:anim_scale_factor="2"
+                app:circle_end_color="#F5F1F1"
+                app:circle_start_color="#F5F1F1"
+                app:dots_primary_color="#F5F1F1"
+                app:dots_secondary_color="#F5F1F1"
+                app:icon_size="24dp"
+                app:icon_type="heart"
+                app:is_enabled="true"
+                app:layout_constraintBottom_toBottomOf="@+id/img_event"
+                app:layout_constraintEnd_toEndOf="@+id/img_event"
+                app:like_drawable="@drawable/ic_heart_1"
+                app:liked="false"
+                app:unlike_drawable="@drawable/ic_heart_on_image" />
 
             <com.github.ybq.android.spinkit.SpinKitView
                 android:id="@+id/progress_event"
@@ -46,7 +83,9 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:alpha="0.9"
-                android:fontFamily="@font/yekan_font"
+                android:ellipsize="end"
+                android:fontFamily="@font/iransans_mobile_medium_font"
+                android:maxLines="1"
                 android:text="دوچرخه سواری"
                 android:textColor="#000000"
                 android:textSize="24sp"
@@ -61,6 +100,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:padding="1dp"
+                android:translationZ="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_event_name"
                 app:srcCompat="@drawable/ic_time" />
@@ -71,10 +111,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:alpha="0.7"
-                android:fontFamily="@font/iransans_font"
+                android:fontFamily="@font/iransans_mobile_light_font"
                 android:text="7 دی ساعت 12:30"
                 android:textColor="#000000"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/img_time_icon"
                 app:layout_constraintEnd_toStartOf="@+id/img_time_icon"
                 app:layout_constraintTop_toTopOf="@+id/img_time_icon" />
@@ -85,6 +125,7 @@
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginTop="6dp"
+                android:translationZ="3dp"
                 app:layout_constraintEnd_toEndOf="@+id/img_time_icon"
                 app:layout_constraintStart_toStartOf="@+id/img_time_icon"
                 app:layout_constraintTop_toBottomOf="@+id/img_time_icon"
@@ -95,10 +136,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
-                android:fontFamily="@font/iransans_font"
+                android:fontFamily="@font/iransans_mobile_light_font"
                 android:text="تهران"
                 android:textColor="#000000"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/img_location_icon"
                 app:layout_constraintEnd_toEndOf="@+id/tv_event_date"
                 app:layout_constraintTop_toTopOf="@+id/img_location_icon" />
@@ -109,10 +150,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:alpha="0.7"
-                android:fontFamily="@font/iransans_font"
+                android:fontFamily="@font/iransans_mobile_light_font"
                 android:text="ظرفیت باقی مانده : 10 نفر"
                 android:textColor="#000000"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_event_location"
                 app:layout_constraintEnd_toStartOf="@+id/tv_event_location"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -124,10 +165,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
-                android:fontFamily="@font/iransans_font"
+                android:fontFamily="@font/iransans_mobile_light_font"
                 android:text="ورزشی"
                 android:textColor="#000000"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/img_category_icon"
                 app:layout_constraintEnd_toEndOf="@+id/tv_event_location"
                 app:layout_constraintTop_toTopOf="@+id/img_category_icon" />
@@ -149,6 +190,7 @@
                 android:layout_marginTop="6dp"
                 android:alpha="0.8"
                 android:padding="2dp"
+                android:translationZ="3dp"
                 app:layout_constraintEnd_toEndOf="@+id/img_location_icon"
                 app:layout_constraintStart_toStartOf="@+id/img_location_icon"
                 app:layout_constraintTop_toBottomOf="@+id/img_location_icon"
@@ -189,10 +231,10 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
                 android:alpha="0.7"
-                android:fontFamily="@font/yekan_font"
+                android:fontFamily="@font/iransans_mobile_medium_font"
                 android:text="برچسب ها"
                 android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -213,7 +255,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#e2e2e2"
-                    android:fontFamily="@font/iransans_font"
+                    android:fontFamily="@font/iransans_mobile_light_font"
                     android:text="ورزشی"
                     android:textColor="#000" />
 
@@ -222,7 +264,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#e2e2e2"
-                    android:fontFamily="@font/iransans_font"
+                    android:fontFamily="@font/iransans_mobile_light_font"
                     android:text="دوچرخه سواری"
                     android:textColor="#000" />
 
@@ -231,7 +273,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#e2e2e2"
-                    android:fontFamily="@font/iransans_font"
+                    android:fontFamily="@font/iransans_mobile_light_font"
                     android:text="سفری"
                     android:textColor="#000" />
 
@@ -240,7 +282,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#e2e2e2"
-                    android:fontFamily="@font/iransans_font"
+                    android:fontFamily="@font/iransans_mobile_light_font"
                     android:text="ورزشی"
                     android:textColor="#000" />
 
@@ -249,7 +291,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#e2e2e2"
-                    android:fontFamily="@font/iransans_font"
+                    android:fontFamily="@font/iransans_mobile_light_font"
                     android:text="دوچرخه سواری"
                     android:textColor="#000" />
 
@@ -258,7 +300,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#e2e2e2"
-                    android:fontFamily="@font/iransans_font"
+                    android:fontFamily="@font/iransans_mobile_light_font"
                     android:text="سفری"
                     android:textColor="#000" />
             </com.google.android.material.chip.ChipGroup>
@@ -285,10 +327,10 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
                 android:alpha="0.7"
-                android:fontFamily="@font/yekan_font"
+                android:fontFamily="@font/iransans_mobile_medium_font"
                 android:text="برگزارکننده"
                 android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
@@ -313,12 +355,16 @@
                     android:id="@+id/tv_event_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:justificationMode="inter_word"
                     android:alpha="0.9"
-                    android:fontFamily="@font/iransans_font"
-                    android:text="مسابقه دوچرخه سواری دور دریاچه خلیج فارس "
+                    android:fontFamily="@font/iransans_mobile_light_font"
+                    android:gravity="right"
+                    android:lineSpacingExtra="5dp"
+                    android:text="مسابقه دوچرخه سواری\n دور دریاچه خلیج فارس "
                     android:textColor="#000000"
-                    android:textSize="17sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <TextView
@@ -328,10 +374,10 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
                 android:alpha="0.7"
-                android:fontFamily="@font/yekan_font"
+                android:fontFamily="@font/iransans_mobile_medium_font"
                 android:text="توضیحات"
                 android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -340,9 +386,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/rounded_rect_card"
-                android:layout_marginTop="4dp"
                 android:elevation="2dp"
                 android:gravity="right"
                 android:orientation="vertical"
@@ -356,12 +402,13 @@
                     android:id="@+id/tv_event_holder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
                     android:alpha="0.9"
-                    android:fontFamily="@font/iransans_font"
+                    android:fontFamily="@font/iransans_mobile_light_font"
                     android:text="انجمن دوچرخه سواری ایران"
                     android:textColor="#000000"
-                    android:textSize="17sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <View
@@ -384,10 +431,10 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
                 android:alpha="0.7"
-                android:fontFamily="@font/yekan_font"
+                android:fontFamily="@font/iransans_mobile_medium_font"
                 android:text="آدرس"
                 android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -397,11 +444,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
                 android:alpha="0.9"
-                android:fontFamily="@font/iransans_font"
+                android:fontFamily="@font/iransans_mobile_light_font"
                 android:text="خیابان آزادی کوچه امیری بن بست فراهانی سالن ملکی"
                 android:textColor="#000000"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -414,25 +462,25 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="80dp"
                 android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_event_address"
-                android:focusable="true" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_address" />
 
             <TextView
                 android:id="@+id/tv_map_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rounded_rect"
+                android:fontFamily="@font/iransans_mobile_light_font"
+                android:text="برای مشاهده کامل نقشه را لمس کنید"
+                android:textColor="#FA000000"
+                android:textSize="17sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/map"
                 app:layout_constraintEnd_toEndOf="@+id/map"
                 app:layout_constraintStart_toStartOf="@id/map"
-                app:layout_constraintTop_toTopOf="@id/map"
-                app:layout_constraintBottom_toBottomOf="@+id/map"
-                android:textColor="#FA000000"
-                android:textSize="18sp"
-                android:fontFamily="@font/iransans_font"
-                android:background="@drawable/rounded_rect"
-                android:visibility="invisible"
-                android:text="برای مشاهده کامل نقشه را لمس کنید" />
+                app:layout_constraintTop_toTopOf="@id/map" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -91,8 +91,6 @@
             android:fontFamily="@font/iransans_mobile_font"
             android:gravity="right"
             android:maxLength="35"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:text="دوچرخه سواری"
             android:textColor="@android:color/black"
             android:textDirection="ltr"

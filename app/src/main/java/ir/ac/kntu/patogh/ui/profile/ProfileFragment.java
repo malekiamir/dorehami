@@ -156,6 +156,26 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         getFavorites();
     }
 
+    public String generateRandomString(int length) {
+        String out = "";
+        String []alphabet = {"ا","ب","ی","ت","س","ج","م","د","ر"};
+
+        for (int i = 0; i < length; i++) {
+            out += alphabet[(int)(Math.random()*9)];
+        }
+        return out;
+    }
+
+    private void loadEventsData() {
+        showEventDataView();
+        FavoriteEvent []events = new FavoriteEvent[20];
+        for (int i = 0; i < events.length; i++) {
+            events[i] = new FavoriteEvent(generateRandomString(5), "98/08/18", "ظرفیت : "+(int)(Math.random()*20+10)+ "");
+        }
+//        System.out.println(events.length);
+        favoriteAdapter.setEventData(favoriteEvents);
+    }
+
     private void loadBadges() {
         ArrayList<Badge> badges = new ArrayList<>();
        // for (int i = 0; i < 4; i++) {
@@ -183,8 +203,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         intent.putExtra("event_name", selectedEvent.getName());
         intent.putExtra("event_date", selectedEvent.getDate());
         intent.putExtra("event_capacity", selectedEvent.getCapacity());
-        intent.putExtra("event_id", selectedEvent.getId());
-        intent.putExtra("class", "favorite");
+        Pair[] pairs = new Pair[2];
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             context.startActivity(intent);
         }
@@ -223,8 +242,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                     ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
                     for (Dorehami dorehami : dorehamis) {
                         favoriteEvents.add(new FavoriteEvent(dorehami.getName(), dorehami.getStartTime()
-                                ,String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
-                                ,dorehami.getId()));
+                                ,String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())));
                     }
                     System.out.println(favoriteEvents.size());
                     favoriteAdapter.addAll(favoriteEvents);
@@ -235,7 +253,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                System.out.println("RIIIIIIIIIIIIIIIIIDIIIIIIIIIIIIIII");
             }
         });
     }

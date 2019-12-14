@@ -13,7 +13,7 @@
         android:id="@+id/action_refresh"
         android:orderInCategory="10"
         android:title="gear"
-        android:icon="@drawable/ic_documentary"
+        android:icon="@drawable/ic_refresh"
         app:showAsAction="always"/>
 
 </menu>

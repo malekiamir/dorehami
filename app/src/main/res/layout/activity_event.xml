@@ -40,7 +40,7 @@
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
         android:backgroundTint="#F0D919"
-        android:fontFamily="@font/yekan_font"
+        android:fontFamily="@font/iransans_mobile_medium_font"
         android:text="شرکت در رویداد"
         android:textSize="16sp"
         app:icon="@drawable/ic_add" />

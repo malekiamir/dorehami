@@ -86,7 +86,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvFavoriteEvents.setLayoutManager(layoutManager);
         favoriteAdapter = new FavoriteAdapter(this);
         rvFavoriteEvents.setAdapter(favoriteAdapter);
-        rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(22));
+        rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(26));
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref", 0);
 //        loadEventsData();

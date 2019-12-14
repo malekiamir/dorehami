@@ -150,6 +150,12 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getFavorites();
+    }
+
     public String generateRandomString(int length) {
         String out = "";
         String []alphabet = {"ا","ب","ی","ت","س","ج","م","د","ر"};
@@ -222,13 +228,12 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             startActivity(intent);
         }
 
+        showEventDataView();
         patoghApi.getFavorites("Bearer " + token).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     String res = response.body().string();
-                    System.out.println(response.code());
-                    System.out.println("BODYYYYYYY" +res);
                     favoriteAdapter.clear();
                     favoriteEvents.clear();
                     JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
@@ -238,8 +243,8 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                     for (Dorehami dorehami : dorehamis) {
                         favoriteEvents.add(new FavoriteEvent(dorehami.getName(), dorehami.getStartTime()
                                 ,String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())));
-                        System.out.println("~~~~" + dorehami.toString());
                     }
+                    System.out.println(favoriteEvents.size());
                     favoriteAdapter.addAll(favoriteEvents);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -249,6 +254,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 System.out.println("RIIIIIIIIIIIIIIIIIDIIIIIIIIIIIIIII");
+
             }
         });
     }

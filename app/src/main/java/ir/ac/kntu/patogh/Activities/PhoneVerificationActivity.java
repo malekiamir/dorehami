@@ -75,7 +75,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         sharedPreferences = getApplicationContext()
-                .getSharedPreferences("TokenPref",MODE_PRIVATE);
+                .getSharedPreferences("TokenPref", MODE_PRIVATE);
 
         Glide.with(this.getApplicationContext())
                 .load(R.drawable.back)
@@ -95,7 +95,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         layout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(edtVerification.hasFocus()) {
+                if (edtVerification.hasFocus()) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                     edtVerification.clearFocus();
@@ -109,7 +109,6 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     public void clickHandler(View view) {
         if (view.getId() == R.id.btn_phoneverification_submit) {
             btnSubmit.startAnimation();
-            System.out.println(Objects.requireNonNull(edtVerification.getText()).toString());
             checkVerificationCode();
         }
         if (view.getId() == R.id.btn_phoneverification_edit) {
@@ -171,7 +170,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    if (response.code()!=200) {
+                    if (response.code() != 200) {
                         new StyleableToast
                                 .Builder(PhoneVerificationActivity.this)
                                 .text("کد صحیح نمی باشد.")
@@ -191,7 +190,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                         editor.apply();
                         System.out.println("~~~" + token);
                         System.out.println(response.toString());
-                        goToNextPage(token);
+                        checkNewUser();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -214,13 +213,48 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         return success;
     }
 
-    public void goToNextPage(String token) {
-        Intent intent = new Intent(PhoneVerificationActivity.this, SignUpActivity.class);
-        String phoneNumber = getIntent().getStringExtra("phoneNumber");
-        intent.putExtra("phoneNumber", phoneNumber);
-        intent.putExtra("token", token);
-        startActivity(intent);
-        finish();
+    private void checkNewUser() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .build();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            Intent intent = new Intent(PhoneVerificationActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
+        patoghApi.getUserDetails("Bearer " + token).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    System.out.println(response.body());
+                    String res = response.body().string();
+                    System.out.println(res);
+                    JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
+                    String returnValue = jsonObject1.get("returnValue").toString();
+                    JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
+                    String firstName = jsonObject2.get("firstName").getAsString();
+                    if (firstName != null) {
+                        Intent intent = new Intent(PhoneVerificationActivity.this, HomePageActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(PhoneVerificationActivity.this, SignUpActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
     }
 
     @Override
@@ -232,7 +266,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "برای خروج دوباره دکمه بازگشت را فشار دهید", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(() -> doubleBackToExitPressedOnce=false, 2000);
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
     }
 }
 

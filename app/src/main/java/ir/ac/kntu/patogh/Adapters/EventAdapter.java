@@ -82,12 +82,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
                 @Override
                 public void liked(LikeButton likeButton) {
                     int adapterPosition = getAdapterPosition();
+                    eventsData.get(adapterPosition).setFavorited(true);
                     favDorehamiAdd(eventsData.get(adapterPosition).getId());
                 }
 
                 @Override
                 public void unLiked(LikeButton likeButton) {
                     int adapterPosition = getAdapterPosition();
+                    eventsData.get(adapterPosition).setFavorited(false);
                     favDorehamiRemove(eventsData.get(adapterPosition).getId());
                 }
             });

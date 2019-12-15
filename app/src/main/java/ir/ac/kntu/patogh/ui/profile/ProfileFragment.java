@@ -86,10 +86,9 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvFavoriteEvents.setLayoutManager(layoutManager);
         favoriteAdapter = new FavoriteAdapter(this);
         rvFavoriteEvents.setAdapter(favoriteAdapter);
-        rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(26));
+        rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(40));
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref", 0);
-//        loadEventsData();
         getUserDetails();
         getFavorites();
 
@@ -112,29 +111,12 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         loadBadges();
 
 
-//        Glide.with(this.getContext())
-//                .load(R.drawable.seventh_back)
-//                .centerCrop()
-//                .apply(RequestOptions.bitmapTransform(new BlurTransformation(3, 3)))
-//                .into((ImageView)root.findViewById(R.id.img_profile_back_pic));
-
-        //      ImageView imageView;
-//        imageView = root.findViewById(R.id.img_profile_circlar_pic).bringToFront();
-
-//        Glide.with(this) //1
-//                .load(R.drawable.back)
-//                .placeholder(R.drawable.back)
-//                .error(R.drawable.back)
-//                .skipMemoryCache(true) //2
-//                .diskCacheStrategy(DiskCacheStrategy.NONE) //3
-//                .into((ImageView)root.findViewById(R.id.img_profile_back_pic));
-        Glide.with(this) //1
+        Glide.with(this)
                 .load(R.drawable.back)
                 .placeholder(R.drawable.back)
                 .error(R.drawable.back)
-                //.circleCrop()
-                .skipMemoryCache(true) //2
-                .diskCacheStrategy(DiskCacheStrategy.NONE) //3
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into((ImageView) root.findViewById(R.id.img_profile_circlar_pic));
         return root;
     }
@@ -146,8 +128,8 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     }
 
     @Override
-    public boolean onOptionsItemSelected( MenuItem item) {
-        if(item.getItemId() == R.id.action_refresh){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_refresh) {
             getFavorites();
             return true;
         } else if (item.getItemId() == R.id.action_gear) {
@@ -168,21 +150,14 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     private void loadBadges() {
         ArrayList<Badge> badges = new ArrayList<>();
-        // for (int i = 0; i < 4; i++) {
         badges.add(new Badge(R.drawable.ic_sport_badges));
         badges.add(new Badge(R.drawable.ic_win));
         badges.add(new Badge(R.drawable.ic_achievement));
         badges.add(new Badge(R.drawable.ic_success));
-        //  badges.add(parseInt(String.valueOf(R.drawable.ic_badge)));
-        //  }
-//        System.out.println(events.length);
         badgeAdapter.setEventData(badges);
     }
 
     private void showEventDataView() {
-        /* First, make sure the error is invisible */
-//        mErrorMessageDisplay.setVisibility(View.INVISIBLE);
-        /* Then, make sure the weather data is visible */
         rvFavoriteEvents.setVisibility(View.VISIBLE);
     }
 

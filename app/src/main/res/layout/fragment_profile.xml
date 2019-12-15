@@ -67,6 +67,7 @@
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:text="تازه وارد"
+                android:alpha="0.6"
                 android:textColor="#11103d"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +86,18 @@
                 android:textColor="#11103d"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_adjective" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_profile_page_badges"
+                />
+
+            <View
+                android:layout_width="220dp"
+                android:layout_height="1dp"
+                android:background="#C9C9C9"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_profile_page_favorites"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_profile_page_favorites"
+                app:layout_constraintEnd_toStartOf="@+id/tv_profile_page_favorites"/>
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -114,7 +126,18 @@
                 android:textColor="#11103d"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_favorite_events" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_adjective"
+                 />
+
+            <View
+                android:layout_width="240dp"
+                android:layout_height="1dp"
+                android:background="#C9C9C9"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_profile_page_badges_text"
+                app:layout_constraintTop_toTopOf="@+id/tv_profile_page_badges_text"
+                app:layout_constraintEnd_toStartOf="@id/tv_profile_page_badges_text"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_profile_page_badges"

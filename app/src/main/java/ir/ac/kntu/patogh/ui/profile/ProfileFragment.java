@@ -71,6 +71,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     private ProfileViewModel profileViewModel;
     private SharedPreferences sharedPreferences;
     private ArrayList<FavoriteEvent> favoriteEvents;
+    private String badge[];
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -86,6 +87,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         rvFavoriteEvents.setLayoutManager(layoutManager);
+        badge= new String[]{"اولین تجربه دورهمی","هشت دورهمی موفق","برگزاری یک رویداد","ثبت نام موفق"};
         favoriteAdapter = new FavoriteAdapter(this);
         rvFavoriteEvents.setAdapter(favoriteAdapter);
         rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(40));
@@ -99,6 +101,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_history);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         setHasOptionsMenu(true);
@@ -109,7 +112,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvBadge.setLayoutManager(badgeLayoutManager);
         badgeAdapter = new BadgeAdapter(this);
         rvBadge.setAdapter(badgeAdapter);
-        rvBadge.addItemDecoration(new EqualSpacingItemDecoration(20));
+        rvBadge.addItemDecoration(new EqualSpacingItemDecoration(24));
         loadBadges();
 
 
@@ -150,8 +153,10 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                     .show();
             return true;
         }
+
         return false;
     }
+
 
     @Override
     public void onResume() {
@@ -162,10 +167,10 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     private void loadBadges() {
         ArrayList<Badge> badges = new ArrayList<>();
-        badges.add(new Badge(R.drawable.ic_sport_badges));
-        badges.add(new Badge(R.drawable.ic_win));
-        badges.add(new Badge(R.drawable.ic_achievement));
-        badges.add(new Badge(R.drawable.ic_success));
+        badges.add(new Badge(R.drawable.ic_sport_badges,1));
+        badges.add(new Badge(R.drawable.ic_win,2));
+        badges.add(new Badge(R.drawable.ic_achievement,3));
+        badges.add(new Badge(R.drawable.ic_success,4));
         badgeAdapter.setEventData(badges);
     }
 
@@ -189,8 +194,14 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
 
     @Override
-    public void onClick(Badge selectedBadge, ImageView imageView) {
-
+    public void onClick(Badge selectedBadge) {
+        new StyleableToast
+                .Builder(getContext())
+                .text(badge[selectedBadge.getId()-1])
+                .textColor(Color.WHITE)
+                .font(R.font.iransans_mobile_font)
+                .backgroundColor(Color.argb(250, 30, 30, 30))
+                .show();
     }
 
     @Override

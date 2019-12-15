@@ -38,7 +38,7 @@ public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.BadgeAdapter
     private ImageView badgeImage;
 
     public interface BadgeAdapterOnClickHandler {
-        void onClick(Badge selectedBadge, ImageView imageView);
+        void onClick(Badge selectedBadge);
     }
 
     public BadgeAdapter(BadgeAdapter.BadgeAdapterOnClickHandler clickHandler) {
@@ -63,7 +63,7 @@ public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.BadgeAdapter
             mLastClickTime = now;
             int adapterPosition = getAdapterPosition();
             Badge selectedBadge = eventsData.get(adapterPosition);
-            mClickHandler.onClick(selectedBadge, badgeImage);
+            mClickHandler.onClick(selectedBadge);
         }
 
     }

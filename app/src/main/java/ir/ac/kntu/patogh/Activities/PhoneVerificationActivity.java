@@ -81,7 +81,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 3)))
                 .into((ImageView) findViewById(R.id.img_phone_verification_background));
 
-        new CountDownTimer(30000, 1000) {
+        new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 tvTimer.setText("کد تایید تا " + millisUntilFinished / 1000 + " ثانیه دیگر برای شما ارسال خواهد شد.");
@@ -235,7 +235,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                     String returnValue = jsonObject1.get("returnValue").toString();
                     JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
                     String firstName = jsonObject2.get("firstName").getAsString();
-                    if (firstName != null) {
+                    if (firstName != null && !firstName.equals("")) {
                         Intent intent = new Intent(PhoneVerificationActivity.this, HomePageActivity.class);
                         startActivity(intent);
                         finish();

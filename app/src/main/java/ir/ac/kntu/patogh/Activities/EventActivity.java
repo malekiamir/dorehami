@@ -97,6 +97,8 @@ public class EventActivity extends AppCompatActivity {
     ProgressBar progressBar;
     @BindView(R.id.btn_img_event_like)
     LikeButton likeButton;
+    @BindView(R.id.fab)
+    ExtendedFloatingActionButton fab;
     VectorElementLayer markerLayer;
     private SharedPreferences sharedPreferences;
     private String eventId = "";
@@ -124,8 +126,6 @@ public class EventActivity extends AppCompatActivity {
         Sprite threeBounce = new ThreeBounce();
         progressBar.setIndeterminateDrawable(threeBounce);
         getDetail(eventId);
-        ExtendedFloatingActionButton fab = findViewById(R.id.fab);
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,10 +134,7 @@ public class EventActivity extends AppCompatActivity {
                     String dorehamiId = getIntent().getStringExtra("event_id");
                     if (fab.getText().toString().contains("شرکت")) {
                         joinDorehami(dorehamiId);
-                        fab.setText("شما عضو رویداد هستید");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            fab.setIcon(getDrawable(R.drawable.ic_done_white_48dp));
-                        }
+
                     } else {
                         final View customLayout = getLayoutInflater().inflate(R.layout.dialog_leave_event, null);
 
@@ -151,10 +148,6 @@ public class EventActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 leaveDorehami(dorehamiId);
-                                fab.setText("شرکت در رویداد");
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    fab.setIcon(getDrawable(R.drawable.ic_add));
-                                }
                                 dialog.dismiss();
                             }
                         });
@@ -331,6 +324,10 @@ public class EventActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 200) {
                     System.out.println("joined event with id : " + id);
+                    fab.setText("شما عضو رویداد هستید");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        fab.setIcon(getDrawable(R.drawable.ic_done_white_48dp));
+                    }
                 } else {
                     System.out.println("response code not 200" + " " + id + " " + response.code());
                     System.out.println(response.message());
@@ -380,6 +377,10 @@ public class EventActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 200) {
                     System.out.println("removed event with id : " + id);
+                    fab.setText("شرکت در رویداد");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        fab.setIcon(getDrawable(R.drawable.ic_add));
+                    }
                 } else {
                     System.out.println("response code not 200" + " " + id + " " + response.code());
                     System.out.println(response.message());

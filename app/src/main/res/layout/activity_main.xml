@@ -112,7 +112,7 @@
         android:paddingRight="5dp"
         android:textColor="#fff"
         android:textColorHint="#f9fbe7"
-        android:textSize="22sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

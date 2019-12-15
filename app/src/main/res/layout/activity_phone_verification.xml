@@ -142,7 +142,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.9"
-        android:fontFamily="@font/iransans_font"
+        android:fontFamily="@font/iransans_mobile_font"
         android:textColor="#FFF"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"

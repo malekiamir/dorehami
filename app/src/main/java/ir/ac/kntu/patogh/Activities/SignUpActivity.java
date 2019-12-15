@@ -245,7 +245,13 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "برای خروج دوباره دکمه بازگشت را فشار دهید", Toast.LENGTH_SHORT).show();
+        new StyleableToast
+                .Builder(this)
+                .text("برای خروج دوباره دکمه بازگشت را فشار دهید")
+                .textColor(Color.WHITE)
+                .font(R.font.iransans_mobile_font)
+                .backgroundColor(Color.argb(250, 30, 30, 30))
+                .show();
         new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
     }
 

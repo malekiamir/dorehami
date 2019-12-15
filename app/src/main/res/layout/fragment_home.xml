@@ -34,7 +34,7 @@
             android:background="#00000000"
             android:focusable="true"
             android:focusedByDefault="false"
-            android:fontFamily="@font/iransans_font"
+            android:fontFamily="@font/iransans_mobile_font"
             android:gravity="right|center_vertical"
             android:inputType="textAutoComplete"
             android:maxLines="1"

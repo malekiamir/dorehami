@@ -3,6 +3,7 @@ package ir.ac.kntu.patogh.ui.profile;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -111,6 +113,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         loadBadges();
 
 
+
         Glide.with(this)
                 .load(R.drawable.back)
                 .placeholder(R.drawable.back)
@@ -136,6 +139,15 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             Context context = getContext();
             Intent intent = new Intent(context, SettingsActivity.class);
             startActivity(intent);
+            return true;
+        } else if (item.getItemId() == android.R.id.home) {
+            new StyleableToast
+                    .Builder(getContext())
+                    .text("تاریخچه رویدادها")
+                    .textColor(Color.WHITE)
+                    .font(R.font.iransans_mobile_font)
+                    .backgroundColor(Color.argb(250, 30, 30, 30))
+                    .show();
             return true;
         }
         return false;
@@ -266,4 +278,5 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             }
         });
     }
+
 }

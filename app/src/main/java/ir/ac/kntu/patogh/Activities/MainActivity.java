@@ -67,10 +67,6 @@ public class MainActivity extends AppCompatActivity {
             getWindow().setSharedElementExitTransition(new Explode());
         }
         super.onCreate(savedInstanceState);
-//        if(savedInstanceState!=null && savedInstanceState.containsKey("phoneNumber")) {
-//            String phoneNumebr = savedInstanceState.getString("phoneNumber");
-//            edtPhone.setText(phoneNumebr);
-//        }
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         sharedPreferences = getApplicationContext()

@@ -201,7 +201,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                                 , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
                                 , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
                                 , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
-                                , dorehami.getLongitude(), dorehami.getLatitude()));
+                                , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()));
                     }
                     eventAdapter.addAll(events);
                     swipeContainer.setRefreshing(false);
@@ -254,6 +254,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         intent.putExtra("event_id", selectedEvent.getId());
         intent.putExtra("event_long", selectedEvent.getLongitude());
         intent.putExtra("event_lat", selectedEvent.getLatitude());
+        intent.putExtra("event_category", selectedEvent.getCategory());
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             context.startActivity(intent);
 //            startActivityForResult(intent, 0);

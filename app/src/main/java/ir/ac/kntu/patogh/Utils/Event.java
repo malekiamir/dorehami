@@ -13,12 +13,14 @@ public class Event {
     private String longitude;
     private boolean isFavorited;
     private String[] imagesIds;
+    private String category;
 
     public Event() {
     }
 
     public Event(String name, String desc, String date, String capacity, String id, String thumbnailId
-            , boolean isJoined, boolean isFavorited, String[] imagesIds, String city, String longitude, String latitude) {
+            , boolean isJoined, boolean isFavorited, String[] imagesIds, String city, String longitude
+            , String latitude, String category) {
         this.name = name;
         this.desc = desc;
         this.date = date;
@@ -31,6 +33,15 @@ public class Event {
         this.city = city;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getLatitude() {

@@ -15,11 +15,20 @@ public class Dorehami {
     private String latitude;
     private String longitude;
     private String address;
+    private String category;
     private String province;
     private String thumbnailId;
     private boolean isJoined;
     private boolean isFavorited;
     private String[] imagesIds;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public String[] getImagesIds() {
         return imagesIds;
@@ -172,6 +181,7 @@ public class Dorehami {
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
                 ", address='" + address + '\'' +
+                ", category='" + category + '\'' +
                 ", province='" + province + '\'' +
                 ", thumbnailId='" + thumbnailId + '\'' +
                 ", isJoined=" + isJoined +

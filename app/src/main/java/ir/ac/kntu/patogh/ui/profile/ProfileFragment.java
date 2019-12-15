@@ -59,6 +59,8 @@ import retrofit2.Retrofit;
 
 public class ProfileFragment extends Fragment implements FavoriteAdapter.FavoriteAdapterOnClickHandler, BadgeAdapter.BadgeAdapterOnClickHandler {
 
+    @BindView(R.id.tv_profile_page_favorites_gone)
+    TextView tvFavoritesGone;
     @BindView(R.id.rv_profile_page_badges)
     RecyclerView rvBadge;
     @BindView(R.id.rv_favorite_events)
@@ -241,6 +243,11 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                                 , dorehami.getId(), dorehami.getThumbnailId()));
                     }
                     System.out.println(favoriteEvents.size());
+                    if(favoriteEvents.size()==0){
+                        tvFavoritesGone.setVisibility(View.VISIBLE);
+                    } else {
+                        tvFavoritesGone.setVisibility(View.GONE);
+                    }
                     favoriteAdapter.addAll(favoriteEvents);
                 } catch (IOException e) {
                     e.printStackTrace();

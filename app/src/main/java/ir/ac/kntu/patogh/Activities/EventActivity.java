@@ -308,6 +308,15 @@ public class EventActivity extends AppCompatActivity {
         if (token.equals("none")) {
             Toast.makeText(EventActivity.this, "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(EventActivity.this, MainActivity.class);
+//            if (!isLiked && !isJoined) {
+//                setResult(0, intent);
+//            } else if (isLiked && !isJoined) {
+//                setResult(1, intent);
+//            } else if (!isLiked && isJoined) {
+//                setResult(2, intent);
+//            } else {
+//                setResult(3, intent);
+//            }
             startActivity(intent);
         }
 

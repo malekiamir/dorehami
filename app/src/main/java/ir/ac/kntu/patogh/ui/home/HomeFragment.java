@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -93,7 +94,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         });
         swipeContainer.setColorSchemeResources(R.color.patoghYellow, R.color.patoghBlue);
         sharedPreferences = getActivity()
-                .getSharedPreferences("TokenPref",0);
+                .getSharedPreferences("TokenPref", 0);
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -182,7 +183,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     String res = response.body().string();
-                    if(serverResponse!=null && serverResponse.equals(res)) {
+                    if (serverResponse != null && serverResponse.equals(res)) {
                         swipeContainer.setRefreshing(false);
                         return;
                     } else {
@@ -192,11 +193,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                     }
                     JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
                     String returnValue = jsonObject1.get("returnValue").toString();
-                    Type dorehamiType = new TypeToken<ArrayList<Dorehami>>(){}.getType();
+                    Type dorehamiType = new TypeToken<ArrayList<Dorehami>>() {
+                    }.getType();
                     ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
                     for (Dorehami dorehami : dorehamis) {
                         events.add(new Event(dorehami.getName(), dorehami.getSummery()
-                                , dorehami.getStartTime(),String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
+                                , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
                                 , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
                                 , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
                                 , dorehami.getLongitude(), dorehami.getLatitude()));
@@ -219,6 +221,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         super.onDestroyView();
         unbinder.unbind();
     }
+//
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch (resultCode) {
+//            case 0:
+//
+//                break;
+//            case 1:
+//
+//                break;
+//            case 2:
+//
+//                break;
+//            case 3:
+//
+//                break;
+//        }
+//    }
 
     @Override
     public void onClick(Event selectedEvent, TextView textView, ImageView imageView) {
@@ -235,6 +256,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         intent.putExtra("event_lat", selectedEvent.getLatitude());
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             context.startActivity(intent);
+//            startActivityForResult(intent, 0);
         }
 
     }

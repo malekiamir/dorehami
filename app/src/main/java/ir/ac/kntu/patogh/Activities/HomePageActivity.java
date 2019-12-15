@@ -1,12 +1,16 @@
 package ir.ac.kntu.patogh.Activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +32,8 @@ public class HomePageActivity extends AppCompatActivity {
     final Fragment fragment4 = new ProfileFragment();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
+    private boolean doubleBackToExitPressedOnce = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +96,22 @@ public class HomePageActivity extends AppCompatActivity {
         return false;
     };
 
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        new StyleableToast
+                .Builder(this)
+                .text("برای خروج دوباره دکمه بازگشت را فشار دهید")
+                .textColor(Color.WHITE)
+                .font(R.font.iransans_mobile_font)
+                .backgroundColor(Color.argb(250, 30, 30, 30))
+                .show();
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce=false, 2000);
+    }
 
 }
 

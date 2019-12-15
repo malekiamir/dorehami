@@ -5,15 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
@@ -26,6 +30,7 @@ import retrofit2.Retrofit;
 
 public class FirstPageActivity extends AppCompatActivity {
 
+    private boolean doubleBackToExitPressedOnce = false;
     private SharedPreferences sharedPreferences;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -140,5 +145,22 @@ public class FirstPageActivity extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        new StyleableToast
+                .Builder(this)
+                .text("برای خروج دوباره دکمه بازگشت را فشار دهید")
+                .textColor(Color.WHITE)
+                .font(R.font.iransans_mobile_font)
+                .backgroundColor(Color.argb(250, 30, 30, 30))
+                .show();
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce=false, 2000);
     }
 }

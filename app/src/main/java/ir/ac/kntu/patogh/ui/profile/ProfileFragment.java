@@ -112,7 +112,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvBadge.setLayoutManager(badgeLayoutManager);
         badgeAdapter = new BadgeAdapter(this);
         rvBadge.setAdapter(badgeAdapter);
-        rvBadge.addItemDecoration(new EqualSpacingItemDecoration(20));
+        rvBadge.addItemDecoration(new EqualSpacingItemDecoration(24));
         loadBadges();
 
 

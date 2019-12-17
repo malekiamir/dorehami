@@ -22,4 +22,5 @@
 
     <style name="AppTheme.AlertDialog" parent="MaterialAlertDialog.MaterialComponents">
     </style>
+
 </resources>

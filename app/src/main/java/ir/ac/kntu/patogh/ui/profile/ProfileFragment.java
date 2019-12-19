@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -38,13 +39,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.ac.kntu.patogh.Activities.EventActivity;
-import ir.ac.kntu.patogh.Activities.HomePageActivity;
 import ir.ac.kntu.patogh.Activities.MainActivity;
-import ir.ac.kntu.patogh.Activities.PhoneVerificationActivity;
 import ir.ac.kntu.patogh.Activities.SettingsActivity;
-import ir.ac.kntu.patogh.Activities.SignUpActivity;
 import ir.ac.kntu.patogh.Adapters.BadgeAdapter;
 import ir.ac.kntu.patogh.Adapters.FavoriteAdapter;
+import ir.ac.kntu.patogh.Activities.BadgesActivity;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.Badge;
@@ -67,6 +66,10 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     RecyclerView rvFavoriteEvents;
     @BindView(R.id.tv_profile_page_name)
     TextView nameTextView;
+    @BindView(R.id.tv_profile_page_adjective)
+    TextView adjectiveTextView;
+    @BindView(R.id.swipeRefresh_profile)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     private FavoriteAdapter favoriteAdapter;
     private BadgeAdapter badgeAdapter;
     private Unbinder unbinder;
@@ -74,6 +77,8 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     private SharedPreferences sharedPreferences;
     private ArrayList<FavoriteEvent> favoriteEvents;
     private String badge[];
+    private String serverResponse;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -85,6 +90,15 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
         favoriteEvents = new ArrayList<>();
         unbinder = ButterKnife.bind(this, root);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getFavorites();
+            }
+        });
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.patoghYellow, R.color.patoghBlue);
+        sharedPreferences = getActivity()
+                .getSharedPreferences("TokenPref", 0);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
@@ -137,10 +151,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_refresh) {
-            getFavorites();
-            return true;
-        } else if (item.getItemId() == R.id.action_gear) {
+         if (item.getItemId() == R.id.action_gear) {
             Context context = getContext();
             Intent intent = new Intent(context, SettingsActivity.class);
             startActivity(intent);
@@ -197,13 +208,16 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     @Override
     public void onClick(Badge selectedBadge) {
-        new StyleableToast
-                .Builder(getContext())
-                .text(badge[selectedBadge.getId()-1])
-                .textColor(Color.WHITE)
-                .font(R.font.iransans_mobile_font)
-                .backgroundColor(Color.argb(250, 30, 30, 30))
-                .show();
+//        new StyleableToast
+//                .Builder(getContext())
+//                .text(badge[selectedBadge.getId()-1])
+//                .textColor(Color.WHITE)
+//                .font(R.font.iransans_mobile_font)
+//                .backgroundColor(Color.argb(250, 30, 30, 30))
+//                .show();
+        Intent intent = new Intent(getActivity(), BadgesActivity.class);
+        startActivity(intent);
+
     }
 
     @Override
@@ -230,8 +244,15 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     String res = response.body().string();
-                    favoriteAdapter.clear();
-                    favoriteEvents.clear();
+                    if (serverResponse != null && serverResponse.equals(res)) {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        return;
+                    } else {
+                        favoriteAdapter.clear();
+                        favoriteEvents.clear();
+                        serverResponse = res;
+                    }
+
                     JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
                     String returnValue = jsonObject1.get("returnValue").toString();
                     Type dorehamiType = new TypeToken<ArrayList<Dorehami>>() {
@@ -249,6 +270,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                         tvFavoritesGone.setVisibility(View.GONE);
                     }
                     favoriteAdapter.addAll(favoriteEvents);
+                    mSwipeRefreshLayout.setRefreshing(false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -283,6 +305,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                     String returnValue = jsonObject1.get("returnValue").toString();
                     JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
                     String firstName = jsonObject2.get("firstName").getAsString();
+                   // String adjective = jsonObject2.get("firstName").getAsString();
                     if (firstName != null) {
                         nameTextView.setText(firstName);
                     }

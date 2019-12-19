@@ -71,5 +71,7 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.github.samanzamani.persiandate:PersianDate:0.7'
     implementation 'com.airbnb.android:lottie:3.3.1'
+    //progressbar
+    implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
 
 }

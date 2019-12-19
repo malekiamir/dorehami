@@ -245,6 +245,9 @@ public class EventActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        if (getIntent().hasExtra("event_category")) {
+            tvCategory.setText(getIntent().getStringExtra("event_category"));
+        }
         if (getIntent().hasExtra("event_id")) {
             eventId = getIntent().getStringExtra("event_id");
         }

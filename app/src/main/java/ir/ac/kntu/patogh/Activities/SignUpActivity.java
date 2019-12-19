@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -192,6 +193,7 @@ public class SignUpActivity extends AppCompatActivity {
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String phoneNumber = getIntent().getStringExtra("phoneNumber");
+//        String token = getIntent().getStringExtra("token");
         String token = sharedPreferences.getString("Token", "none");
         if(token.equals("none")) {
             Intent intent = new Intent(SignUpActivity.this, PhoneVerificationActivity.class);

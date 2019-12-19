@@ -59,6 +59,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     TextView tvTimer;
     @BindView(R.id.phone_verification_constraint_layout)
     ConstraintLayout layout;
+    String phoneNumber;
 
     private SharedPreferences sharedPreferences;
 
@@ -159,7 +160,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 .baseUrl("http://eg.potatogamers.ir:7701/api/")
                 .build();
         Gson gson = new Gson();
-        String phoneNumber = getIntent().getStringExtra("phoneNumber");
+        phoneNumber = getIntent().getStringExtra("phoneNumber");
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
                 , gson.toJson(new TypeAuthentication(phoneNumber, code)));
@@ -241,6 +242,8 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                         finish();
                     } else {
                         Intent intent = new Intent(PhoneVerificationActivity.this, SignUpActivity.class);
+                        phoneNumber = getIntent().getStringExtra("phoneNumber");
+                        intent.putExtra("phoneNumber", phoneNumber);
                         startActivity(intent);
                         finish();
                     }

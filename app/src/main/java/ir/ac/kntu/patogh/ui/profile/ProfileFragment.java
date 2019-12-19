@@ -131,8 +131,6 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvBadge.addItemDecoration(new EqualSpacingItemDecoration(24));
         loadBadges();
 
-
-
         Glide.with(this)
                 .load(R.drawable.back)
                 .placeholder(R.drawable.back)

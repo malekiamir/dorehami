@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.FirstStepFragment">
 
     <ScrollView
@@ -14,56 +14,288 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_add_event_name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_event_add_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="18dp"
-                android:elevation="6dp"
-                android:gravity="center"
-                android:hint="نام رویداد"
-                android:textColorHint="#000"
-                app:boxStrokeColor="@color/text_input_color"
-                app:counterEnabled="false"
-                app:counterMaxLength="30"
-                app:hintTextAppearance="@style/TextLabel"
-                app:hintTextColor="#000"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="#ffffff"
+                app:cardCornerRadius="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_add_event_name"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout_add_event_name"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:alpha="0.9"
-                    android:fontFamily="@font/iransans_mobile_font"
-                    android:gravity="start"
-                    android:inputType="textPersonName"
-                    android:maxLines="1"
-                    android:paddingTop="15dp"
-                    android:textColor="#000" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginBottom="10dp"
+                    android:elevation="6dp"
+                    android:gravity="center"
+                    android:hint="نام رویداد"
+                    android:textColorHint="#000"
+                    app:boxStrokeColor="@color/text_input_color"
+                    app:counterEnabled="false"
+                    app:counterMaxLength="30"
+                    app:hintTextAppearance="@style/TextLabel"
+                    app:hintTextColor="#000">
 
-            <Button
-                android:id="@+id/start_date"
-                android:layout_width="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_add_event_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.9"
+                        android:fontFamily="@font/iransans_mobile_font"
+                        android:gravity="start"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:paddingTop="15dp"
+                        android:textColor="#000" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_event_add_date_time"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/iransans_mobile_font"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_add_event_name"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="#ffffff"
+                android:elevation="4dp"
+                app:cardCornerRadius="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="تاریخ شروع"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_event_add_name">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout_add_event_start_date"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="8dp"
+                        android:elevation="6dp"
+                        android:gravity="center"
+                        android:hint="تاریخ شروع"
+                        android:textColorHint="#000"
+                        app:boxStrokeColor="@color/text_input_color"
+                        app:counterEnabled="false"
+                        app:counterMaxLength="30"
+                        app:hintTextAppearance="@style/TextLabel"
+                        app:hintTextColor="#000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/guideline60"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_add_event_start_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.9"
+                            android:cursorVisible="false"
+                            android:fontFamily="@font/iransans_mobile_font"
+                            android:gravity="start"
+                            android:inputType="textPersonName"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:textColor="#000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout_add_event_start_time"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:elevation="6dp"
+                        android:gravity="center"
+                        android:hint="ساعت شروع"
+                        android:textColorHint="#000"
+                        app:boxStrokeColor="@color/text_input_color"
+                        app:counterEnabled="false"
+                        app:counterMaxLength="30"
+                        app:hintTextAppearance="@style/TextLabel"
+                        app:hintTextColor="#000"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline60"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textInputLayout_add_event_start_date">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_add_event_start_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.9"
+                            android:cursorVisible="false"
+                            android:fontFamily="@font/iransans_mobile_font"
+                            android:gravity="start"
+                            android:inputType="textPersonName"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:textColor="#000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout_add_event_end_date"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="10dp"
+                        android:elevation="6dp"
+                        android:gravity="center"
+                        android:hint="تاریخ پایان"
+                        android:textColorHint="#000"
+                        app:boxStrokeColor="@color/text_input_color"
+                        app:counterEnabled="false"
+                        app:counterMaxLength="30"
+                        app:hintTextAppearance="@style/TextLabel"
+                        app:hintTextColor="#000"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/guideline60"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_add_event_start_date">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_add_event_end_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.9"
+                            android:cursorVisible="false"
+                            android:fontFamily="@font/iransans_mobile_font"
+                            android:gravity="start"
+                            android:inputType="textPersonName"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:textColor="#000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout_add_event_end_time"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:elevation="6dp"
+                        android:gravity="center"
+                        android:hint="ساعت پایان"
+                        android:textColorHint="#000"
+                        app:boxStrokeColor="@color/text_input_color"
+                        app:counterEnabled="false"
+                        app:counterMaxLength="30"
+                        app:hintTextAppearance="@style/TextLabel"
+                        app:hintTextColor="#000"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline60"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textInputLayout_add_event_end_date">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_add_event_end_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.9"
+                            android:cursorVisible="false"
+                            android:fontFamily="@font/iransans_mobile_font"
+                            android:gravity="start"
+                            android:inputType="textPersonName"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:textColor="#000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline60"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="170dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/image_card"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="#ffffff"
+                android:elevation="4dp"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline61"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_event_add_date_time">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/image_upload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:backgroundTint="@color/patoghYellow"
+                        android:fontFamily="@font/iransans_mobile_font"
+                        android:text="بارگذاری تصویر"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/uploaded_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="عکس رویداد"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1000dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline61"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

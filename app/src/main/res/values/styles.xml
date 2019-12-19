@@ -7,12 +7,15 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
+        <item name="android:fontFamily">@font/iransans_mobile_font</item>
+
     </style>
 
     <style name="AppTheme.ProfileTheme">
         <item name="colorPrimaryDark">#33ff12</item>
         <item name="colorAccent">#121290</item>
         <item name="windowActionBar">false</item>
+        <item name="android:fontFamily">@font/iransans_mobile_font</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textColor">#FAFAFA</item>
     </style>
@@ -39,9 +42,10 @@
 
     <style name="AppTheme.HomePageActivity">
         <item name="windowActionBar">false</item>
+        <item name="android:fontFamily">@font/iransans_mobile_font</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="stepper"></style>
+    <style name="myTimePicker"></style>
 
 </resources>

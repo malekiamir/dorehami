@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.1"
     defaultConfig {
         applicationId "ir.ac.kntu.patogh"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -73,4 +73,5 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.3.1'
     implementation 'com.stepstone.stepper:material-stepper:4.3.1'
     implementation 'com.alirezaafkar:sundatepicker:2.1.2'
+    implementation 'com.github.dhaval2404:imagepicker-support:1.5'
 }

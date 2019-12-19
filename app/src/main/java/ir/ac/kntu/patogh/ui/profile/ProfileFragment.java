@@ -58,6 +58,9 @@ import retrofit2.Retrofit;
 
 public class ProfileFragment extends Fragment implements FavoriteAdapter.FavoriteAdapterOnClickHandler, BadgeAdapter.BadgeAdapterOnClickHandler {
 
+
+    @BindView(R.id.img_profile_pic)
+    ImageView profilePicture;
     @BindView(R.id.tv_profile_page_favorites_gone)
     TextView tvFavoritesGone;
     @BindView(R.id.rv_profile_page_badges)
@@ -131,15 +134,23 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvBadge.addItemDecoration(new EqualSpacingItemDecoration(24));
         loadBadges();
 
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
         Glide.with(this)
                 .load(R.drawable.back)
                 .placeholder(R.drawable.back)
                 .error(R.drawable.back)
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .into((ImageView) root.findViewById(R.id.img_profile_circlar_pic));
+                .into((ImageView) root.findViewById(R.id.img_profile_pic));
         return root;
     }
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

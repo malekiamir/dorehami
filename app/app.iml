@@ -177,6 +177,8 @@
     <orderEntry type="library" name="Gradle: neshan-android-sdk:mobile-sdk:0.9.5@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.ybq:Android-SpinKit:1.4.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.samanzamani.persiandate:PersianDate:0.7@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.dhaval2404:imagepicker-support:1.5@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.alirezaafkar:sundatepicker:2.1.2@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.akexorcist:RoundCornerProgressBar:2.0.3@aar" level="project" />
   </component>
 </module>

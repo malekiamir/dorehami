@@ -16,6 +16,8 @@ import ir.ac.kntu.patogh.R;
 
 public class AddEventStepperAdapter extends AbstractFragmentStepAdapter {
 
+    private String[] title = new String[]{"اطلاعات", "پیوست ها", "محل برگزاری"};
+
     public AddEventStepperAdapter(@NonNull FragmentManager fm, @NonNull Context context) {
         super(fm, context);
     }
@@ -38,7 +40,7 @@ public class AddEventStepperAdapter extends AbstractFragmentStepAdapter {
     @Override
     public StepViewModel getViewModel(@IntRange(from = 0) int position) {
         return new StepViewModel.Builder(context)
-                .setTitle("سلام") //can be a CharSequence instead
+                .setTitle(title[position]) //can be a CharSequence instead
                 .create();
     }
 }

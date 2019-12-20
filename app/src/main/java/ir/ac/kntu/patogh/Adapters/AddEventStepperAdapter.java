@@ -12,7 +12,8 @@ import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter;
 import com.stepstone.stepper.viewmodel.StepViewModel;
 
 import ir.ac.kntu.patogh.Fragments.FirstStepFragment;
-import ir.ac.kntu.patogh.R;
+import ir.ac.kntu.patogh.Fragments.SecondStepFragment;
+import ir.ac.kntu.patogh.Fragments.ThirdStepFragment;
 
 public class AddEventStepperAdapter extends AbstractFragmentStepAdapter {
 
@@ -24,11 +25,26 @@ public class AddEventStepperAdapter extends AbstractFragmentStepAdapter {
 
     @Override
     public Step createStep(int position) {
-        final FirstStepFragment step = new FirstStepFragment();
-        Bundle b = new Bundle();
-        b.putInt("POS", position);
-        step.setArguments(b);
-        return step;
+        if (position == 0) {
+            final FirstStepFragment step = new FirstStepFragment();
+            Bundle b = new Bundle();
+            b.putInt("POS", position);
+            step.setArguments(b);
+            return step;
+        } else if (position == 1) {
+            final SecondStepFragment step = new SecondStepFragment();
+            Bundle b = new Bundle();
+            b.putInt("POS", position);
+            step.setArguments(b);
+            return step;
+
+        } else {
+            final ThirdStepFragment step = new ThirdStepFragment();
+            Bundle b = new Bundle();
+            b.putInt("POS", position);
+            step.setArguments(b);
+            return step;
+        }
     }
 
     @Override

@@ -24,25 +24,19 @@ public class TimeDialog extends Dialog {
         super(context);
     }
 
-    public TimeDialog(@NonNull Context context, int themeResId) {
-        super(context, themeResId);
-    }
-
-    protected TimeDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_time_picker);
         ButterKnife.bind(this);
         timePicker.setIs24HourView(false);
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+    }
+
+    public Button getButtonSubmit() {
+        return buttonSubmit;
+    }
+
+    public TimePicker getTimePicker() {
+        return timePicker;
     }
 }

@@ -82,6 +82,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <ImageView
+                        android:id="@+id/img_add_event_date_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_time"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/iransans_mobile_medium_font"
+                        android:text="تاریخ و ساعت رویداد"
+                        android:textColor="#000000"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="@id/img_add_event_date_icon"
+                        app:layout_constraintEnd_toStartOf="@id/img_add_event_date_icon"
+                        app:layout_constraintTop_toTopOf="@id/img_add_event_date_icon" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayout_add_event_start_date"
@@ -90,20 +111,19 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="4dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
                         android:layout_marginEnd="8dp"
                         android:elevation="6dp"
                         android:gravity="center"
                         android:hint="تاریخ شروع"
-                        android:textColorHint="#000"
+                        android:textColorHint="#DD000000"
                         app:boxStrokeColor="@color/text_input_color"
                         app:counterEnabled="false"
                         app:counterMaxLength="30"
                         app:hintTextAppearance="@style/TextLabel"
-                        app:hintTextColor="#000"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline60"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toBottomOf="@+id/img_add_event_date_icon">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_add_event_start_date"
@@ -116,7 +136,8 @@
                             android:inputType="textPersonName"
                             android:maxLines="1"
                             android:paddingTop="15dp"
-                            android:textColor="#000" />
+                            android:textColor="#CC000000"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -131,12 +152,11 @@
                         android:elevation="6dp"
                         android:gravity="center"
                         android:hint="ساعت شروع"
-                        android:textColorHint="#000"
+                        android:textColorHint="#DD000000"
                         app:boxStrokeColor="@color/text_input_color"
                         app:counterEnabled="false"
                         app:counterMaxLength="30"
                         app:hintTextAppearance="@style/TextLabel"
-                        app:hintTextColor="#000"
                         app:layout_constraintEnd_toStartOf="@+id/guideline60"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textInputLayout_add_event_start_date">
@@ -152,7 +172,8 @@
                             android:inputType="textPersonName"
                             android:maxLines="1"
                             android:paddingTop="15dp"
-                            android:textColor="#000" />
+                            android:textColor="#CC000000"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -168,12 +189,11 @@
                         android:elevation="6dp"
                         android:gravity="center"
                         android:hint="تاریخ پایان"
-                        android:textColorHint="#000"
+                        android:textColorHint="#DD000000"
                         app:boxStrokeColor="@color/text_input_color"
                         app:counterEnabled="false"
                         app:counterMaxLength="30"
                         app:hintTextAppearance="@style/TextLabel"
-                        app:hintTextColor="#000"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline60"
@@ -190,7 +210,8 @@
                             android:inputType="textPersonName"
                             android:maxLines="1"
                             android:paddingTop="15dp"
-                            android:textColor="#000" />
+                            android:textColor="#CC000000"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -205,12 +226,11 @@
                         android:elevation="6dp"
                         android:gravity="center"
                         android:hint="ساعت پایان"
-                        android:textColorHint="#000"
+                        android:textColorHint="#DD000000"
                         app:boxStrokeColor="@color/text_input_color"
                         app:counterEnabled="false"
                         app:counterMaxLength="30"
                         app:hintTextAppearance="@style/TextLabel"
-                        app:hintTextColor="#000"
                         app:layout_constraintEnd_toStartOf="@+id/guideline60"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textInputLayout_add_event_end_date">
@@ -226,7 +246,8 @@
                             android:inputType="textPersonName"
                             android:maxLines="1"
                             android:paddingTop="15dp"
-                            android:textColor="#000" />
+                            android:textColor="#CC000000"
+                            android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <androidx.constraintlayout.widget.Guideline
@@ -242,38 +263,63 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/image_card"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="380dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="4dp"
                 android:backgroundTint="#ffffff"
                 android:elevation="4dp"
                 app:cardCornerRadius="4dp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline61"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_event_add_date_time">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/img_add_event_image_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_upload_image"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/iransans_mobile_medium_font"
+                        android:text="افزودن تصویر"
+                        android:textColor="#000000"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="@id/img_add_event_image_icon"
+                        app:layout_constraintEnd_toStartOf="@id/img_add_event_image_icon"
+                        app:layout_constraintTop_toTopOf="@id/img_add_event_image_icon" />
+
 
                     <Button
                         android:id="@+id/image_upload"
                         android:layout_width="wrap_content"
+                        android:drawableLeft="@drawable/ic_add"
+                        android:drawableTint="#DD000000"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        android:layout_marginStart="30dp"
                         android:backgroundTint="@color/patoghYellow"
                         android:fontFamily="@font/iransans_mobile_font"
                         android:text="بارگذاری تصویر"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@id/img_add_event_image_icon" />
 
                     <ImageView
                         android:id="@+id/uploaded_image"
+                        android:background="#aaF5F5F5"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="300dp"
                         android:contentDescription="عکس رویداد"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -289,12 +335,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline61"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

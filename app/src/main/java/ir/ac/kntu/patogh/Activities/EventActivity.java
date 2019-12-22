@@ -527,7 +527,7 @@ public class EventActivity extends AppCompatActivity {
         map.setFocalPointPosition(focalPoint, 1);
         map.setZoom(15, 1);
         markerLayer = NeshanServices.createVectorElementLayer();
-        map.getLayers().add(NeshanServices.createBaseMap(NeshanMapStyle.NESHAN));
+        map.getLayers().add(NeshanServices.createBaseMap(NeshanMapStyle.STANDARD_DAY));
         map.getLayers().add(markerLayer);
         map.getOptions().setPanBounds(new Bounds(focalPoint, focalPoint));
         MarkerStyleCreator markStCr = new MarkerStyleCreator();

@@ -87,7 +87,7 @@ public class FirstStepFragment extends Fragment implements Step {
         edtStartTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(b) {
+                if (b) {
                     //                new TimePickerDialog(getContext(), R.style.myTimePicker,new TimePickerDialog.OnTimeSetListener() {
 //                    @Override
 //                    public void onTimeSet(TimePicker timePicker, int i, int i1) {

@@ -41,6 +41,7 @@
             android:gravity="center"
             android:hint="نام خانوادگی"
             android:text="فراهانی"
+            android:maxLines="1"
             android:includeFontPadding="false"
             android:inputType="textPersonName"
             android:textCursorDrawable="@color/patoghBlue"
@@ -62,6 +63,7 @@
             android:gravity="center"
             android:hint="آدرس ایمیل"
             android:text="farzan@gmail.com"
+            android:maxLines="1"
             android:includeFontPadding="false"
             android:inputType="textEmailAddress"
             android:textCursorDrawable="@color/patoghBlue"
@@ -83,6 +85,7 @@
             android:gravity="center"
             android:hint="شماره همراه"
             android:text="09397999897"
+            android:maxLines="1"
             android:includeFontPadding="false"
             android:inputType="phone"
             android:textCursorDrawable="@color/patoghBlue"
@@ -92,7 +95,8 @@
             app:met_textColor="#DA4D4D4D"
             app:met_textColorHint="#A8A8A8"
             app:met_underlineColor="#804D4D4D"
-            android:theme="@style/MyEditText"/>
+            android:theme="@style/MyEditText"
+            />
 
         <Button
             android:id="@+id/btn_ok"

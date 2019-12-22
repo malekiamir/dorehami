@@ -125,6 +125,10 @@ public class SettingsActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_edit_user_info);
                 dialog.show();
                 dialog.getWindow().setAttributes(lp);
+                WindowManager.LayoutParams lpp = dialog.getWindow().getAttributes();
+                lpp.dimAmount=0.0f;
+                dialog.getWindow().setAttributes(lpp);
+                dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 
             }
         });

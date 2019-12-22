@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.rengwuxian.materialedittext.validation.RegexpValidator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -89,7 +90,6 @@ public class EditUserInfoDialog extends Dialog {
             @Override
             public void onClick(View view) {
                checkFields();
-                dismiss();
             }
         });
 
@@ -165,13 +165,14 @@ public class EditUserInfoDialog extends Dialog {
 
     private void checkFields() {
         if (isSurnameValid() && isNameValid()
-                && isEmailValid(editEmail.getText().toString().trim())
+                && isEmailValid(editEmail.getText().toString().trim()) && isPhoneValid()
         ) {
             editUserDetails(editPhone.getText().toString(),editFirstName.getText().toString()
                     ,editLastName.getText().toString(),editEmail.getText().toString());
+            dismiss();
         }
         if (!(isNameValid())) {
-            editFirstName.setError("نام صحیح را وارد کنید.");
+           editFirstName.setError("نام صحیح را وارد کنید.");
 
         } else if (isNameValid()) {
             editFirstName.setError(null);
@@ -185,6 +186,11 @@ public class EditUserInfoDialog extends Dialog {
             editLastName.setError("نام خانوادگی صحیح را وارد کنید.");
         } else if (isSurnameValid()) {
             editLastName.setError(null);
+        }
+        if (!(isPhoneValid())) {
+            editPhone.setError("شماره همراه صحیح را وارد کنید.");
+        } else if (isPhoneValid()) {
+            editPhone.setError(null);
         }
 
     }
@@ -223,8 +229,7 @@ public class EditUserInfoDialog extends Dialog {
 
     public boolean isPhoneValid() {
         boolean isValid = true;
-        if (editPhone.getText().toString().trim().length() > 40 ||
-                editPhone.getText().toString().trim().length() < 3) {
+        if (editPhone.getText().toString().trim().length() != 12) {
             isValid = false;
         }
         return isValid;

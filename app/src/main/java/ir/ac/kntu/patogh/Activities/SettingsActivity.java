@@ -6,11 +6,13 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -124,7 +126,10 @@ public class SettingsActivity extends AppCompatActivity {
 //                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
                 dialog.setContentView(R.layout.dialog_edit_user_info);
                 dialog.show();
-               // dialog.getWindow().setAttributes(lp);
+                Window window = dialog.getWindow();
+                window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                // dialog.getWindow().setAttributes(lp);
 
 
             }

@@ -118,22 +118,21 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditUserInfoDialog dialog = new EditUserInfoDialog(SettingsActivity.this);
-                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                lp.copyFrom(dialog.getWindow().getAttributes());
-                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+//                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+//                lp.copyFrom(dialog.getWindow().getAttributes());
+//                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+//                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
                 dialog.setContentView(R.layout.dialog_edit_user_info);
                 dialog.show();
-                dialog.getWindow().setAttributes(lp);
-                WindowManager.LayoutParams lpp = dialog.getWindow().getAttributes();
-                lpp.dimAmount=0.0f;
-                dialog.getWindow().setAttributes(lpp);
-                dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+               // dialog.getWindow().setAttributes(lp);
+
 
             }
         });
 
     }
+
+
 
 
     @Override

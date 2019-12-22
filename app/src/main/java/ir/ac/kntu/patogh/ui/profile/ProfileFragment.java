@@ -97,6 +97,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             @Override
             public void onRefresh() {
                 getFavorites();
+                getUserDetails();
             }
         });
         mSwipeRefreshLayout.setColorSchemeResources(R.color.patoghYellow, R.color.patoghBlue);
@@ -106,7 +107,6 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         rvFavoriteEvents.setLayoutManager(layoutManager);
-        badge= new String[]{"اولین تجربه دورهمی","هشت دورهمی موفق","برگزاری یک رویداد","ثبت نام موفق"};
         favoriteAdapter = new FavoriteAdapter(this);
         rvFavoriteEvents.setAdapter(favoriteAdapter);
         rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(40));

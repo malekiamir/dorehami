@@ -6,16 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.FirstStepFragment">
 
+    <ImageView
+        android:id="@+id/img_add_event_location_icon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/iransans_mobile_medium_font"
+        android:text="محل برگزاری رویداد"
+        android:textColor="#000000"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="@id/img_add_event_location_icon"
+        app:layout_constraintEnd_toStartOf="@id/img_add_event_location_icon"
+        app:layout_constraintTop_toTopOf="@id/img_add_event_location_icon" />
+
     <org.neshan.ui.MapView
         android:id="@+id/map_add_event"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="80dp"
         android:clickable="true"
         android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_third_fragment_map"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="@id/img_add_event_location_icon" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_third_fragment_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <TextView
+        android:id="@+id/tv_event_add_address_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="@font/iransans_mobile_medium_font"
+        android:text="آدرس"
+        android:textColor="#000"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_third_fragment_map" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_event_add_address"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:hint="نام رویداد"
+        android:textColorHint="#000"
+        app:boxStrokeColor="@color/text_input_color"
+        app:counterEnabled="false"
+        app:counterMaxLength="30"
+        app:hintTextAppearance="@style/TextLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_event_add_address_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_add_event_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.9"
+            android:fontFamily="@font/iransans_mobile_font"
+            android:gravity="start"
+            android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:paddingTop="15dp"
+            android:textColor="#000"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -223,7 +223,6 @@ public class EventActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        map.setVisibility(View.GONE);
     }
 
     public void getIncomingIntent() {

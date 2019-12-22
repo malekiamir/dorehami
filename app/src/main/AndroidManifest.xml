@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
-        tools:replace="android:icon">
+        tools:replace="android:icon,android:supportsRtl">
         <activity android:name=".Activities.BadgesActivity"></activity>
         <activity
             android:name=".Activities.SettingsActivity"

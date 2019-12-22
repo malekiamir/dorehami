@@ -11,6 +11,11 @@
 
     </style>
 
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">#00000000</item>
+        <item name="colorControlActivated">#00000000</item>
+    </style>
+
     <style name="AppTheme.ProfileTheme">
         <item name="colorPrimaryDark">#33ff12</item>
         <item name="colorAccent">#121290</item>

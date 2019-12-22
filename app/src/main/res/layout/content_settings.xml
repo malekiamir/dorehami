@@ -14,22 +14,21 @@
         android:id="@+id/cv_setting_page_user_image"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:layout_marginTop="45dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp"
         android:background="#00000000"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/img_profile_pic"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_gravity="center"
-            android:scaleType="centerCrop"
             android:contentDescription="عکس پروفایل"
-            android:src="@drawable/ic_profile_pic"
-            />
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile_pic" />
 
         <ImageButton
             android:id="@+id/btn_change_profile"
@@ -55,6 +54,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_edit_user_info"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:alpha="0.6"
+        android:backgroundTint="#00000000"
+        android:includeFontPadding="false"
+        android:text="ویرایش اطلاعات"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_setting_page_user_image"
+        app:strokeColor="#F0D919" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

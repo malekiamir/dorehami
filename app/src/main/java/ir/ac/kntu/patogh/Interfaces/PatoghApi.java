@@ -15,11 +15,11 @@ public interface PatoghApi {
     @POST("/api/User/authenticate")
     Call<ResponseBody> authenticate(@Body RequestBody requestBody);
 
-    @POST("/api/User/editUserDetails")
-    Call<ResponseBody> editUserDetails(@Header("Authorization")String token, @Body RequestBody requestBody);
-
     @POST("/api/User/getUserDetails")
     Call<ResponseBody> getUserDetails(@Header("Authorization")String token);
+
+    @POST("/api/User/editUserDetails")
+    Call<ResponseBody> editUserDetails(@Header("Authorization")String token, @Body RequestBody requestBody);
 
     @POST("/api/User/favDorehamiGetSummery")
     Call<ResponseBody> getFavorites(@Header("Authorization")String token);
@@ -47,4 +47,7 @@ public interface PatoghApi {
 
     @POST("/api/Image/downloadImage")
     Call<ResponseBody> downloadImage(@Header("Authorization")String token, @Body RequestBody requestBody);
+
+    @POST("/api/User/uploadProfilePicture")
+    Call<ResponseBody> uploadProfile(@Header("Authorization")String token, @Body RequestBody requestBody);
 }

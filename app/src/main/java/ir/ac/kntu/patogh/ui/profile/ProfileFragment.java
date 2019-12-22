@@ -134,13 +134,6 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvBadge.addItemDecoration(new EqualSpacingItemDecoration(24));
         loadBadges();
 
-        profilePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
         Glide.with(this)
                 .load(R.drawable.back)
                 .placeholder(R.drawable.back)

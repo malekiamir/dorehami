@@ -75,4 +75,5 @@ dependencies {
     implementation 'com.github.dhaval2404:imagepicker-support:1.5'
     implementation 'com.alirezaafkar:sundatepicker:2.1.2'
     implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 }

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_rect_card"
+    android:padding="20dp"
+    android:orientation="vertical">
+
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edt_user_edit_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/iransans_mobile_font"
+            android:gravity="center"
+            android:hint="نام"
+            android:text="فرزان"
+            android:includeFontPadding="false"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:textCursorDrawable="@color/patoghBlue"
+            app:met_baseColor="#D12828"
+            app:met_errorColor="#FF4848"
+            app:met_primaryColor="#B94D4D4D"
+            app:met_textColor="#DA4D4D4D"
+            app:met_textColorHint="#A8A8A8"
+            app:met_underlineColor="#804D4D4D"
+            android:theme="@style/MyEditText"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edt_user_edit_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/iransans_mobile_font"
+            android:gravity="center"
+            android:hint="نام خانوادگی"
+            android:text="فراهانی"
+            android:includeFontPadding="false"
+            android:inputType="textPersonName"
+            android:textCursorDrawable="@color/patoghBlue"
+            app:met_baseColor="#B4B4B4"
+            app:met_errorColor="#FF4848"
+            app:met_primaryColor="#B94D4D4D"
+            app:met_textColor="#DA4D4D4D"
+            app:met_textColorHint="#A8A8A8"
+            app:met_underlineColor="#804D4D4D"
+            android:theme="@style/MyEditText"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edt_user_edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/iransans_mobile_font"
+            android:gravity="center"
+            android:hint="آدرس ایمیل"
+            android:text="farzan@gmail.com"
+            android:includeFontPadding="false"
+            android:inputType="textEmailAddress"
+            android:textCursorDrawable="@color/patoghBlue"
+            app:met_baseColor="#B4B4B4"
+            app:met_errorColor="#FF4848"
+            app:met_primaryColor="#B94D4D4D"
+            app:met_textColor="#DA4D4D4D"
+            app:met_textColorHint="#A8A8A8"
+            app:met_underlineColor="#804D4D4D"
+            android:theme="@style/MyEditText"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edt_user_edit_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/iransans_mobile_font"
+            android:gravity="center"
+            android:hint="شماره همراه"
+            android:text="09397999897"
+            android:includeFontPadding="false"
+            android:inputType="phone"
+            android:textCursorDrawable="@color/patoghBlue"
+            app:met_baseColor="#B4B4B4"
+            app:met_errorColor="#FF4848"
+            app:met_primaryColor="#B94D4D4D"
+            app:met_textColor="#DA4D4D4D"
+            app:met_textColorHint="#A8A8A8"
+            app:met_underlineColor="#804D4D4D"
+            android:theme="@style/MyEditText"/>
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/patoghYellow"
+            android:fontFamily="@font/iransans_mobile_medium_font"
+            android:text="تایید" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#00000000"
+            android:fontFamily="@font/iransans_mobile_medium_font"
+            android:text="انصراف" />
+
+    </LinearLayout>
+

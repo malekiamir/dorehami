@@ -3,6 +3,7 @@ package ir.ac.kntu.patogh.Utils;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.widget.Button;
 import android.app.Dialog;
 import android.content.Context;
@@ -17,14 +18,18 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.rengwuxian.materialedittext.validation.RegexpValidator;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.Activities.MainActivity;
+import ir.ac.kntu.patogh.Activities.PhoneVerificationActivity;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeEditUserDetails;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
@@ -38,6 +43,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static ir.ac.kntu.patogh.Activities.SignUpActivity.isEmailValid;
 
 public class EditUserInfoDialog extends Dialog {
 
@@ -53,7 +60,7 @@ public class EditUserInfoDialog extends Dialog {
     @BindView(R.id.edt_user_edit_phone)
     EditText editPhone;
     @BindView(R.id.btn_ok)
-    Button edit;
+    CircularProgressButton edit;
     private SharedPreferences sharedPreferences;
 
 
@@ -89,7 +96,9 @@ public class EditUserInfoDialog extends Dialog {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               checkFields();
+
+                ((CircularProgressButton) view).startAnimation();
+                checkFields();
             }
         });
 
@@ -131,7 +140,7 @@ public class EditUserInfoDialog extends Dialog {
         });
     }
 
-    private void editUserDetails(String phoneNumber,String firstName,String lastName,String email) {
+    private void editUserDetails(String phoneNumber, String firstName, String lastName, String email) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://eg.potatogamers.ir:7701/api/")
                 .build();
@@ -139,40 +148,59 @@ public class EditUserInfoDialog extends Dialog {
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String token = sharedPreferences.getString("Token", "none");
         if (token.equals("none")) {
-            return ;
+            return;
         }
         TypeEditUserDetails typeEditUserDetails;
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
-                ,gson.toJson(typeEditUserDetails = new TypeEditUserDetails(phoneNumber,
-                        firstName,lastName,email)
+                , gson.toJson(typeEditUserDetails = new TypeEditUserDetails(phoneNumber,
+                        firstName, lastName, email)
                 ));
 
-        patoghApi.editUserDetails("Bearer " + token,requestBody).enqueue(new Callback<ResponseBody>() {
+        patoghApi.editUserDetails("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.code() == 200) {
-                    System.out.println("edited");
+                try {
+                    if (response.code() == 200) {
+                        edit.revertAnimation();
+                        dismiss();
+                        new StyleableToast
+                                .Builder(getContext())
+                                .text("اطلاعات شما به روزرسانی شد.")
+                                .textColor(Color.WHITE)
+                                .backgroundColor(Color.argb(255, 124, 179, 66))
+                                .show();
+                    }else{
+                        edit.revertAnimation();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                edit.revertAnimation();
+                new StyleableToast
+                        .Builder(getContext())
+                        .text("لطفا اتصال اینترنت را بررسی نمایید و سپس مجددا تلاش نمایید.")
+                        .textColor(Color.WHITE)
+                        .backgroundColor(Color.argb(255, 255, 94, 100))
+                        .show();
             }
         });
     }
-
 
 
     private void checkFields() {
         if (isSurnameValid() && isNameValid()
                 && isEmailValid(editEmail.getText().toString().trim()) && isPhoneValid()
         ) {
-            editUserDetails(editPhone.getText().toString(),editFirstName.getText().toString()
-                    ,editLastName.getText().toString(),editEmail.getText().toString());
-            dismiss();
+            editUserDetails(editPhone.getText().toString(), editFirstName.getText().toString()
+                    , editLastName.getText().toString(), editEmail.getText().toString());
         }
         if (!(isNameValid())) {
-           editFirstName.setError("نام صحیح را وارد کنید.");
+            editFirstName.setError("نام صحیح را وارد کنید.");
 
         } else if (isNameValid()) {
             editFirstName.setError(null);

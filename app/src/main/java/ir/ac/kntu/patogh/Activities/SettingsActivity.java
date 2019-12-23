@@ -3,8 +3,12 @@ package ir.ac.kntu.patogh.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,18 +26,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.ObjectKey;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.EditUserInfoDialog;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,7 +55,7 @@ import retrofit2.Retrofit;
 
 public class SettingsActivity extends AppCompatActivity {
 
-//    @BindView(R.id.edt_user_edit_firstname)
+    //    @BindView(R.id.edt_user_edit_firstname)
 //    com.rengwuxian.materialedittext.MaterialEditText editFirstName;
     @BindView(R.id.img_profile_pic)
     ImageView profilePic;
@@ -50,7 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
     Button editInfoButton;
     @BindView(R.id.btn_log_out)
     Button logOutButton;
-//    @BindView(R.id.btn_cancel)
+    //    @BindView(R.id.btn_cancel)
 //    Button cancelEdit;
     @BindView(R.id.btn_change_profile)
     ImageButton changeProfile;
@@ -58,6 +71,8 @@ public class SettingsActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private AlertDialog exitDialog;
     MaterialEditText editFirstName;
+    private String baseURL = "http://eg.potatogamers.ir:7701/api/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,14 +145,10 @@ public class SettingsActivity extends AppCompatActivity {
                 window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
                 // dialog.getWindow().setAttributes(lp);
-
-
             }
         });
 
     }
-
-
 
 
     @Override
@@ -151,9 +162,9 @@ public class SettingsActivity extends AppCompatActivity {
                     .into(profilePic);
             //You can get File object from intent
             File file = ImagePicker.Companion.getFile(data);
+            uploadProfile(file);
             //You can also get File Path from intent
             String filepath = ImagePicker.Companion.getFilePath(data);
-            Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, ImagePicker.Companion.getError(data), Toast.LENGTH_SHORT).show();
         } else {
@@ -167,6 +178,66 @@ public class SettingsActivity extends AppCompatActivity {
         return true;
     }
 
+    public void uploadProfile(File file) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseURL)
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            Toast.makeText(SettingsActivity.this, "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
+
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Bitmap bm = BitmapFactory.decodeStream(fis);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*")
+                , stream.toByteArray());
+
+        patoghApi.uploadProfile("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    System.out.println("uploaded");
+                    Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
+                    Toast.makeText(SettingsActivity.this, "Done", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    System.out.println("failed to upload " + " " + response.code());
+                    System.out.println(response.message());
+                    new StyleableToast
+                            .Builder(SettingsActivity.this)
+                            .text("خطایی رخ داده")
+                            .textColor(Color.WHITE)
+                            .backgroundColor(Color.argb(255, 255, 94, 100))
+                            .show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("no responseeeee");
+                new StyleableToast
+                        .Builder(SettingsActivity.this)
+                        .text("لطفا اتصال اینترنت خود را بررسی نمایید")
+                        .textColor(Color.WHITE)
+                        .backgroundColor(Color.argb(255, 255, 94, 100))
+                        .show();
+            }
+        });
+    }
 
 
 }

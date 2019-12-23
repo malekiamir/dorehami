@@ -82,6 +82,7 @@
             android:gravity="center"
             android:hint="شماره همراه"
             android:maxLines="1"
+            android:enabled="false"
             android:includeFontPadding="false"
             android:inputType="phone"
             android:textCursorDrawable="@color/patoghBlue"
@@ -94,14 +95,18 @@
             android:theme="@style/MyEditText"
             />
 
-        <Button
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/btn_ok"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:backgroundTint="@color/patoghYellow"
             android:fontFamily="@font/iransans_mobile_medium_font"
-            android:text="تایید" />
+            android:text="تایید"
+            android:textColor="#000"
+            android:gravity="center"
+            android:layout_gravity="center"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel"

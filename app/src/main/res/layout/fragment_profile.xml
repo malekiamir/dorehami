@@ -58,7 +58,6 @@
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:paddingBottom="4dp"
-                android:text="فرزان فراهانی"
                 android:textColor="#11103d"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -2,12 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F6F6F8">
 
     <com.stepstone.stepper.StepperLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/stepperLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:ms_backButtonBackground="@color/transparent"
+        app:ms_backButtonColor="@color/colorStepperButtonText"
+        app:ms_completeButtonColor="@color/submitEventTextColor"
+        app:ms_nextButtonColor="@color/colorStepperButtonText"
         app:ms_stepperType="tabs" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,7 +35,7 @@ public class SecondStepFragment extends Fragment implements Step {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_second_step, container, false);
         ButterKnife.bind(this, root);
-        spinnerSubject.setItems("ورزشی", "تکنولوژی", "سرگرمی");
+        spinnerSubject.setItems("ورزشی", "تکنولوژی", "سرگرمی","تاریخی","علمی","گردشگری","مسابقه");
         spinnerSubject.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
@@ -47,6 +47,7 @@ public class SecondStepFragment extends Fragment implements Step {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, suggestions);
         nachoTextView.setAdapter(adapter);
         nachoTextView.addChipTerminator(' ', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_TO_TERMINATOR);
+        nachoTextView.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_TO_TERMINATOR);
         return root;
     }
 

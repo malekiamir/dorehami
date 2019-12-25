@@ -14,6 +14,7 @@ import com.stepstone.stepper.viewmodel.StepViewModel;
 import ir.ac.kntu.patogh.Fragments.FirstStepFragment;
 import ir.ac.kntu.patogh.Fragments.SecondStepFragment;
 import ir.ac.kntu.patogh.Fragments.ThirdStepFragment;
+import ir.ac.kntu.patogh.R;
 
 public class AddEventStepperAdapter extends AbstractFragmentStepAdapter {
 
@@ -55,8 +56,32 @@ public class AddEventStepperAdapter extends AbstractFragmentStepAdapter {
     @NonNull
     @Override
     public StepViewModel getViewModel(@IntRange(from = 0) int position) {
-        return new StepViewModel.Builder(context)
-                .setTitle(title[position]) //can be a CharSequence instead
-                .create();
+        StepViewModel.Builder builder = new StepViewModel.Builder(context)
+                .setTitle(title[position]);
+        switch (position) {
+            case 0:
+                builder
+                        .setEndButtonLabel("ادامه")
+                        .setBackButtonLabel("")
+                        .setNextButtonEndDrawableResId(R.drawable.ic_navigate_next)
+                        .setBackButtonStartDrawableResId(StepViewModel.NULL_DRAWABLE);
+                break;
+            case 1:
+                builder
+                        .setEndButtonLabel("ادامه")
+                        .setBackButtonLabel("مرحله قبل")
+                        .setNextButtonEndDrawableResId(R.drawable.ic_navigate_next)
+                        .setBackButtonStartDrawableResId(android.R.drawable.ic_menu_revert);
+                break;
+            case 2:
+                builder
+                        .setBackButtonLabel("مرحله قبل")
+                        .setEndButtonLabel("ثبت رویداد")
+                        .setBackButtonStartDrawableResId(android.R.drawable.ic_menu_revert);
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported position: " + position);
+        }
+        return builder.create();
     }
 }

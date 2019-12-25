@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -35,7 +36,7 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
 
     @Override
     public void onCompleted(View completeButton) {
-
+        Toast.makeText(getContext(), "done", Toast.LENGTH_SHORT);
     }
 
     @Override

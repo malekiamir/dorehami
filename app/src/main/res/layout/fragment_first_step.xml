@@ -84,8 +84,8 @@
 
                     <ImageView
                         android:id="@+id/img_add_event_date_icon"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/ic_time"
@@ -267,9 +267,11 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="4dp"
+                android:layout_marginBottom="8dp"
                 android:backgroundTint="#ffffff"
                 android:elevation="4dp"
                 app:cardCornerRadius="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_event_add_date_time">
@@ -304,12 +306,12 @@
                     <Button
                         android:id="@+id/image_upload"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:backgroundTint="@color/patoghYellow"
                         android:drawableLeft="@drawable/ic_add"
                         android:drawableTint="#DD000000"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginStart="30dp"
-                        android:backgroundTint="@color/patoghYellow"
                         android:fontFamily="@font/iransans_mobile_font"
                         android:text="بارگذاری تصویر"
                         app:layout_constraintStart_toStartOf="parent"
@@ -317,9 +319,9 @@
 
                     <ImageView
                         android:id="@+id/uploaded_image"
-                        android:background="#aaF5F5F5"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
+                        android:background="#AAC9C9C9"
                         android:contentDescription="عکس رویداد"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -327,14 +329,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1000dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

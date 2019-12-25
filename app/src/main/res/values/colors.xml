@@ -2,10 +2,11 @@
 <resources>
     <color name="colorBackground">#ffebee</color>
     <color name="colorPrimary">#3C3C3C</color>
-    <color name="colorPrimaryDark">#00000000</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#ffffff</color>
-    <color name="color1">#949494</color>
     <color name="patoghYellow">#F0D919</color>
+    <color name="submitEventTextColor">#B99D14</color>
     <color name="patoghBlue">#11103D</color>
     <color name="transparent">#00000000</color>
+    <color name="colorStepperButtonText">#AA000000</color>
 </resources>

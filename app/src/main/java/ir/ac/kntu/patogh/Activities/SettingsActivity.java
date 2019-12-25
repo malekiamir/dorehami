@@ -38,6 +38,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +47,7 @@ import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.EditUserInfoDialog;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -182,7 +184,6 @@ public class SettingsActivity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .build();
-        Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String token = sharedPreferences.getString("Token", "none");
         if (token.equals("none")) {
@@ -190,33 +191,46 @@ public class SettingsActivity extends AppCompatActivity {
             Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
             startActivity(intent);
         }
+//
+//
+//        FileInputStream fis = null;
+//        try {
+//            fis = new FileInputStream(file);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Bitmap bm = BitmapFactory.decodeStream(fis);
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//        bm.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+
+        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("File", "File", fileReqBody);
 
 
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        Bitmap bm = BitmapFactory.decodeStream(fis);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-
-        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*")
-                , stream.toByteArray());
-
-        patoghApi.uploadProfile("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+        patoghApi.uploadProfile("Bearer " + token, part).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 200) {
                     System.out.println("uploaded");
-                    Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
                     Toast.makeText(SettingsActivity.this, "Done", Toast.LENGTH_SHORT).show();
-
+                    try {
+                        JsonObject jsonObject1 = new Gson().fromJson(response.body().string(), JsonObject.class);
+                        String returnValue = jsonObject1.get("returnValue").toString();
+                        JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
+                        String imageId = jsonObject2.get("idString").getAsString();
+                        new StyleableToast
+                                .Builder(SettingsActivity.this)
+                                .text(imageId)
+                                .textColor(Color.WHITE)
+                                .backgroundColor(Color.argb(255, 255, 94, 100))
+                                .show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    System.out.println("failed to upload " + " " + response.code());
-                    System.out.println(response.message());
+                    System.out.println("failed to upload " + " " + response.code() + " " + response.message());
+
                     new StyleableToast
                             .Builder(SettingsActivity.this)
                             .text("خطایی رخ داده")

@@ -6,12 +6,11 @@
     android:background="#000">
 
     <CalendarView
+        android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:outlineAmbientShadowColor="#000"
-        style="@style/Widget.MaterialComponents.MaterialCalendar"
-        android:outlineSpotShadowColor="#000"/>
+        style="@style/Widget.MaterialComponents.MaterialCalendar"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

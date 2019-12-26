@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activities.SettingsActivity"
-    android:background="#ffffff"
     tools:showIn="@layout/activity_settings">
 
 
@@ -63,6 +63,7 @@
         android:layout_marginTop="12dp"
         android:alpha="0.6"
         android:backgroundTint="#00000000"
+        android:fontFamily="@font/iransans_mobile_font"
         android:includeFontPadding="false"
         android:text="ویرایش اطلاعات"
         android:textSize="14sp"
@@ -72,5 +73,159 @@
         app:layout_constraintTop_toBottomOf="@+id/cv_setting_page_user_image"
         app:strokeColor="#F0D919" />
 
+    <View
+        android:id="@+id/view_event_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.6"
+        android:background="#22000000"
+        app:layout_constraintBottom_toTopOf="@+id/guideline69"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:fontFamily="@font/iransans_mobile_font"
+        android:layoutDirection="rtl"
+        android:padding="10dp"
+        android:text="حالت شب"
+        android:textColor="#11103d"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline68"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toTopOf="@+id/guideline69" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline62"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline63"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline68"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.54" />
+
+    <View
+        android:id="@+id/view_event_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.6"
+        android:background="#22000000"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintStart_toStartOf="@+id/guideline62"
+        app:layout_constraintTop_toTopOf="@+id/guideline68" />
+
+    <com.mahfa.dnswitch.DayNightSwitch
+        android:id="@+id/day_night_switch"
+        android:layout_width="53dp"
+        android:layout_height="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline68"
+        app:layout_constraintStart_toStartOf="@+id/guideline62"
+        app:layout_constraintTop_toTopOf="@+id/guideline69" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline69"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:fontFamily="@font/iransans_mobile_font"
+        android:layoutDirection="rtl"
+        android:padding="10dp"
+        android:text="پشتیبانی"
+        android:textColor="#11103d"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline70"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toTopOf="@+id/guideline68" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:backgroundTint="#00000000"
+        android:src="@drawable/ms_ic_chevron_left"
+        app:layout_constraintBottom_toTopOf="@+id/guideline70"
+        app:layout_constraintStart_toStartOf="@+id/guideline62"
+        app:layout_constraintTop_toTopOf="@+id/guideline68"
+        app:layout_constraintVertical_bias="0.523" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.63" />
+
+    <View
+        android:id="@+id/view_event_divider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.6"
+        android:background="#22000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline70" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:fontFamily="@font/iransans_mobile_font"
+        android:layoutDirection="rtl"
+        android:padding="10dp"
+        android:text="درباره ما"
+        android:textColor="#11103d"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline71"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toTopOf="@+id/guideline70" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:backgroundTint="#00000000"
+        android:src="@drawable/ms_ic_chevron_left"
+        app:layout_constraintStart_toStartOf="@+id/guideline62"
+        app:layout_constraintTop_toTopOf="@+id/guideline70"
+        app:layout_constraintBottom_toTopOf="@+id/guideline71"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline71"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.72" />
+
+    <View
+        android:id="@+id/view_event_divider4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.6"
+        android:background="#22000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline71" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

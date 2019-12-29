@@ -39,6 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.ac.kntu.patogh.Activities.EventActivity;
+import ir.ac.kntu.patogh.Activities.HistoryActivity;
 import ir.ac.kntu.patogh.Activities.MainActivity;
 import ir.ac.kntu.patogh.Activities.SettingsActivity;
 import ir.ac.kntu.patogh.Adapters.BadgeAdapter;
@@ -159,13 +160,15 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             startActivity(intent);
             return true;
         } else if (item.getItemId() == android.R.id.home) {
-            new StyleableToast
-                    .Builder(getContext())
-                    .text("تاریخچه رویدادها")
-                    .textColor(Color.WHITE)
-                    .font(R.font.iransans_mobile_font)
-                    .backgroundColor(Color.argb(250, 30, 30, 30))
-                    .show();
+//            new StyleableToast
+//                    .Builder(getContext())
+//                    .text("تاریخچه رویدادها")
+//                    .textColor(Color.WHITE)
+//                    .font(R.font.iransans_mobile_font)
+//                    .backgroundColor(Color.argb(250, 30, 30, 30))
+//                    .show();
+             Intent intent = new Intent(getContext(), HistoryActivity.class);
+             startActivity(intent);
             return true;
         }
 
@@ -210,13 +213,6 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     @Override
     public void onClick(Badge selectedBadge) {
-//        new StyleableToast
-//                .Builder(getContext())
-//                .text(badge[selectedBadge.getId()-1])
-//                .textColor(Color.WHITE)
-//                .font(R.font.iransans_mobile_font)
-//                .backgroundColor(Color.argb(250, 30, 30, 30))
-//                .show();
         Intent intent = new Intent(getActivity(), BadgesActivity.class);
         startActivity(intent);
 

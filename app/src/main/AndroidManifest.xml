@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon,android:supportsRtl">
+        <activity android:name=".Activities.HistoryActivity"></activity>
         <activity android:name=".Activities.BadgesActivity" />
         <activity
             android:name=".Activities.SettingsActivity"

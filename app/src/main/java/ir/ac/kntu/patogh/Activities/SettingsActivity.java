@@ -191,18 +191,6 @@ public class SettingsActivity extends AppCompatActivity {
             Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
             startActivity(intent);
         }
-//
-//
-//        FileInputStream fis = null;
-//        try {
-//            fis = new FileInputStream(file);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Bitmap bm = BitmapFactory.decodeStream(fis);
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bm.compress(Bitmap.CompressFormat.JPEG, 70, stream);
 
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part part = MultipartBody.Part.createFormData("File", "File", fileReqBody);

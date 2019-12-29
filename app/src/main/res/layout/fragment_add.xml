@@ -14,5 +14,8 @@
         app:ms_backButtonColor="@color/colorStepperButtonText"
         app:ms_completeButtonColor="@color/submitEventTextColor"
         app:ms_nextButtonColor="@color/colorStepperButtonText"
+        app:ms_errorColor="#ee3333"
+        app:ms_showErrorState="true"
+        app:ms_showErrorStateEnabled="true"
         app:ms_stepperType="tabs" />
 </androidx.constraintlayout.widget.ConstraintLayout>

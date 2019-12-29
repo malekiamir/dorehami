@@ -186,6 +186,5 @@
     <orderEntry type="library" name="Gradle: com.alirezaafkar:sundatepicker:2.1.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.akexorcist:RoundCornerProgressBar:2.0.3@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.luongvo:iOS-SwitchView:1.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.dariushm2:PersianCaldroid:1.0.1@aar" level="project" />
   </component>
 </module>

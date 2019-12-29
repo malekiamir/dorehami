@@ -79,5 +79,4 @@ dependencies {
     implementation "com.hootsuite.android:nachos:1.1.1"
     implementation 'com.github.luongvo:iOS-SwitchView:1.0.0'
     implementation 'com.github.roojin:persian-calendar-view:1.2.1'
-    implementation 'com.github.dariushm2:PersianCaldroid:1.0.1'
 }

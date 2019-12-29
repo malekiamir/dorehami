@@ -65,6 +65,7 @@ public class AddEventStepperAdapter extends AbstractFragmentStepAdapter {
                         .setBackButtonLabel("")
                         .setNextButtonEndDrawableResId(R.drawable.ic_navigate_next)
                         .setBackButtonStartDrawableResId(StepViewModel.NULL_DRAWABLE);
+
                 break;
             case 1:
                 builder

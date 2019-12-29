@@ -88,8 +88,8 @@ public class FirstStepFragment extends Fragment implements Step {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_first_step, container, false);
         ButterKnife.bind(this, root);
-//        sharedPreferences = getActivity()
-//                .getSharedPreferences("TokenPref", 0);
+        sharedPreferences = getActivity()
+                .getSharedPreferences("TokenPref", 0);
         setLocale("fa");
 
         mStartDate = new Date();

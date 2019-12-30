@@ -137,10 +137,10 @@ public class FirstStepFragment extends Fragment implements Step {
                         @Override
                         public void onClick(View view) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                edtStartTime.setText(String.format("%d : %d", dialog.getTimePicker().getHour()
+                                edtStartTime.setText(String.format("%02d : %02d", dialog.getTimePicker().getHour()
                                         , dialog.getTimePicker().getMinute()));
                             } else {
-                                edtStartTime.setText(String.format("%d : %d", dialog.getTimePicker().getCurrentHour()
+                                edtStartTime.setText(String.format("%02d : %02d", dialog.getTimePicker().getCurrentHour()
                                         , dialog.getTimePicker().getCurrentMinute()));
                             }
                             dialog.dismiss();
@@ -193,10 +193,10 @@ public class FirstStepFragment extends Fragment implements Step {
                         @Override
                         public void onClick(View view) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                edtEndTime.setText(String.format("%d : %d", dialog.getTimePicker().getHour()
+                                edtEndTime.setText(String.format("%02d : %02d", dialog.getTimePicker().getHour()
                                         , dialog.getTimePicker().getMinute()));
                             } else {
-                                edtEndTime.setText(String.format("%d : %d", dialog.getTimePicker().getCurrentHour()
+                                edtEndTime.setText(String.format("%02d : %02d", dialog.getTimePicker().getCurrentHour()
                                         , dialog.getTimePicker().getCurrentMinute()));
                             }
                             dialog.dismiss();
@@ -259,7 +259,7 @@ public class FirstStepFragment extends Fragment implements Step {
         }
     }
 
-    public void uploadImage(File file) {
+    private void uploadImage(File file) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .build();
@@ -286,12 +286,10 @@ public class FirstStepFragment extends Fragment implements Step {
                         String returnValue = jsonObject1.get("returnValue").toString();
                         JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
                         String imageId = jsonObject2.get("idString").getAsString();
-                        new StyleableToast
-                                .Builder(getContext())
-                                .text(imageId)
-                                .textColor(Color.WHITE)
-                                .backgroundColor(Color.argb(255, 255, 94, 100))
-                                .show();
+
+                        final SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("PATOGH_EVENT_IMAGE_ID", imageId);
+                        editor.apply();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -340,10 +338,10 @@ public class FirstStepFragment extends Fragment implements Step {
         String getDate() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 return String.format(Locale.forLanguageTag("fa"),
-                        "%d/%d/%d",
+                        "%02d/%02d/%02d",
                         getYear(), getMonth(), getDay());
             } else {
-                return String.format("%d/%d/%d",
+                return String.format("%02d/%02d/%02d",
                         getYear(), getMonth(), getDay());
             }
         }

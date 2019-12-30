@@ -33,6 +33,9 @@ import org.neshan.utils.BitmapUtils;
 import org.neshan.vectorelements.Marker;
 import org.w3c.dom.Text;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
@@ -48,8 +51,6 @@ public class ThirdStepFragment extends Fragment implements Step {
     ImageView imgLocIcon;
     @BindView(R.id.tv_add_event_location_guide)
     TextView tvLocGuide;
-    @BindView(R.id.tv_event_add_address_title)
-    TextView tvAddressTitle;
     @BindView(R.id.edt_add_event_address)
     EditText edtAddress;
     @BindView(R.id.textInputLayout_add_event_address)
@@ -69,21 +70,20 @@ public class ThirdStepFragment extends Fragment implements Step {
             @Override
             public void onCheckedChanged(SwitchView switchView, boolean b) {
                 if (!b) {
+                    ledtAddress.setVisibility(View.GONE);
+                    map.setVisibility(View.GONE);
+
                     map.animate().alpha(0.0f).setDuration(300).start();
                     tvLocGuide.animate().alpha(0.0f).setDuration(300).start();
                     imgLocIcon.animate().alpha(0.0f).setDuration(300).start();
-                    tvAddressTitle.animate().alpha(0.0f).setDuration(300).start();
                     ledtAddress.animate().alpha(0.0f).setDuration(300).start();
+
                 } else {
-                    imgLocIcon.setVisibility(View.VISIBLE);
-                    tvLocGuide.setVisibility(View.VISIBLE);
-                    tvAddressTitle.setVisibility(View.VISIBLE);
                     ledtAddress.setVisibility(View.VISIBLE);
                     map.setVisibility(View.VISIBLE);
 
                     imgLocIcon.animate().alpha(1.0f).setDuration(300).start();
                     tvLocGuide.animate().alpha(1.0f).setDuration(300).start();
-                    tvAddressTitle.animate().alpha(1.0f).setDuration(300).start();
                     ledtAddress.animate().alpha(1.0f).setDuration(300).start();
                     map.animate().alpha(1.0f).setDuration(300).start();
                 }
@@ -137,20 +137,29 @@ public class ThirdStepFragment extends Fragment implements Step {
     public VerificationError verifyStep() {
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         String address = edtAddress.getText().toString();
+        LngLat location = map.getFocalPointPosition();
         boolean error = false;
 
-        if(switchMaterial.isChecked()) {
-
-        }
-        if (!address.equals("")) {
-            editor.putString("PATOGH_EVENT_ADDRESS", address);
+        if (switchMaterial.isChecked()) {
+            editor.putBoolean("PATOGH_EVENT_IS_PHYSICAL", true);
             editor.apply();
+            editor.putString("PATOGH_EVENT_LONGITUDE", String.format("%3.10f", location.getX()));
+            editor.apply();
+            editor.putString("PATOGH_EVENT_LATITUDE", String.format("%3.10f", location.getY()));
+            editor.apply();
+            if (!address.equals("")) {
+                editor.putString("PATOGH_EVENT_ADDRESS", address);
+                editor.apply();
+            } else {
+                ledtAddress.setError("آدرس رویداد خالیه!");
+                error = true;
+            }
+            if (error)
+                return new VerificationError("اطلاعات کامل نیست!");
         } else {
-            ledtAddress.setError("آدرس رویداد خالیه!");
-            error = true;
+            editor.putBoolean("PATOGH_EVENT_IS_PHYSICAL", false);
+            editor.apply();
         }
-        if (error)
-            return new VerificationError("اطلاعات کامل نیست!");
 
         return null;
     }

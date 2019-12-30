@@ -38,6 +38,7 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
     private Unbinder unbinder;
     @BindView(R.id.stepperLayout)
     StepperLayout mStepperLayout;
+    private TypeCreateEvent event;
     private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
 
     private SharedPreferences sharedPreferences;
@@ -55,7 +56,31 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
 
     @Override
     public void onCompleted(View completeButton) {
-//        createEvent();
+        String name = sharedPreferences.getString("PATOGH_EVENT_NAME", "");
+        String startDate = sharedPreferences.getString("PATOGH_EVENT_START_DATE", "");
+        String endDate = sharedPreferences.getString("PATOGH_EVENT_END_DATE", "");
+        String startTime = sharedPreferences.getString("PATOGH_EVENT_START_TIME", "");
+        String endTime = sharedPreferences.getString("PATOGH_EVENT_END_TIME", "");
+        String imageId = sharedPreferences.getString("PATOGH_EVENT_IMAGE_ID", "");
+        String summary = sharedPreferences.getString("PATOGH_EVENT_SUMMARY", "");
+        String description = sharedPreferences.getString("PATOGH_EVENT_DESCRIPTION", "");
+        String subject = sharedPreferences.getString("PATOGH_EVENT_SUBJECT", "");
+        String tags = sharedPreferences.getString("PATOGH_EVENT_TAGS", "");
+        String latitude = sharedPreferences.getString("PATOGH_EVENT_LATITUDE", "");
+        String longitude = sharedPreferences.getString("PATOGH_EVENT_LONGITUDE", "");
+        String address = sharedPreferences.getString("PATOGH_EVENT_ADDRESS", "");
+        Boolean isPhysical = sharedPreferences.getBoolean("PATOGH_EVENT_IS_PHYSICAL", false);
+
+        startTime = startTime.split(" : ")[0] + ":" + startTime.split(" : ")[1];
+        endTime = endTime.split(" : ")[0] + ":" + endTime.split(" : ")[1];
+
+
+        event = new TypeCreateEvent(name, farsiToDecimal(startDate.substring(2) + " " + startTime)
+                , farsiToDecimal(endDate.substring(2) + " " + endTime), summary, subject
+                , 10, isPhysical, farsiToDecimal(latitude), farsiToDecimal(longitude), "تهران"
+                , imageId, address, description, new String[]{imageId}, new String[]{tags});
+        System.out.println(event);
+        createEvent();
     }
 
     @Override
@@ -70,57 +95,71 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
     public void onReturn() {
     }
 
-//    private void createEvent(String phoneNumber, String firstName, String lastName, String email) {
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(baseUrl)
-//                .build();
-//        Gson gson = new Gson();
-//        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
-//        String token = sharedPreferences.getString("Token", "none");
-//        if (token.equals("none")) {
-//            return;
-//        }
-//        TypeCreateEvent typeCreateEvent;
-//        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
-//                , gson.toJson(typeCreateEvent = new TypeCreateEvent(phoneNumber,
-//                        firstName, lastName, email)
-//                ));
-//
-//        patoghApi.editUserDetails("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                try {
-//                    if (response.code() == 200) {
-//                        new StyleableToast
-//                                .Builder(getContext())
-//                                .text("رویداد با موفقیت ثبت شد.")
-//                                .textColor(Color.WHITE)
-//                                .backgroundColor(Color.argb(255, 94, 255, 100))
-//                                .show();
-//                    } else {
-//                        new StyleableToast
-//                                .Builder(getContext())
-//                                .text("با این رویداد ساختنت.")
-//                                .textColor(Color.WHITE)
-//                                .backgroundColor(Color.argb(255, 255, 94, 100))
-//                                .show();
-//                    }
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                new StyleableToast
-//                        .Builder(getContext())
-//                        .text("لطفا اتصال اینترنت را بررسی نمایید و سپس مجددا تلاش نمایید.")
-//                        .textColor(Color.WHITE)
-//                        .backgroundColor(Color.argb(255, 255, 94, 100))
-//                        .show();
-//            }
-//        });
-//    }
+    private static String farsiToDecimal(String number) {
+        char[] chars = new char[number.length()];
+        for (int i = 0; i < number.length(); i++) {
+            char ch = number.charAt(i);
+            if (ch >= 0x0660 && ch <= 0x0669)
+                ch -= 0x0660 - '0';
+            else if (ch >= 0x06f0 && ch <= 0x06F9)
+                ch -= 0x06f0 - '0';
+            chars[i] = ch;
+        }
+        return new String(chars);
+    }
+
+    private void createEvent() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            return;
+        }
+        TypeCreateEvent typeCreateEvent;
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(typeCreateEvent = event
+                ));
+
+        patoghApi.createDorehami("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.code() == 200) {
+                        new StyleableToast
+                                .Builder(getContext())
+                                .text("رویداد با موفقیت ثبت شد.")
+                                .textColor(Color.WHITE)
+                                .backgroundColor(Color.argb(255, 94, 255, 100))
+                                .show();
+                    } else {
+                        new StyleableToast
+                                .Builder(getContext())
+                                .text("با این رویداد ساختنت.")
+                                .textColor(Color.WHITE)
+                                .backgroundColor(Color.argb(255, 255, 94, 100))
+                                .show();
+                    }
+                    System.out.println(response.code());
+                    System.out.println(response.body().string());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                new StyleableToast
+                        .Builder(getContext())
+                        .text("لطفا اتصال اینترنت را بررسی نمایید و سپس مجددا تلاش نمایید.")
+                        .textColor(Color.WHITE)
+                        .backgroundColor(Color.argb(255, 255, 94, 100))
+                        .show();
+            }
+        });
+    }
 
 }

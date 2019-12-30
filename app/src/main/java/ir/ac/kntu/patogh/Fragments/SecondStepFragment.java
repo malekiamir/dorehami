@@ -99,7 +99,6 @@ public class SecondStepFragment extends Fragment implements Step {
         }
         if (!tags.equals("")) {
             editor.putString("PATOGH_EVENT_TAGS", tags);
-            System.out.println("PATOGH_EVENT_TAGS " + tags);
             editor.apply();
         } else {
             nachoTextView.setError("زمان شروع خالیه!");

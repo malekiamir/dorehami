@@ -76,18 +76,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.55" />
 
-    <TextView
-        android:id="@+id/tv_event_add_address_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/iransans_mobile_medium_font"
-        android:text="آدرس"
-        android:textColor="#000"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_third_fragment_map" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout_add_event_address"
@@ -96,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="18dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="18dp"
         android:layout_marginBottom="10dp"
         android:elevation="6dp"
@@ -108,7 +96,7 @@
         app:counterMaxLength="30"
         app:hintTextAppearance="@style/TextLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_event_add_address_title">
+        app:layout_constraintTop_toBottomOf="@+id/map_add_event">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_add_event_address"
@@ -117,8 +105,8 @@
             android:alpha="0.9"
             android:fontFamily="@font/iransans_mobile_font"
             android:gravity="start"
-            android:inputType="textMultiLine"
-            android:maxLines="3"
+            android:inputType="textPersonName"
+            android:maxLines="2"
             android:paddingTop="15dp"
             android:textColor="#000"
             android:textSize="14sp" />

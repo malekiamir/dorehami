@@ -7,6 +7,10 @@
     tools:context=".Fragments.SecondStepFragment">
 
     <ScrollView
+        android:id="@+id/frame_layout_second_step"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

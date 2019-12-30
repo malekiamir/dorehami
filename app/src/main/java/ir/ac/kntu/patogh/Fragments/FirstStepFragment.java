@@ -9,11 +9,15 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -51,6 +55,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 
 public class FirstStepFragment extends Fragment implements Step {
 
@@ -78,11 +84,12 @@ public class FirstStepFragment extends Fragment implements Step {
     TextInputLayout ledtEndTime;
     @BindView(R.id.uploaded_image)
     ImageView image;
+    @BindView(R.id.frame_layout_first_step)
+    ScrollView layout;
     private Date mStartDate;
     private Date mEndDate;
     private SharedPreferences sharedPreferences;
     private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
-
 
 
     @Override
@@ -92,12 +99,32 @@ public class FirstStepFragment extends Fragment implements Step {
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref", 0);
         setLocale("fa");
-
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                if (edtName.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                    edtName.clearFocus();
+                }
+                return true;
+            }
+        });
         mStartDate = new Date();
         mEndDate = new Date();
+
+        edtName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b)
+                    ledtName.setError(null);
+            }
+        });
         edtStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                ledtStartDate.setError(null);
                 if (b) {
                     Calendar minDate = Calendar.getInstance();
                     Calendar maxDate = Calendar.getInstance();
@@ -123,13 +150,7 @@ public class FirstStepFragment extends Fragment implements Step {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    //                new TimePickerDialog(getContext(), R.style.myTimePicker,new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
-//                        Toast.makeText(getContext(), i + " : " + i1,Toast.LENGTH_SHORT).show();
-//                    }
-//                }, 7, 17, true)
-//                        .show();
+                    ledtStartTime.setError(null);
                     TimeDialog dialog = new TimeDialog(getContext());
                     dialog.setContentView(R.layout.dialog_time_picker);
                     dialog.show();
@@ -155,6 +176,7 @@ public class FirstStepFragment extends Fragment implements Step {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
+                    ledtEndDate.setError(null);
                     Calendar minDate = Calendar.getInstance();
                     Calendar maxDate = Calendar.getInstance();
 
@@ -179,13 +201,7 @@ public class FirstStepFragment extends Fragment implements Step {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    //                new TimePickerDialog(getContext(), R.style.myTimePicker,new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
-//                        Toast.makeText(getContext(), i + " : " + i1,Toast.LENGTH_SHORT).show();
-//                    }
-//                }, 7, 17, true)
-//                        .show();
+                    ledtEndTime.setError(null);
                     TimeDialog dialog = new TimeDialog(getContext());
                     dialog.setContentView(R.layout.dialog_time_picker);
                     dialog.show();

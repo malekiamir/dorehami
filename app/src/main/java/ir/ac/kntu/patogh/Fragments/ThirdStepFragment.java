@@ -2,17 +2,19 @@ package ir.ac.kntu.patogh.Fragments;
 
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -31,15 +33,13 @@ import org.neshan.ui.MapEventListener;
 import org.neshan.ui.MapView;
 import org.neshan.utils.BitmapUtils;
 import org.neshan.vectorelements.Marker;
-import org.w3c.dom.Text;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
 import vn.luongvo.widget.iosswitchview.SwitchView;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class ThirdStepFragment extends Fragment implements Step {
 
@@ -55,7 +55,9 @@ public class ThirdStepFragment extends Fragment implements Step {
     EditText edtAddress;
     @BindView(R.id.textInputLayout_add_event_address)
     TextInputLayout ledtAddress;
-    VectorElementLayer markerLayer;
+    @BindView(R.id.frame_layout_third_step)
+    ConstraintLayout layout;
+    private VectorElementLayer markerLayer;
 
     private SharedPreferences sharedPreferences;
 
@@ -63,6 +65,19 @@ public class ThirdStepFragment extends Fragment implements Step {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_third_step, container, false);
         ButterKnife.bind(this, root);
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                if (edtAddress.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                    edtAddress.clearFocus();
+                }
+                return true;
+            }
+        });
+
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref", 0);
         mapConfiguration();

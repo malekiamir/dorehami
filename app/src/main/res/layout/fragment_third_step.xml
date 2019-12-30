@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@id/guideline_third_fragment_map" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_event_add_address"
+        android:id="@+id/textInputLayout_add_event_address"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
         android:layout_marginBottom="10dp"
         android:elevation="6dp"
         android:gravity="center"
-        android:hint="نام رویداد"
+        android:hint="آدرس"
         android:textColorHint="#000"
         app:boxStrokeColor="@color/text_input_color"
         app:counterEnabled="false"
@@ -111,7 +111,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_event_add_address_title">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_add_event_name"
+            android:id="@+id/edt_add_event_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="0.9"

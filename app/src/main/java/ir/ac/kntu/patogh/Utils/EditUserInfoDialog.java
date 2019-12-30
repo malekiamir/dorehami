@@ -62,6 +62,7 @@ public class EditUserInfoDialog extends Dialog {
     @BindView(R.id.btn_ok)
     CircularProgressButton edit;
     private SharedPreferences sharedPreferences;
+    private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
 
 
     public EditUserInfoDialog(@NonNull Context context) {
@@ -106,7 +107,7 @@ public class EditUserInfoDialog extends Dialog {
 
     private void getUserDetails() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseURL)
                 .build();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String token = sharedPreferences.getString("Token", "none");
@@ -142,7 +143,7 @@ public class EditUserInfoDialog extends Dialog {
 
     private void editUserDetails(String phoneNumber, String firstName, String lastName, String email) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseURL)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);

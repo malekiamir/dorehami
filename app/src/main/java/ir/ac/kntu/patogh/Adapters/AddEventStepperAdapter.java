@@ -63,7 +63,7 @@ public class AddEventStepperAdapter extends AbstractFragmentStepAdapter {
                 builder
                         .setEndButtonLabel("ادامه")
                         .setBackButtonLabel("")
-                        .setNextButtonEndDrawableResId(R.drawable.ic_navigate_next)
+                        .setNextButtonEndDrawableResId(R.drawable.ms_ic_chevron_right)
                         .setBackButtonStartDrawableResId(StepViewModel.NULL_DRAWABLE);
 
                 break;
@@ -71,14 +71,14 @@ public class AddEventStepperAdapter extends AbstractFragmentStepAdapter {
                 builder
                         .setEndButtonLabel("ادامه")
                         .setBackButtonLabel("مرحله قبل")
-                        .setNextButtonEndDrawableResId(R.drawable.ic_navigate_next)
-                        .setBackButtonStartDrawableResId(android.R.drawable.ic_menu_revert);
+                        .setNextButtonEndDrawableResId(R.drawable.ms_ic_chevron_right)
+                        .setBackButtonStartDrawableResId(R.drawable.ms_ic_chevron_left);
                 break;
             case 2:
                 builder
                         .setBackButtonLabel("مرحله قبل")
                         .setEndButtonLabel("ثبت رویداد")
-                        .setBackButtonStartDrawableResId(android.R.drawable.ic_menu_revert);
+                        .setBackButtonStartDrawableResId(R.drawable.ms_ic_chevron_left);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported position: " + position);

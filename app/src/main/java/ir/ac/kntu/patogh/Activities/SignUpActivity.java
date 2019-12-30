@@ -66,6 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
+    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
     boolean success = false;
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -188,7 +189,7 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean editUserDetails() {
         buttonSignUp.startAnimation();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseUrl)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);

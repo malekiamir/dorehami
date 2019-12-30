@@ -82,6 +82,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     private ArrayList<FavoriteEvent> favoriteEvents;
     private String badge[];
     private String serverResponse;
+    private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
 
 
 
@@ -225,7 +226,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     public void getFavorites() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseURL)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
@@ -283,7 +284,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     private void getUserDetails() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseURL)
                 .build();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String token = sharedPreferences.getString("Token", "none");

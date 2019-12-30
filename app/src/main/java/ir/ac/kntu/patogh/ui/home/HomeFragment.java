@@ -75,6 +75,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
     private SharedPreferences sharedPreferences;
     private ArrayList<Event> events;
     private String serverResponse;
+    private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -166,7 +167,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
 
     public void getSummery() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseURL)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
@@ -220,25 +221,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         super.onDestroyView();
         unbinder.unbind();
     }
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        switch (resultCode) {
-//            case 0:
-//
-//                break;
-//            case 1:
-//
-//                break;
-//            case 2:
-//
-//                break;
-//            case 3:
-//
-//                break;
-//        }
-//    }
 
     @Override
     public void onClick(Event selectedEvent, TextView textView, ImageView imageView) {
@@ -256,7 +238,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         intent.putExtra("event_category", selectedEvent.getCategory());
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             context.startActivity(intent);
-//            startActivityForResult(intent, 0);
         }
 
     }

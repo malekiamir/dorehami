@@ -73,7 +73,8 @@ public class SettingsActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private AlertDialog exitDialog;
     MaterialEditText editFirstName;
-    private String baseURL = "http://eg.potatogamers.ir:7701/api/";
+    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
+
 
 
     @Override
@@ -182,7 +183,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void uploadProfile(File file) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseURL)
+                .baseUrl(baseUrl)
                 .build();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String token = sharedPreferences.getString("Token", "none");

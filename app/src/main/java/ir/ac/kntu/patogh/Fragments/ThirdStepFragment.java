@@ -1,11 +1,13 @@
 package ir.ac.kntu.patogh.Fragments;
 
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,15 +50,20 @@ public class ThirdStepFragment extends Fragment implements Step {
     TextView tvLocGuide;
     @BindView(R.id.tv_event_add_address_title)
     TextView tvAddressTitle;
-    @BindView(R.id.textInputLayout_event_add_address)
-    TextInputLayout textInputLayout;
+    @BindView(R.id.edt_add_event_address)
+    EditText edtAddress;
+    @BindView(R.id.textInputLayout_add_event_address)
+    TextInputLayout ledtAddress;
     VectorElementLayer markerLayer;
 
+    private SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_third_step, container, false);
         ButterKnife.bind(this, root);
+        sharedPreferences = getActivity()
+                .getSharedPreferences("TokenPref", 0);
         mapConfiguration();
         switchMaterial.setOnCheckedChangeListener(new SwitchView.OnCheckedChangeListener() {
             @Override
@@ -66,12 +73,18 @@ public class ThirdStepFragment extends Fragment implements Step {
                     tvLocGuide.animate().alpha(0.0f).setDuration(300).start();
                     imgLocIcon.animate().alpha(0.0f).setDuration(300).start();
                     tvAddressTitle.animate().alpha(0.0f).setDuration(300).start();
-                    textInputLayout.animate().alpha(0.0f).setDuration(300).start();
+                    ledtAddress.animate().alpha(0.0f).setDuration(300).start();
                 } else {
+                    imgLocIcon.setVisibility(View.VISIBLE);
+                    tvLocGuide.setVisibility(View.VISIBLE);
+                    tvAddressTitle.setVisibility(View.VISIBLE);
+                    ledtAddress.setVisibility(View.VISIBLE);
+                    map.setVisibility(View.VISIBLE);
+
                     imgLocIcon.animate().alpha(1.0f).setDuration(300).start();
                     tvLocGuide.animate().alpha(1.0f).setDuration(300).start();
                     tvAddressTitle.animate().alpha(1.0f).setDuration(300).start();
-                    textInputLayout.animate().alpha(1.0f).setDuration(300).start();
+                    ledtAddress.animate().alpha(1.0f).setDuration(300).start();
                     map.animate().alpha(1.0f).setDuration(300).start();
                 }
             }
@@ -122,8 +135,26 @@ public class ThirdStepFragment extends Fragment implements Step {
     @Nullable
     @Override
     public VerificationError verifyStep() {
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        String address = edtAddress.getText().toString();
+        boolean error = false;
+
+        if(switchMaterial.isChecked()) {
+
+        }
+        if (!address.equals("")) {
+            editor.putString("PATOGH_EVENT_ADDRESS", address);
+            editor.apply();
+        } else {
+            ledtAddress.setError("آدرس رویداد خالیه!");
+            error = true;
+        }
+        if (error)
+            return new VerificationError("اطلاعات کامل نیست!");
+
         return null;
     }
+
 
     @Override
     public void onSelected() {

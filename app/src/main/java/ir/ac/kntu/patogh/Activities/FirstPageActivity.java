@@ -27,6 +27,8 @@ public class FirstPageActivity extends AppCompatActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
     private SharedPreferences sharedPreferences;
+    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -46,7 +48,7 @@ public class FirstPageActivity extends AppCompatActivity {
 
     private void checkValidToken() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseUrl)
                 .build();
         long t1 = System.currentTimeMillis();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);

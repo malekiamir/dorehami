@@ -38,7 +38,8 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
     private Unbinder unbinder;
     @BindView(R.id.stepperLayout)
     StepperLayout mStepperLayout;
-    private String baseUrl = "http://eg.potatogamers.ir:7701/api/";
+    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
+
     private SharedPreferences sharedPreferences;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

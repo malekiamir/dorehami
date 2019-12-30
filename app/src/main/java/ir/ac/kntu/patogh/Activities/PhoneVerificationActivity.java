@@ -62,6 +62,8 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     String phoneNumber;
 
     private SharedPreferences sharedPreferences;
+    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
+
 
 
     boolean doubleBackToExitPressedOnce = false;
@@ -157,7 +159,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
     private boolean authenticate(String code) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseUrl)
                 .build();
         Gson gson = new Gson();
         phoneNumber = getIntent().getStringExtra("phoneNumber");
@@ -214,7 +216,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
     private void checkNewUser() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseUrl)
                 .build();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String token = sharedPreferences.getString("Token", "none");

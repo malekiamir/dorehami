@@ -53,11 +53,11 @@
                 android:id="@+id/imageView3"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginBottom="88dp"
+                android:layout_marginBottom="48dp"
                 android:src="@drawable/ic_icu"
                 app:layout_constraintBottom_toBottomOf="@+id/text_about_us"
                 app:layout_constraintEnd_toStartOf="@+id/guideline93"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="@+id/guideline91" />
 
             <TextView

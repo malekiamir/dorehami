@@ -1,9 +1,11 @@
 package ir.ac.kntu.patogh.Activities;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
 
+import static android.app.PendingIntent.getActivity;
 import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
 public class AboutUsActivity extends AppCompatActivity {
@@ -29,7 +32,8 @@ public class AboutUsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("درباره ما");
+
+
         ButterKnife.bind(this);
         aboutUs.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
 

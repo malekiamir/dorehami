@@ -59,7 +59,8 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("تاریخچه");
         ButterKnife.bind(this);
 
         lastEvents = new ArrayList<>();

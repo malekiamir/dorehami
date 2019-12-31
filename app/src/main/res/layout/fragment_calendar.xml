@@ -1,16 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000">
+    android:background="#F6F6F8"
+    android:orientation="vertical">
 
-    <CalendarView
-        android:id="@+id/calendar"
+    <pl.hypeapp.materialtimelineview.MaterialTimelineView
+        android:id="@+id/material_timeline_view0"
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        style="@style/Widget.MaterialComponents.MaterialCalendar"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:timeline_bottom_radio_color="@color/patoghYellow"
+        app:timeline_line_color="#000"
+        app:timeline_margin_start="32dp"
+        app:timeline_position="first"
+        app:timeline_radio_outline_radius="20"
+        app:timeline_radio_radius="12"
+        app:timeline_top_radio_color="@color/patoghYellow"
+        app:timeline_type="line">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/iransans_mobile_font"
+            android:text="رویدادهای نزدیک"
+            android:textColor="#000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </pl.hypeapp.materialtimelineview.MaterialTimelineView>
+
+    <pl.hypeapp.materialtimelineview.MaterialTimelineView
+        android:id="@+id/material_timeline_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/material_timeline_view0"
+        app:timeline_bottom_radio_color="@color/patoghYellow"
+        app:timeline_line_color="#000"
+        app:timeline_margin_start="32dp"
+        app:timeline_position="middle"
+        app:timeline_radio_outline_radius="20"
+        app:timeline_radio_radius="12"
+        app:timeline_top_radio_color="@color/patoghYellow"
+        app:timeline_type="item">
+
+        <include
+            layout="@layout/timeline_card_event"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+    </pl.hypeapp.materialtimelineview.MaterialTimelineView>
+
+    <pl.hypeapp.materialtimelineview.MaterialTimelineView
+        android:id="@+id/material_timeline_view2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/material_timeline_view"
+        app:timeline_bottom_radio_color="@color/patoghYellow"
+        app:timeline_line_color="#000"
+        app:timeline_margin_start="32dp"
+        app:timeline_position="middle"
+        app:timeline_radio_outline_radius="20"
+        app:timeline_radio_radius="12"
+        app:timeline_top_radio_color="@color/patoghYellow"
+        app:timeline_type="line" />
+
+    <pl.hypeapp.materialtimelineview.MaterialTimelineView
+        android:id="@+id/material_timeline_view3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/material_timeline_view0"
+        app:timeline_bottom_radio_color="@color/patoghYellow"
+        app:timeline_line_color="#000"
+        app:timeline_margin_start="32dp"
+        app:timeline_position="middle"
+        app:timeline_radio_outline_radius="20"
+        app:timeline_radio_radius="12"
+        app:timeline_top_radio_color="@color/patoghYellow"
+        app:timeline_type="item">
+
+        <include
+            layout="@layout/timeline_card_event"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+    </pl.hypeapp.materialtimelineview.MaterialTimelineView>
+
+    <pl.hypeapp.materialtimelineview.MaterialTimelineView
+        android:id="@+id/material_timeline_view4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/material_timeline_view"
+        app:timeline_bottom_radio_color="@color/patoghYellow"
+        app:timeline_line_color="#000"
+        app:timeline_margin_start="32dp"
+        app:timeline_position="middle"
+        app:timeline_radio_outline_radius="20"
+        app:timeline_radio_radius="12"
+        app:timeline_top_radio_color="@color/patoghYellow"
+        app:timeline_type="line" />
+
+    <pl.hypeapp.materialtimelineview.MaterialTimelineView
+        android:id="@+id/material_timeline_view5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/material_timeline_view0"
+        app:timeline_bottom_radio_color="@color/patoghYellow"
+        app:timeline_line_color="#000"
+        app:timeline_margin_start="32dp"
+        app:timeline_position="last"
+        app:timeline_radio_outline_radius="20"
+        app:timeline_radio_radius="12"
+        app:timeline_top_radio_color="@color/patoghYellow"
+        app:timeline_type="item">
+
+        <include
+            layout="@layout/timeline_card_event"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+    </pl.hypeapp.materialtimelineview.MaterialTimelineView>
+</LinearLayout>

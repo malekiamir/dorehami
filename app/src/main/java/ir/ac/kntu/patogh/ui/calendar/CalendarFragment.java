@@ -20,8 +20,6 @@ import ir.ac.kntu.patogh.R;
 public class CalendarFragment extends Fragment {
 
     private CalendarViewModel calendarViewModel;
-    @BindView(R.id.calendar)
-    CalendarView calendar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,7 +28,7 @@ public class CalendarFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_calendar, container, false);
         ButterKnife.bind(this, root);
         setLocale("fa");
-//        calendar.set
+
         return root;
     }
 

@@ -1,38 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activities.AboutUsActivity"
     tools:showIn="@layout/activity_about_us">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="5dp">
+        android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/text_about_us"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/iransans_mobile_font"
-            android:text="این اپلیکیشن با هدف فراهم آوردن بستری مناسب به جهت استفاده بهتر از اوقات فراغت در مهر ماه سال 1398 راه اندازی شده است.این اپلیکیشن با هدف فراهم آوردن بستری مناسب به جهت استفاده بهتر از اوقات فراغت در مهر ماه سال 1398 راه اندازی شده است."
-            android:textColor="#000"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/text_about_us"
+                android:layout_width="0dp"
+                android:layout_height="638dp"
+                android:fontFamily="@font/iransans_mobile_medium_font"
+                android:text="@string/about_us"
+                android:textColor="@color/patoghBlue"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline93"
+                app:layout_constraintStart_toStartOf="@+id/guideline91"
+                app:layout_constraintTop_toTopOf="@+id/guideline92" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline91"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.06" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline92"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.02" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline93"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.94" />
 
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="88dp"
+                android:src="@drawable/ic_icu"
+                app:layout_constraintBottom_toBottomOf="@+id/text_about_us"
+                app:layout_constraintEnd_toStartOf="@+id/guideline93"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="@+id/guideline91" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.6"
+                android:fontFamily="@font/iransans_mobile_light_font"
+                android:text="پاتوق نسخه 1.0"
+                android:textColor="#000"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+    </ScrollView>
+
+</FrameLayout>

@@ -24,13 +24,15 @@ public class AboutUsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
-        Toolbar toolbar = findViewById(R.id.toolbar_about_us);
+        Toolbar toolbar = findViewById(R.id.toolbar_setting_about_us);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("درباره ما");
         ButterKnife.bind(this);
         aboutUs.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+
     }
 
     @Override

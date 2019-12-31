@@ -49,6 +49,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryA
     private SharedPreferences sharedPreferences;
     private boolean success = false;
     private Context context;
+    private String baseUrl = "http://94.139.171.234:7701/api/";
 
     public interface HistoryAdapterOnClickHandler {
         void onClick(Event selectedEvent, TextView v, ImageView imageView);
@@ -138,7 +139,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryA
 
     private void downloadThumbnail(String id, ImageView eventImage) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseUrl)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);

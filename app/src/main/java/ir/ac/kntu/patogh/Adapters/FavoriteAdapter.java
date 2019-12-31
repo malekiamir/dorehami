@@ -25,7 +25,6 @@ import java.util.Date;
 import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
-import ir.ac.kntu.patogh.Utils.Event;
 import ir.ac.kntu.patogh.Utils.FavoriteEvent;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -47,6 +46,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     long now;
     private SharedPreferences sharedPreferences;
     private Context context;
+    private String baseUrl = "http://94.139.171.234:7701/api/";
 
     public void clear() {
         eventsData.clear();
@@ -137,7 +137,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     private void downloadThumbnail(String id, ImageView eventImage) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseUrl)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);

@@ -103,8 +103,7 @@ public class EventActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private String eventId = "";
     private AlertDialog dialog;
-    private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
-
+    private String baseURL = "http://94.139.171.234:7701/api/";
     boolean success;
     boolean isLiked;
     boolean isJoined;

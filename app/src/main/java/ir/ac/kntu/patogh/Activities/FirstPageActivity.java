@@ -27,7 +27,7 @@ public class FirstPageActivity extends AppCompatActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
     private SharedPreferences sharedPreferences;
-    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
+    private String baseUrl = "http://94.139.171.234:7701/api/";
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -135,6 +135,26 @@ public class FirstPageActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("exception");
+                    long t2 = System.currentTimeMillis();
+                    if(t2-t1 >= 1450) {
+                        Intent intent = new Intent(FirstPageActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        new Thread()  {
+                            @Override
+                            public void run() {
+                                try {
+                                    sleep(1450-t2+t1);
+                                    Intent intent = new Intent(FirstPageActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }.start();
+                    }
                 }
             }
 

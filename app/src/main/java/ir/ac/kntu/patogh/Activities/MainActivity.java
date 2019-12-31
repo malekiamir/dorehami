@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     boolean success = false;
     private boolean doubleBackToExitPressedOnce = false;
     private SharedPreferences sharedPreferences;
-    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
+    private String baseUrl = "http://94.139.171.234:7701/api/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean requestLogin(String phoneNumber) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseUrl)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);

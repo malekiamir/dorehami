@@ -48,7 +48,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
     private ArrayList<Event> lastEvents;
     private SharedPreferences sharedPreferences;
     private String serverResponse;
-    private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
+    private String baseURL = "http://94.139.171.234:7701/api/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

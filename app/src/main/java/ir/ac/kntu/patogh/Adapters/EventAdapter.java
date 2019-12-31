@@ -48,6 +48,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     private SharedPreferences sharedPreferences;
     private boolean success = false;
     private Context context;
+    private String baseUrl = "http://94.139.171.234:7701/api/";
 
     public interface EventAdapterOnClickHandler {
         void onClick(Event selectedEvent, TextView v, ImageView imageView);
@@ -110,7 +111,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
         boolean favDorehamiAdd(String id) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                    .baseUrl(baseUrl)
                     .build();
             Gson gson = new Gson();
             PatoghApi patoghApi = retrofit.create(PatoghApi.class);
@@ -143,7 +144,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
         boolean favDorehamiRemove(String id) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                    .baseUrl(baseUrl)
                     .build();
             Gson gson = new Gson();
             PatoghApi patoghApi = retrofit.create(PatoghApi.class);
@@ -216,7 +217,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
     private void downloadThumbnail(String id, ImageView eventImage) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseUrl)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);

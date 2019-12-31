@@ -39,7 +39,7 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
     @BindView(R.id.stepperLayout)
     StepperLayout mStepperLayout;
     private TypeCreateEvent event;
-    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
+    private String baseUrl = "http://94.139.171.234:7701/api/";
 
     private SharedPreferences sharedPreferences;
 
@@ -103,6 +103,8 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
                 ch -= 0x0660 - '0';
             else if (ch >= 0x06f0 && ch <= 0x06F9)
                 ch -= 0x06f0 - '0';
+            else if (ch=='٫')
+                ch = '.';
             chars[i] = ch;
         }
         return new String(chars);

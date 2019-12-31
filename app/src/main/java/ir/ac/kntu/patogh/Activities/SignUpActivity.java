@@ -66,7 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
-    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
+    private String baseUrl = "http://94.139.171.234:7701/api/";
     boolean success = false;
     private boolean doubleBackToExitPressedOnce = false;
 

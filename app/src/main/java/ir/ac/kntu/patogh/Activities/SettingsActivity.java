@@ -3,22 +3,15 @@ package ir.ac.kntu.patogh.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.CornerPathEffect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -26,26 +19,19 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Group;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.signature.ObjectKey;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.EditUserInfoDialog;
@@ -81,7 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private AlertDialog exitDialog;
     MaterialEditText editFirstName;
-    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
+    private String baseUrl = "http://94.139.171.234:7701/api/";
 
 
     @Override
@@ -244,12 +230,12 @@ public class SettingsActivity extends AppCompatActivity {
                         String returnValue = jsonObject1.get("returnValue").toString();
                         JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
                         String imageId = jsonObject2.get("idString").getAsString();
-                        new StyleableToast
-                                .Builder(SettingsActivity.this)
-                                .text(imageId)
-                                .textColor(Color.WHITE)
-                                .backgroundColor(Color.argb(255, 255, 94, 100))
-                                .show();
+//                        new StyleableToast
+//                                .Builder(SettingsActivity.this)
+//                                .text(imageId)
+//                                .textColor(Color.WHITE)
+//                                .backgroundColor(Color.argb(255, 255, 94, 100))
+//                                .show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

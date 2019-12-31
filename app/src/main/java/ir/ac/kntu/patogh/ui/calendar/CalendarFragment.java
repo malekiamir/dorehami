@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,7 +12,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import java.util.Locale;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
 

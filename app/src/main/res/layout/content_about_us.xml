@@ -20,7 +20,7 @@
                 android:id="@+id/text_about_us"
                 android:layout_width="0dp"
                 android:layout_height="638dp"
-                android:fontFamily="@font/iransans_mobile_medium_font"
+                android:fontFamily="@font/iransans_mobile_font"
                 android:text="@string/about_us"
                 android:textColor="@color/patoghBlue"
                 android:textSize="18sp"

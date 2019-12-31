@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.alirezaafkar.sundatepicker.DatePicker;
@@ -84,8 +85,8 @@ public class FirstStepFragment extends Fragment implements Step {
     TextInputLayout ledtEndTime;
     @BindView(R.id.uploaded_image)
     ImageView image;
-    @BindView(R.id.frame_layout_first_step)
-    ScrollView layout;
+    @BindView(R.id.constraint_layout_first_step)
+    ConstraintLayout layout;
     private Date mStartDate;
     private Date mEndDate;
     private SharedPreferences sharedPreferences;
@@ -239,14 +240,12 @@ public class FirstStepFragment extends Fragment implements Step {
     }
 
     private void onDateSetStart(int id, Calendar calendar, int day, int month, int year) {
-        Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
         mStartDate.setDate(day, month, year);
         edtStartDate.setText(mStartDate.getDate());
         edtStartDate.clearFocus();
     }
 
     private void onDateSetEnd(int id, Calendar calendar, int day, int month, int year) {
-        Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
         mEndDate.setDate(day, month, year);
         edtEndDate.setText(mEndDate.getDate());
         edtEndDate.clearFocus();
@@ -267,11 +266,10 @@ public class FirstStepFragment extends Fragment implements Step {
             uploadImage(file);
             //You can also get File Path from intent
             String filepath = ImagePicker.Companion.getFilePath(data);
-            Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(getContext(), ImagePicker.Companion.getError(data), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getContext(), "Canceled", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "Canceled", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -296,7 +294,12 @@ public class FirstStepFragment extends Fragment implements Step {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 200) {
                     System.out.println("uploaded");
-                    Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
+                    new StyleableToast
+                            .Builder(getContext())
+                            .text("تصویر آپلود شد")
+                            .textColor(Color.WHITE)
+                            .backgroundColor(Color.argb(255, 0, 200, 83))
+                            .show();
                     try {
                         JsonObject jsonObject1 = new Gson().fromJson(response.body().string(), JsonObject.class);
                         String returnValue = jsonObject1.get("returnValue").toString();
@@ -311,7 +314,6 @@ public class FirstStepFragment extends Fragment implements Step {
                     }
                 } else {
                     System.out.println("failed to upload " + " " + response.code() + " " + response.message());
-
                     new StyleableToast
                             .Builder(getContext())
                             .text("خطایی رخ داده")

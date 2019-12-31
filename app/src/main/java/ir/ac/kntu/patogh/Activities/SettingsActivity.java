@@ -25,6 +25,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Group;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -59,16 +61,20 @@ import retrofit2.Retrofit;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    //    @BindView(R.id.edt_user_edit_firstname)
-//    com.rengwuxian.materialedittext.MaterialEditText editFirstName;
     @BindView(R.id.img_profile_pic)
     ImageView profilePic;
     @BindView(R.id.btn_edit_user_info)
     Button editInfoButton;
     @BindView(R.id.btn_log_out)
     Button logOutButton;
-    //    @BindView(R.id.btn_cancel)
-//    Button cancelEdit;
+    @BindView(R.id.constraintLayout_setting_support)
+    ConstraintLayout support;
+    @BindView(R.id.btn_setting_support)
+    ImageButton supportButton;
+    @BindView(R.id.constraintLayout_setting_about_us)
+    ConstraintLayout aboutUs;
+    @BindView(R.id.btn_setting_about_us)
+    ImageButton aboutUsButton;
     @BindView(R.id.btn_change_profile)
     ImageButton changeProfile;
     private SharedPreferences sharedPreferences;
@@ -76,7 +82,6 @@ public class SettingsActivity extends AppCompatActivity {
     private AlertDialog exitDialog;
     MaterialEditText editFirstName;
     private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
-
 
 
     @Override
@@ -140,18 +145,46 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditUserInfoDialog dialog = new EditUserInfoDialog(SettingsActivity.this);
-//                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-//                lp.copyFrom(dialog.getWindow().getAttributes());
-//                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-//                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
                 dialog.setContentView(R.layout.dialog_edit_user_info);
                 dialog.show();
                 Window window = dialog.getWindow();
                 window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-                // dialog.getWindow().setAttributes(lp);
             }
         });
+
+        support.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingsActivity.this,SupportActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        supportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingsActivity.this,SupportActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        aboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingsActivity.this,AboutUsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        aboutUsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingsActivity.this,AboutUsActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -164,7 +197,7 @@ public class SettingsActivity extends AppCompatActivity {
             Uri fileUri = data.getData();
             Glide.with(this)
                     .load(fileUri)
-                    .transform(new RoundedCornersTransformation(20,0))
+                    .transform(new RoundedCornersTransformation(20, 0))
                     .into(profilePic);
             //You can get File object from intent
             File file = ImagePicker.Companion.getFile(data);

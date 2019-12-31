@@ -2,6 +2,8 @@ package ir.ac.kntu.patogh.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +14,19 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.google.gson.Gson;
 import com.like.LikeButton;
 
+import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
+import ir.ac.kntu.patogh.Interfaces.PatoghApi;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
 
@@ -119,9 +132,48 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryA
         Glide.with(context)
                 .load(R.drawable.rounded_rect_image_not_loaded)
                 .into(historyAdapterViewHolder.eventImage);
+        downloadThumbnail(selectedEvent.getThumbnailId(), historyAdapterViewHolder.eventImage);
     }
 
 
+    private void downloadThumbnail(String id, ImageView eventImage) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            return;
+        }
+
+        TypeFavDorehamiAdd te;
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(te = new TypeFavDorehamiAdd(id)
+                ));
+
+        Log.d("@@@@@@@@@", te.toString());
+        patoghApi.downloadThumbnail("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    System.out.println("downloaded");
+                    Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
+                    Glide.with(context)
+                            .load(bmp)
+                            .transform(new RoundedCorners(6))
+                            .into(eventImage);
+                } else {
+                    System.out.println("failed to download");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("no responseeeee");
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {

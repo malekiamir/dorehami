@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/constraint_layout_first_step"
     tools:context=".Fragments.FirstStepFragment">
 
     <ScrollView
@@ -47,6 +48,7 @@
                     android:gravity="center"
                     android:hint="نام رویداد"
                     android:textColorHint="#000"
+                    android:layoutDirection="rtl"
                     app:boxStrokeColor="@color/text_input_color"
                     app:counterEnabled="false"
                     app:counterMaxLength="30"
@@ -339,4 +341,4 @@
     </ScrollView>
 
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

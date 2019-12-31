@@ -81,12 +81,11 @@ public class SecondStepFragment extends Fragment implements Step {
         });
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref", 0);
-        spinnerSubject.setItems("ورزشی", "تکنولوژی", "سرگرمی", "تاریخی", "علمی", "گردشگری", "مسابقه");
+        spinnerSubject.setItems("موضوع رویداد را انتخاب کنید", "ورزشی", "تکنولوژی", "سرگرمی", "تاریخی", "علمی", "گردشگری", "مسابقه");
         spinnerSubject.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
             }
         });
 

@@ -8,16 +8,17 @@
 
     <ScrollView
         android:id="@+id/frame_layout_second_step"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:focusableInTouchMode="true">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="3dp">
 
 
             <androidx.cardview.widget.CardView
@@ -140,8 +141,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="4dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="2dp"
                         android:elevation="6dp"
                         android:gravity="center"
                         android:hint="توضیحات کامل رویداد"
@@ -151,6 +153,7 @@
                         app:counterMaxLength="30"
                         app:hintTextAppearance="@style/TextLabel"
                         app:hintTextColor="#000"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_add_event_summary">
@@ -220,11 +223,15 @@
                             android:id="@+id/chips_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="1dp"
                             android:layout_marginTop="8dp"
+                            android:layout_marginEnd="1dp"
                             android:fontFamily="@font/iransans_mobile_font"
                             android:gravity="start"
                             android:hint="برچسب های رویداد را وارد نمایید"
+                            android:paddingStart="10dp"
                             android:paddingTop="7dp"
+                            android:paddingEnd="10dp"
                             android:paddingBottom="7dp"
                             android:textColor="#000"
                             android:textColorHint="#aa000000"

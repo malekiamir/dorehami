@@ -3,10 +3,13 @@ package ir.ac.kntu.patogh.Fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +30,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 public class SecondStepFragment extends Fragment implements Step {
 
     @BindView(R.id.spinner_add_event_subject)
@@ -41,6 +46,8 @@ public class SecondStepFragment extends Fragment implements Step {
     TextInputLayout ledtSummary;
     @BindView(R.id.textInputLayout_add_event_description)
     TextInputLayout ledtDescription;
+    @BindView(R.id.frame_layout_second_step)
+    ScrollView layout;
 
     private SharedPreferences sharedPreferences;
 
@@ -48,12 +55,37 @@ public class SecondStepFragment extends Fragment implements Step {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_second_step, container, false);
         ButterKnife.bind(this, root);
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                if (spinnerSubject.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                    spinnerSubject.clearFocus();
+                } else if (edtDescription.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                    edtDescription.clearFocus();
+                } else if (edtSummary.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                    edtSummary.clearFocus();
+                } else if (nachoTextView.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                    nachoTextView.clearFocus();
+                }
+                return true;
+            }
+        });
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref", 0);
-        spinnerSubject.setItems("ورزشی", "تکنولوژی", "سرگرمی","تاریخی","علمی","گردشگری","مسابقه");
+        spinnerSubject.setItems("ورزشی", "تکنولوژی", "سرگرمی", "تاریخی", "علمی", "گردشگری", "مسابقه");
         spinnerSubject.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
-            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
             }
         });
@@ -99,7 +131,6 @@ public class SecondStepFragment extends Fragment implements Step {
         }
         if (!tags.equals("")) {
             editor.putString("PATOGH_EVENT_TAGS", tags);
-            System.out.println("PATOGH_EVENT_TAGS " + tags);
             editor.apply();
         } else {
             nachoTextView.setError("زمان شروع خالیه!");

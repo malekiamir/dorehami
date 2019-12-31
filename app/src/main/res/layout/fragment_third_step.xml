@@ -2,8 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_layout_third_step"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".Fragments.FirstStepFragment">
 
     <TextView
@@ -26,9 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="12dp"
-        app:checked="true"
-        android:outlineSpotShadowColor="@color/patoghYellow"
         android:outlineAmbientShadowColor="@color/patoghYellow"
+        android:outlineSpotShadowColor="@color/patoghYellow"
+        app:checked="true"
         app:color_off="@color/patoghBlue"
         app:color_on="@color/patoghYellow"
         app:layout_constraintEnd_toStartOf="@+id/tv_add_event_switch_guide"
@@ -76,18 +80,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.55" />
 
-    <TextView
-        android:id="@+id/tv_event_add_address_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/iransans_mobile_medium_font"
-        android:text="آدرس"
-        android:textColor="#000"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_third_fragment_map" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout_add_event_address"
@@ -96,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="18dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="18dp"
         android:layout_marginBottom="10dp"
         android:elevation="6dp"
@@ -108,7 +100,7 @@
         app:counterMaxLength="30"
         app:hintTextAppearance="@style/TextLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_event_add_address_title">
+        app:layout_constraintTop_toBottomOf="@+id/map_add_event">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_add_event_address"
@@ -117,8 +109,8 @@
             android:alpha="0.9"
             android:fontFamily="@font/iransans_mobile_font"
             android:gravity="start"
-            android:inputType="textMultiLine"
-            android:maxLines="3"
+            android:inputType="textPersonName"
+            android:maxLines="2"
             android:paddingTop="15dp"
             android:textColor="#000"
             android:textSize="14sp" />

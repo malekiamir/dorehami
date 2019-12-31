@@ -2,17 +2,19 @@ package ir.ac.kntu.patogh.Fragments;
 
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -31,12 +33,13 @@ import org.neshan.ui.MapEventListener;
 import org.neshan.ui.MapView;
 import org.neshan.utils.BitmapUtils;
 import org.neshan.vectorelements.Marker;
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
 import vn.luongvo.widget.iosswitchview.SwitchView;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class ThirdStepFragment extends Fragment implements Step {
 
@@ -48,13 +51,13 @@ public class ThirdStepFragment extends Fragment implements Step {
     ImageView imgLocIcon;
     @BindView(R.id.tv_add_event_location_guide)
     TextView tvLocGuide;
-    @BindView(R.id.tv_event_add_address_title)
-    TextView tvAddressTitle;
     @BindView(R.id.edt_add_event_address)
     EditText edtAddress;
     @BindView(R.id.textInputLayout_add_event_address)
     TextInputLayout ledtAddress;
-    VectorElementLayer markerLayer;
+    @BindView(R.id.frame_layout_third_step)
+    ConstraintLayout layout;
+    private VectorElementLayer markerLayer;
 
     private SharedPreferences sharedPreferences;
 
@@ -62,6 +65,19 @@ public class ThirdStepFragment extends Fragment implements Step {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_third_step, container, false);
         ButterKnife.bind(this, root);
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                if (edtAddress.hasFocus()) {
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                    edtAddress.clearFocus();
+                }
+                return true;
+            }
+        });
+
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref", 0);
         mapConfiguration();
@@ -69,21 +85,20 @@ public class ThirdStepFragment extends Fragment implements Step {
             @Override
             public void onCheckedChanged(SwitchView switchView, boolean b) {
                 if (!b) {
+                    ledtAddress.setVisibility(View.GONE);
+                    map.setVisibility(View.GONE);
+
                     map.animate().alpha(0.0f).setDuration(300).start();
                     tvLocGuide.animate().alpha(0.0f).setDuration(300).start();
                     imgLocIcon.animate().alpha(0.0f).setDuration(300).start();
-                    tvAddressTitle.animate().alpha(0.0f).setDuration(300).start();
                     ledtAddress.animate().alpha(0.0f).setDuration(300).start();
+
                 } else {
-                    imgLocIcon.setVisibility(View.VISIBLE);
-                    tvLocGuide.setVisibility(View.VISIBLE);
-                    tvAddressTitle.setVisibility(View.VISIBLE);
                     ledtAddress.setVisibility(View.VISIBLE);
                     map.setVisibility(View.VISIBLE);
 
                     imgLocIcon.animate().alpha(1.0f).setDuration(300).start();
                     tvLocGuide.animate().alpha(1.0f).setDuration(300).start();
-                    tvAddressTitle.animate().alpha(1.0f).setDuration(300).start();
                     ledtAddress.animate().alpha(1.0f).setDuration(300).start();
                     map.animate().alpha(1.0f).setDuration(300).start();
                 }
@@ -137,20 +152,29 @@ public class ThirdStepFragment extends Fragment implements Step {
     public VerificationError verifyStep() {
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         String address = edtAddress.getText().toString();
+        LngLat location = map.getFocalPointPosition();
         boolean error = false;
 
-        if(switchMaterial.isChecked()) {
-
-        }
-        if (!address.equals("")) {
-            editor.putString("PATOGH_EVENT_ADDRESS", address);
+        if (switchMaterial.isChecked()) {
+            editor.putBoolean("PATOGH_EVENT_IS_PHYSICAL", true);
             editor.apply();
+            editor.putString("PATOGH_EVENT_LONGITUDE", String.format("%3.10f", location.getX()));
+            editor.apply();
+            editor.putString("PATOGH_EVENT_LATITUDE", String.format("%3.10f", location.getY()));
+            editor.apply();
+            if (!address.equals("")) {
+                editor.putString("PATOGH_EVENT_ADDRESS", address);
+                editor.apply();
+            } else {
+                ledtAddress.setError("آدرس رویداد خالیه!");
+                error = true;
+            }
+            if (error)
+                return new VerificationError("اطلاعات کامل نیست!");
         } else {
-            ledtAddress.setError("آدرس رویداد خالیه!");
-            error = true;
+            editor.putBoolean("PATOGH_EVENT_IS_PHYSICAL", false);
+            editor.apply();
         }
-        if (error)
-            return new VerificationError("اطلاعات کامل نیست!");
 
         return null;
     }

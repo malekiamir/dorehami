@@ -6,235 +6,244 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.SecondStepFragment">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:id="@+id/frame_layout_second_step"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_event_add_subject"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="4dp"
-            android:backgroundTint="#ffffff"
-            android:elevation="4dp"
-            app:cardCornerRadius="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_event_add_subject"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="#ffffff"
+                android:elevation="4dp"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/tv_add_event_subject"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/iransans_mobile_medium_font"
-                    android:text="موضوع"
-                    android:textColor="#000000"
-                    android:textSize="17sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/spinner_add_event_subject"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:backgroundTint="#FCFCFC"
-                    android:fontFamily="@font/iransans_mobile_font"
-                    android:text="یک موضوع انتخاب کنید"
-                    android:textColor="#000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_add_event_subject"
-                    app:ms_arrow_tint="@color/patoghBlue" />
+                    android:layout_height="wrap_content">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_event_add_summary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="4dp"
-            android:backgroundTint="#ffffff"
-            app:cardCornerRadius="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_event_add_subject">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_add_event_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/iransans_mobile_medium_font"
-                    android:text="توضیحات"
-                    android:textColor="#000000"
-                    android:textSize="17sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout_add_event_summary"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="4dp"
-                    android:elevation="6dp"
-                    android:gravity="center"
-                    android:hint="خلاصه رویداد"
-                    android:textColorHint="#000"
-                    app:boxStrokeColor="@color/text_input_color"
-                    app:counterEnabled="false"
-                    app:counterMaxLength="30"
-                    app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_add_event_description">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_add_event_summary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:alpha="0.9"
-                        android:fontFamily="@font/iransans_mobile_font"
-                        android:gravity="start"
-                        android:inputType="textMultiLine"
-                        android:maxLines="1"
-                        android:paddingTop="14dp"
-                        android:textColor="#000" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout_add_event_description"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginTop="10dp"
-                    android:elevation="6dp"
-                    android:gravity="center"
-                    android:hint="توضیحات کامل رویداد"
-                    android:textColorHint="#000"
-                    app:boxStrokeColor="@color/text_input_color"
-                    app:counterEnabled="false"
-                    app:counterMaxLength="30"
-                    app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_add_event_summary">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_add_event_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:alpha="0.9"
-                        android:fontFamily="@font/iransans_mobile_font"
-                        android:gravity="top|start"
-                        android:inputType="textMultiLine"
-                        android:maxLines="5"
-                        android:paddingTop="14dp"
-                        android:textColor="#000" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_event_add_tag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="4dp"
-            android:backgroundTint="#ffffff"
-            android:elevation="4dp"
-            app:cardCornerRadius="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_event_add_summary">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_add_event_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/iransans_mobile_medium_font"
-                    android:text="برچسب ها"
-                    android:textColor="#000000"
-                    android:textSize="17sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:gravity="start"
-                    android:padding="3dp"
-                    android:textColorHint="#000"
-                    app:boxStrokeColor="@color/text_input_color"
-                    app:counterEnabled="false"
-                    app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="#000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_add_event_tag">
-
-                    <com.hootsuite.nachos.NachoTextView
-                        android:id="@+id/chips_input"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tv_add_event_subject"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/iransans_mobile_medium_font"
+                        android:text="موضوع"
+                        android:textColor="#000000"
+                        android:textSize="17sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spinner_add_event_subject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:backgroundTint="#FCFCFC"
                         android:fontFamily="@font/iransans_mobile_font"
-                        android:gravity="start"
-                        android:hint="برچسب های رویداد را وارد نمایید"
-                        android:paddingTop="7dp"
-                        android:paddingBottom="7dp"
+                        android:text="یک موضوع انتخاب کنید"
                         android:textColor="#000"
-                        android:textColorHint="#aa000000"
-                        android:textDirection="rtl"
-                        android:textSize="14sp"
-                        app:chipBackground="#e2e2e2"
-                        app:chipHeight="30dp"
-                        app:chipSpacing="3dp"
-                        app:chipTextColor="#000"
-                        app:chipTextSize="14sp"
-                        app:chipVerticalSpacing="3dp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_add_event_subject"
+                        app:ms_arrow_tint="@color/patoghBlue" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_event_add_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="#ffffff"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_event_add_subject">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:id="@+id/tv_add_event_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/iransans_mobile_medium_font"
+                        android:text="توضیحات"
+                        android:textColor="#000000"
+                        android:textSize="17sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout_add_event_summary"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="4dp"
+                        android:elevation="6dp"
+                        android:gravity="center"
+                        android:hint="خلاصه رویداد"
+                        android:textColorHint="#000"
+                        app:boxStrokeColor="@color/text_input_color"
+                        app:counterEnabled="false"
+                        app:counterMaxLength="30"
+                        app:hintTextAppearance="@style/TextLabel"
+                        app:hintTextColor="#000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_add_event_description">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_add_event_summary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.9"
+                            android:fontFamily="@font/iransans_mobile_font"
+                            android:gravity="start"
+                            android:inputType="textPersonName"
+                            android:maxLines="1"
+                            android:paddingTop="14dp"
+                            android:textColor="#000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout_add_event_description"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="4dp"
+                        android:elevation="6dp"
+                        android:gravity="center"
+                        android:hint="توضیحات کامل رویداد"
+                        android:textColorHint="#000"
+                        app:boxStrokeColor="@color/text_input_color"
+                        app:counterEnabled="false"
+                        app:counterMaxLength="30"
+                        app:hintTextAppearance="@style/TextLabel"
+                        app:hintTextColor="#000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_add_event_summary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_add_event_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.9"
+                            android:fontFamily="@font/iransans_mobile_font"
+                            android:gravity="top|start"
+                            android:inputType="textMultiLine"
+                            android:maxLines="5"
+                            android:paddingTop="14dp"
+                            android:textColor="#000" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_event_add_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="#ffffff"
+                android:elevation="4dp"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_event_add_summary">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_add_event_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/iransans_mobile_medium_font"
+                        android:text="برچسب ها"
+                        android:textColor="#000000"
+                        android:textSize="17sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:gravity="start"
+                        android:padding="3dp"
+                        android:textColorHint="#000"
+                        app:boxStrokeColor="@color/text_input_color"
+                        app:counterEnabled="false"
+                        app:hintTextAppearance="@style/TextLabel"
+                        app:hintTextColor="#000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_add_event_tag">
+
+                        <com.hootsuite.nachos.NachoTextView
+                            android:id="@+id/chips_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/iransans_mobile_font"
+                            android:gravity="start"
+                            android:hint="برچسب های رویداد را وارد نمایید"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="7dp"
+                            android:textColor="#000"
+                            android:textColorHint="#aa000000"
+                            android:textDirection="rtl"
+                            android:textSize="14sp"
+                            app:chipBackground="#e2e2e2"
+                            app:chipHeight="30dp"
+                            app:chipSpacing="3dp"
+                            app:chipTextColor="#000"
+                            app:chipTextSize="14sp"
+                            app:chipVerticalSpacing="3dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </FrameLayout>

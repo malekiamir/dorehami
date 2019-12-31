@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +44,11 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
     RecyclerView rvHistory;
 
     private HistoryAdapter historyAdapter;
+    private Event event;
+    private ArrayList<Event> lastEvents;
+    private SharedPreferences sharedPreferences;
+    private String serverResponse;
+    private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,10 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ButterKnife.bind(this);
 
+        lastEvents = new ArrayList<>();
+
+        sharedPreferences = this
+                .getSharedPreferences("TokenPref", 0);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
@@ -71,6 +82,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
         scaleInAnimationAdapter.setDuration(150);
         scaleInAnimationAdapter.setFirstOnly(false);
         rvHistory.setAdapter(scaleInAnimationAdapter);
+        getHistory();
     }
 
 
@@ -79,54 +91,59 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
 
     }
 
-//    public void getSummery() {
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://eg.potatogamers.ir:7701/api/")
-//                .build();
-//        Gson gson = new Gson();
-//        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
-//        String token = sharedPreferences.getString("Token", "none");
-//        if (token.equals("none")) {
-//            Toast.makeText(getContext(), "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(getActivity(), MainActivity.class);
-//            startActivity(intent);
-//        }
-//
-//        patoghApi.getSummery("Bearer " + token).enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                try {
-//                    String res = response.body().string();
-//                    if (serverResponse != null && serverResponse.equals(res)) {
-//                        swipeContainer.setRefreshing(false);
-//                        return;
-//                    } else {
-//                        eventAdapter.clear();
-//                        events.clear();
-//                        serverResponse = res;
-//                    }
-//                    JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
-//                    String returnValue = jsonObject1.get("returnValue").toString();
-//                    Type dorehamiType = new TypeToken<ArrayList<Dorehami>>() {
-//                    }.getType();
-//                    ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
-//                    for (Dorehami dorehami : dorehamis) {
-//                        events.add(new Event(dorehami.getName(), dorehami.getSummery()
-//                                , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
-//                                , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
-//                                , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
-//                                , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()));
-//                    }
-//                    eventAdapter.addAll(events);
-//                    swipeContainer.setRefreshing(false);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//            }
-//        });
-//    }
+    public void getHistory() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseURL)
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            Toast.makeText(this, "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        patoghApi.getJoinedDorehami("Bearer " + token).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    System.out.println(response.code());
+                    String res = response.body().string();
+                    historyAdapter.clear();
+                    lastEvents.clear();
+                    JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
+                    String returnValue = jsonObject1.get("returnValue").toString();
+                    Type dorehamiType = new TypeToken<ArrayList<Dorehami>>() {
+                    }.getType();
+                    ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
+                    Date date = new Date();
+                    for (Dorehami dorehami : dorehamis) {
+                        if (dorehami.getStartTime().compareTo(String.valueOf(date)) < 0) {
+                            lastEvents.add(new Event(dorehami.getName(), dorehami.getSummery()
+                                    , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
+                                    , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
+                                    , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
+                                    , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()));
+                        }
+                    }
+                    historyAdapter.addAll(lastEvents);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 }

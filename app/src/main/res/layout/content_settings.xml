@@ -132,6 +132,7 @@
         android:id="@+id/day_night_switch"
         android:layout_width="53dp"
         android:layout_height="28dp"
+        android:layout_marginLeft="5dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline68"
         app:layout_constraintStart_toStartOf="@+id/guideline62"
         app:layout_constraintTop_toTopOf="@+id/guideline69" />
@@ -142,6 +143,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.45" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -167,6 +172,8 @@
         app:layout_constraintStart_toStartOf="@+id/guideline62"
         app:layout_constraintTop_toTopOf="@+id/guideline68"
         app:layout_constraintVertical_bias="0.523" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline70"

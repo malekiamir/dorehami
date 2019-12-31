@@ -19,8 +19,9 @@ public class Event {
     }
 
     public Event(String name, String desc, String date, String capacity, String id, String thumbnailId
-            , boolean isJoined, boolean isFavorited, String[] imagesIds, String city, String longitude
+            , boolean isJoined, boolean isFavorited,String[] imagesIds,  String city, String longitude
             , String latitude, String category) {
+
         this.name = name;
         this.desc = desc;
         this.date = date;

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.CornerPathEffect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +47,7 @@ import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.EditUserInfoDialog;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -94,7 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 ImagePicker.Companion.with(SettingsActivity.this)
-                        .crop(4, 4)                    //Crop image(Optional), Check Customization for more option
+                        .crop(4, 4)//Crop image(Optional), Check Customization for more option
                         .compress(1024)            //Final image size will be less than 1 MB(Optional)
                         .maxResultSize(512, 512)    //Final image resolution will be less than 1080 x 1080(Optional)
                         .start();
@@ -162,6 +164,7 @@ public class SettingsActivity extends AppCompatActivity {
             Uri fileUri = data.getData();
             Glide.with(this)
                     .load(fileUri)
+                    .transform(new RoundedCornersTransformation(20,0))
                     .into(profilePic);
             //You can get File object from intent
             File file = ImagePicker.Companion.getFile(data);

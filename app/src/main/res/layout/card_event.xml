@@ -142,6 +142,7 @@
             app:unlike_drawable="@drawable/ic_heart" />
 
         <View
+            android:id="@+id/view_event_card_around_like_btn"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:alpha="0.3"

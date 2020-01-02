@@ -116,7 +116,8 @@
             android:layout_gravity="center"
             android:backgroundTint="#00000000"
             android:fontFamily="@font/iransans_mobile_medium_font"
-            android:text="انصراف" />
+            android:text="انصراف"
+            android:textColor="#000"/>
 
     </LinearLayout>
 

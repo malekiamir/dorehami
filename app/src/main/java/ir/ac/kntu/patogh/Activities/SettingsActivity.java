@@ -5,18 +5,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -24,6 +29,8 @@ import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.mahfa.dnswitch.DayNightSwitch;
+import com.mahfa.dnswitch.DayNightSwitchListener;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -63,6 +70,8 @@ public class SettingsActivity extends AppCompatActivity {
     ImageButton aboutUsButton;
     @BindView(R.id.btn_change_profile)
     ImageButton changeProfile;
+    //@BindView(R.id.day_night_switch)
+    //DayNightSwitch dayNightSwitch;
     private SharedPreferences sharedPreferences;
     private AlertDialog dialog;
     private AlertDialog exitDialog;
@@ -72,13 +81,53 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkTheme);
+
+        } else {
+            setTheme(R.style.LightTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+       DayNightSwitch dayNightSwitch = findViewById(R.id.day_night_switch);
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            dayNightSwitch.setIsNight(true);
+        }
+//        dayNightSwitch.setListener(new DayNightSwitchListener() {
+//            @Override
+//            public void onSwitch(boolean is_night) {
+//                if(is_night){
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                    restartApp();
+//                }else{
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                   restartApp();
+//                }
+//            }
+//        });
+        dayNightSwitch.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.P)
+            @Override
+            public void onClick(View v) {
+
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    dayNightSwitch.setIsNight(false);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    dayNightSwitch.setIsNight(true);
+                }
+
+                finish();
+                startActivity(new Intent(SettingsActivity.this, SettingsActivity.this.getClass()));
+            }
+        });
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         ButterKnife.bind(this);
         sharedPreferences = getApplicationContext()
                 .getSharedPreferences("TokenPref", 0);
@@ -142,7 +191,7 @@ public class SettingsActivity extends AppCompatActivity {
         support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingsActivity.this,SupportActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, SupportActivity.class);
                 startActivity(intent);
             }
         });
@@ -150,7 +199,7 @@ public class SettingsActivity extends AppCompatActivity {
         supportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingsActivity.this,SupportActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, SupportActivity.class);
                 startActivity(intent);
             }
         });
@@ -158,7 +207,7 @@ public class SettingsActivity extends AppCompatActivity {
         aboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingsActivity.this,AboutUsActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, AboutUsActivity.class);
                 startActivity(intent);
             }
         });
@@ -166,12 +215,18 @@ public class SettingsActivity extends AppCompatActivity {
         aboutUsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingsActivity.this,AboutUsActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, AboutUsActivity.class);
                 startActivity(intent);
             }
         });
 
 
+    }
+
+    private void restartApp() {
+        Intent intent = new Intent(SettingsActivity.this, SettingsActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 

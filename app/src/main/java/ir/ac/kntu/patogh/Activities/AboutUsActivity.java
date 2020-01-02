@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.R;
@@ -22,9 +24,9 @@ public class AboutUsActivity extends AppCompatActivity {
 
     @BindView(R.id.text_about_us)
     TextView aboutUs;
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
         Toolbar toolbar = findViewById(R.id.toolbar_setting_about_us);
@@ -32,7 +34,6 @@ public class AboutUsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-
 
         ButterKnife.bind(this);
         aboutUs.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
@@ -44,4 +45,6 @@ public class AboutUsActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+
 }

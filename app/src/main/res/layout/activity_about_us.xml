@@ -9,42 +9,31 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_setting_about_us"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:layout_scrollFlags="enterAlways"
-            app:toolbarId="@+id/toolbar">
+            android:layout_height="?attr/actionBarSize"
+            android:background="#11103D"
+            app:layout_collapseMode="parallax"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_setting_about_us"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="#11103D"
-                app:layout_collapseMode="parallax"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff"
-                android:gravity="right"
-                tools:text="درباره ما"
-                android:id="@+id/toolbar_text"
-                android:layout_gravity="center"
-                android:layout_marginEnd="12dp"
-                android:textSize="20sp"/>
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        <TextView
+            android:id="@+id/toolbar_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="12dp"
+            android:gravity="right"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            tools:text="درباره ما" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_about_us" />
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

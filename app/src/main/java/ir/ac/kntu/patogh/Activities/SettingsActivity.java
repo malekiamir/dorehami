@@ -67,7 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private AlertDialog exitDialog;
     MaterialEditText editFirstName;
-    private String baseUrl = "http://94.139.171.234:7701/api/";
+    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
 
 
     @Override

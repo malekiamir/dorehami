@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
     private SharedPreferences sharedPreferences;
     private ArrayList<Event> events;
     private String serverResponse;
-    private String baseURL = "http://94.139.171.234:7701/api/";
+    private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -165,7 +165,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         }
     }
 
-    public void getSummery() {
+    private void getSummery() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .build();

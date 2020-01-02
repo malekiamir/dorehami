@@ -88,7 +88,7 @@ public class FirstStepFragment extends Fragment implements Step {
     private Date mStartDate;
     private Date mEndDate;
     private SharedPreferences sharedPreferences;
-    private String baseURL = "http://94.139.171.234:7701/api/";
+    private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
 
 
     @Override

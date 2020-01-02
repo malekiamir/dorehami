@@ -81,7 +81,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     private ArrayList<FavoriteEvent> favoriteEvents;
     private String badge[];
     private String serverResponse;
-    private String baseURL = "http://94.139.171.234:7701/api/";
+    private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
 
 
 
@@ -223,7 +223,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         super.onAttach(context);
     }
 
-    public void getFavorites() {
+    private void getFavorites() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .build();

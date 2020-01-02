@@ -103,7 +103,7 @@ public class EventActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private String eventId = "";
     private AlertDialog dialog;
-    private String baseURL = "http://94.139.171.234:7701/api/";
+    private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
     boolean success;
     boolean isLiked;
     boolean isJoined;
@@ -466,7 +466,7 @@ public class EventActivity extends AppCompatActivity {
 
     public void getDetail(String id) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseURL)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
@@ -572,7 +572,7 @@ public class EventActivity extends AppCompatActivity {
 
     boolean favDorehamiRemove(String id) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://eg.potatogamers.ir:7701/api/")
+                .baseUrl(baseURL)
                 .build();
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);

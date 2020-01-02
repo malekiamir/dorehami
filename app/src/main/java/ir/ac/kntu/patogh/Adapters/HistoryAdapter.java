@@ -49,7 +49,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryA
     private SharedPreferences sharedPreferences;
     private boolean success = false;
     private Context context;
-    private String baseUrl = "http://94.139.171.234:7701/api/";
+    private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
 
     public interface HistoryAdapterOnClickHandler {
         void onClick(Event selectedEvent, TextView v, ImageView imageView);

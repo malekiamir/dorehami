@@ -31,6 +31,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.signature.ObjectKey;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -99,6 +101,9 @@ public class EventActivity extends AppCompatActivity {
     LikeButton likeButton;
     @BindView(R.id.fab)
     ExtendedFloatingActionButton fab;
+    @BindView(R.id.chipGroup)
+    ChipGroup chipGroup;
+
     VectorElementLayer markerLayer;
     private SharedPreferences sharedPreferences;
     private String eventId = "";
@@ -194,7 +199,7 @@ public class EventActivity extends AppCompatActivity {
                 } else {
                     tvMapHint.setAlpha(1.0f);
                     tvMapHint.setVisibility(View.VISIBLE);
-                    tvMapHint.animate().alpha(0.0f).setDuration(2000).setInterpolator(new AnticipateInterpolator()).start();
+                    tvMapHint.animate().alpha(0.0f).setDuration(1500).setInterpolator(new AnticipateInterpolator()).start();
                 }
                 return false;
             }
@@ -279,6 +284,14 @@ public class EventActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_share) {
+            new StyleableToast
+                    .Builder(this)
+                    .text("به زودی این قابلیت در دسترس خواهد بود")
+                    .textColor(Color.WHITE)
+                    .length(Toast.LENGTH_SHORT)
+                    .font(R.font.iransans_mobile_font)
+                    .backgroundColor(Color.argb(250, 30, 30, 30))
+                    .show();
             return true;
         }
 
@@ -300,18 +313,10 @@ public class EventActivity extends AppCompatActivity {
         Gson gson = new Gson();
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String token = sharedPreferences.getString("Token", "none");
+
         if (token.equals("none")) {
             Toast.makeText(EventActivity.this, "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(EventActivity.this, MainActivity.class);
-//            if (!isLiked && !isJoined) {
-//                setResult(0, intent);
-//            } else if (isLiked && !isJoined) {
-//                setResult(1, intent);
-//            } else if (!isLiked && isJoined) {
-//                setResult(2, intent);
-//            } else {
-//                setResult(3, intent);
-//            }
             startActivity(intent);
         }
 
@@ -509,6 +514,11 @@ public class EventActivity extends AppCompatActivity {
                             fab.setIcon(getDrawable(R.drawable.ic_add));
                         }
                     }
+                    for (String tag : dorehami.getTags()) {
+                        Chip chip = (Chip) getLayoutInflater().inflate(R.layout.chip_layout, chipGroup, false);
+                        chip.setText(tag.substring(tag.indexOf('\u001F') + 1,tag.lastIndexOf('\u001F')));
+                        chipGroup.addView(chip);
+                    }
                     downloadImage(dorehami.getImagesIds()[0]);
 
                 } catch (Exception e) {
@@ -537,7 +547,7 @@ public class EventActivity extends AppCompatActivity {
         markerLayer.add(marker);
     }
 
-    boolean favDorehamiAdd(String id) {
+    void favDorehamiAdd(String id) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .build();
@@ -545,7 +555,7 @@ public class EventActivity extends AppCompatActivity {
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String token = sharedPreferences.getString("Token", "none");
         if (token.equals("none")) {
-            return false;
+            return;
         }
         TypeFavDorehamiAdd te;
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
@@ -567,10 +577,9 @@ public class EventActivity extends AppCompatActivity {
                 success = false;
             }
         });
-        return success;
     }
 
-    boolean favDorehamiRemove(String id) {
+    void favDorehamiRemove(String id) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .build();
@@ -578,7 +587,7 @@ public class EventActivity extends AppCompatActivity {
         PatoghApi patoghApi = retrofit.create(PatoghApi.class);
         String token = sharedPreferences.getString("Token", "none");
         if (token.equals("none")) {
-            return false;
+            return;
         }
         TypeFavDorehamiAdd te;
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
@@ -600,7 +609,6 @@ public class EventActivity extends AppCompatActivity {
                 success = false;
             }
         });
-        return success;
     }
 
 

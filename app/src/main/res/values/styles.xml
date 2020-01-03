@@ -55,8 +55,9 @@
 
     <style name="myTimePicker"></style>
 
-
-
+    <style name="myChips" parent="@style/Widget.MaterialComponents.Chip.Action">
+        <item name="android:fontFamily">@font/iransans_mobile_light_font</item>
+    </style>
 
 
 </resources>

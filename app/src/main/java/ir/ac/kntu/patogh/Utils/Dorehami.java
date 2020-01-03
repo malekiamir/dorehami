@@ -1,5 +1,7 @@
 package ir.ac.kntu.patogh.Utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 
 public class Dorehami {
@@ -20,46 +22,31 @@ public class Dorehami {
     private String thumbnailId;
     private boolean isJoined;
     private boolean isFavorited;
+    private String[] tags;
     private String[] imagesIds;
+
+    public String[] getTags() {
+        return tags;
+    }
 
     public String getCategory() {
         return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String[] getImagesIds() {
         return imagesIds;
     }
 
-    public void setImagesIds(String[] imagesIds) {
-        this.imagesIds = imagesIds;
-    }
-
     public String getSummery() {
         return summery;
-    }
-
-    public void setSummery(String summery) {
-        this.summery = summery;
     }
 
     public String getProvince() {
         return province;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
     public String getThumbnailId() {
         return thumbnailId;
-    }
-
-    public void setThumbnailId(String thumbnailId) {
-        this.thumbnailId = thumbnailId;
     }
 
     public String getId() {
@@ -90,24 +77,12 @@ public class Dorehami {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
     public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public int getSize() {
@@ -122,50 +97,27 @@ public class Dorehami {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public boolean isPhysical() {
         return isPhysical;
-    }
-
-    public void setPhysical(boolean physical) {
-        isPhysical = physical;
     }
 
     public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
     public String getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
     }
 
     public boolean isJoined() {
         return isJoined;
     }
 
-    public void setJoined(boolean joined) {
-        isJoined = joined;
-    }
-
     public boolean isFavorited() {
         return isFavorited;
     }
 
-    public void setFavorited(boolean favorited) {
-        isFavorited = favorited;
-    }
-
+    @NotNull
     @Override
     public String toString() {
         return "Dorehami{" +
@@ -186,6 +138,7 @@ public class Dorehami {
                 ", thumbnailId='" + thumbnailId + '\'' +
                 ", isJoined=" + isJoined +
                 ", isFavorited=" + isFavorited +
+                ", tags=" + Arrays.toString(tags) +
                 ", imagesIds=" + Arrays.toString(imagesIds) +
                 '}';
     }

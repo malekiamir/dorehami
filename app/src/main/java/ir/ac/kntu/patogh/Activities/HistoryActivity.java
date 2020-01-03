@@ -125,7 +125,8 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
                                     , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
                                     , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
                                     , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
-                                    , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()));
+                                    , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()
+                                    , dorehami.getTags()));
                         }
                     }
                     historyAdapter.addAll(lastEvents);

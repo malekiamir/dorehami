@@ -81,8 +81,8 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     private ArrayList<FavoriteEvent> favoriteEvents;
     private String badge[];
     private String serverResponse;
+    private String[] userLvl;
     private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
-
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -93,6 +93,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                 ViewModelProviders.of(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
         favoriteEvents = new ArrayList<>();
+        userLvl = new String[]{"تازه وارد", "تجربه اولی", "با تجربه", "خفن", "حرفه ای", "همه فن حریف"};
         unbinder = ButterKnife.bind(this, root);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -154,21 +155,14 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-         if (item.getItemId() == R.id.action_gear) {
+        if (item.getItemId() == R.id.action_gear) {
             Context context = getContext();
             Intent intent = new Intent(context, SettingsActivity.class);
             startActivity(intent);
             return true;
         } else if (item.getItemId() == android.R.id.home) {
-//            new StyleableToast
-//                    .Builder(getContext())
-//                    .text("تاریخچه رویدادها")
-//                    .textColor(Color.WHITE)
-//                    .font(R.font.iransans_mobile_font)
-//                    .backgroundColor(Color.argb(250, 30, 30, 30))
-//                    .show();
-             Intent intent = new Intent(getContext(), HistoryActivity.class);
-             startActivity(intent);
+            Intent intent = new Intent(getContext(), HistoryActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -185,10 +179,10 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
     private void loadBadges() {
         ArrayList<Badge> badges = new ArrayList<>();
-        badges.add(new Badge(R.drawable.ic_sport_badges,1));
-        badges.add(new Badge(R.drawable.ic_win,2));
-        badges.add(new Badge(R.drawable.ic_achievement,3));
-        badges.add(new Badge(R.drawable.ic_success,4));
+        badges.add(new Badge(R.drawable.ic_sport_badges, 1));
+        badges.add(new Badge(R.drawable.ic_win, 2));
+        badges.add(new Badge(R.drawable.ic_achievement, 3));
+        badges.add(new Badge(R.drawable.ic_success, 4));
         badgeAdapter.setEventData(badges);
     }
 
@@ -262,7 +256,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                                 , dorehami.getId(), dorehami.getThumbnailId()));
                     }
                     System.out.println(favoriteEvents.size());
-                    if(favoriteEvents.size()==0){
+                    if (favoriteEvents.size() == 0) {
                         tvFavoritesGone.setVisibility(View.VISIBLE);
                     } else {
                         tvFavoritesGone.setVisibility(View.GONE);
@@ -303,10 +297,12 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                     String returnValue = jsonObject1.get("returnValue").toString();
                     JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
                     String firstName = jsonObject2.get("firstName").getAsString();
-                   // String adjective = jsonObject2.get("firstName").getAsString();
+                    int userLevel = jsonObject2.get("userLevel").getAsInt();
+
                     if (firstName != null) {
                         nameTextView.setText(firstName);
                     }
+                    adjectiveTextView.setText(userLvl[userLevel]);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

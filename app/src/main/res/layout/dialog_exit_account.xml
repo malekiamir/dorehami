@@ -57,6 +57,7 @@
         android:backgroundTint="#00000000"
         android:fontFamily="@font/iransans_font"
         android:text="بله"
+        android:textColor="#000"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/dialog_no"
         app:layout_constraintEnd_toStartOf="@+id/dialog_no"

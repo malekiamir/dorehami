@@ -2,16 +2,37 @@
 
     <!-- Base application theme. -->
     <!-- Customize your theme here. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
-        <item name="android:fontFamily">@font/iransans_mobile_font</item>
-
+    <style name="LightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#00FDFD</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorAccent">#FD0048</item>
+        <item name="textColor">#000000</item>
+        <item name="buttonTextColor">#000000</item>
+        <item name="bgColor">#ffffff</item>
+        <item name="viewColor">#22000000</item>
+        <item name="imageButtonColor">#000000</item>
+        <item name="android:windowAnimationStyle">@style/windowAnimationTransition</item>
     </style>
 
 
+    <style name="DarkTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#00FDFD</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorAccent">#2600FD</item>
+        <item name="textColor">#ffffff</item>
+        <item name="buttonTextColor">#000000</item>
+        <item name="bgColor">#000000</item>
+        <item name="viewColor">#4E4E4E</item>
+        <item name="imageButtonColor">#ffffff</item>
+        <item name="android:windowAnimationStyle">@style/windowAnimationTransition</item>
+
+    </style>
+
+    <style name="windowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+
+    </style>
 
     <style name="MyEditText" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">#00000000</item>

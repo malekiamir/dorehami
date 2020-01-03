@@ -1,12 +1,17 @@
 package ir.ac.kntu.patogh.Activities;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -35,6 +40,8 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import butterknife.BindView;
@@ -54,7 +61,7 @@ import retrofit2.Retrofit;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    @BindView(R.id.img_profile_pic)
+    @BindView(R.id.img_profile_pic_setting)
     ImageView profilePic;
     @BindView(R.id.btn_edit_user_info)
     Button editInfoButton;
@@ -114,13 +121,14 @@ public class SettingsActivity extends AppCompatActivity {
                 if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     dayNightSwitch.setIsNight(false);
+                    restartApp();
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     dayNightSwitch.setIsNight(true);
+                    restartApp();
                 }
 
-                finish();
-                startActivity(new Intent(SettingsActivity.this, SettingsActivity.this.getClass()));
+              //  startActivity(new Intent(SettingsActivity.this, SettingsActivity.this.getClass()));
             }
         });
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -132,6 +140,17 @@ public class SettingsActivity extends AppCompatActivity {
         sharedPreferences = getApplicationContext()
                 .getSharedPreferences("TokenPref", 0);
         changeProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ImagePicker.Companion.with(SettingsActivity.this)
+                        .crop(4, 4)//Crop image(Optional), Check Customization for more option
+                        .compress(1024)            //Final image size will be less than 1 MB(Optional)
+                        .maxResultSize(512, 512)    //Final image resolution will be less than 1080 x 1080(Optional)
+                        .start();
+            }
+        });
+        profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -285,12 +304,17 @@ public class SettingsActivity extends AppCompatActivity {
                         String returnValue = jsonObject1.get("returnValue").toString();
                         JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
                         String imageId = jsonObject2.get("idString").getAsString();
+                        int imageIdd = jsonObject2.get("idString").getAsInt();
+//                        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(),imageIdd );
+                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageIdd);
+                      String h =  saveToInternalStorage(bitmap);
 //                        new StyleableToast
 //                                .Builder(SettingsActivity.this)
 //                                .text(imageId)
 //                                .textColor(Color.WHITE)
 //                                .backgroundColor(Color.argb(255, 255, 94, 100))
 //                                .show();
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -317,6 +341,30 @@ public class SettingsActivity extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    private String saveToInternalStorage(Bitmap bitmapImage){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath=new File(directory,"profile.jpg");
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
     }
 
 

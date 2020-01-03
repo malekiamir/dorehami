@@ -10,6 +10,7 @@
         <item name="buttonTextColor">#000000</item>
         <item name="bgColor">#ffffff</item>
         <item name="viewColor">#22000000</item>
+        <item name="imageButtonColor">#000000</item>
         <item name="android:windowAnimationStyle">@style/windowAnimationTransition</item>
     </style>
 
@@ -21,7 +22,8 @@
         <item name="textColor">#ffffff</item>
         <item name="buttonTextColor">#000000</item>
         <item name="bgColor">#000000</item>
-        <item name="viewColor">#808080</item>
+        <item name="viewColor">#4E4E4E</item>
+        <item name="imageButtonColor">#ffffff</item>
         <item name="android:windowAnimationStyle">@style/windowAnimationTransition</item>
 
     </style>

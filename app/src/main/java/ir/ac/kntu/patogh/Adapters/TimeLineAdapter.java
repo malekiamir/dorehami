@@ -137,6 +137,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter {
                 PersianDate persianDateStart = new PersianDate(dateStart);
                 PersianDateFormat pdformater = new PersianDateFormat("l j F H:i");
                 String startDate = pdformater.format(persianDateStart);
+                startDate = decimalToFarsi(startDate);
                 tvTime.setText(startDate);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -197,6 +198,17 @@ public class TimeLineAdapter extends RecyclerView.Adapter {
                 v.requestLayout();
             }
         }
+    }
+
+    private static String decimalToFarsi(String number) {
+        char[] chars = new char[number.length()];
+        for (int i = 0; i < number.length(); i++) {
+            char ch = number.charAt(i);
+            if (ch >= '0' && ch <= '9')
+                ch += 0x0660 - '0';
+            chars[i] = ch;
+        }
+        return new String(chars);
     }
 
     private void downloadThumbnail(String id, ImageView eventImage) {

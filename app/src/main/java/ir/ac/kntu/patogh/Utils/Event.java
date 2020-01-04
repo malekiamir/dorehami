@@ -9,6 +9,7 @@ public class Event {
     private String city;
     private String thumbnailId;
     private boolean isJoined;
+    private boolean isPhysical;
     private String latitude;
     private String longitude;
     private boolean isFavorited;
@@ -21,8 +22,9 @@ public class Event {
 
     public Event(String name, String desc, String date, String capacity, String id, String thumbnailId
             , boolean isJoined, boolean isFavorited,String[] imagesIds,  String city, String longitude
-            , String latitude, String category, String[] tags) {
+            , String latitude, String category, String[] tags, boolean isPhysical) {
 
+        this.isPhysical = isPhysical;
         this.name = name;
         this.desc = desc;
         this.date = date;
@@ -37,6 +39,14 @@ public class Event {
         this.latitude = latitude;
         this.category = category;
         this.tags = tags;
+    }
+
+    public boolean isPhysical() {
+        return isPhysical;
+    }
+
+    public void setPhysical(boolean physical) {
+        isPhysical = physical;
     }
 
     public String[] getTags() {

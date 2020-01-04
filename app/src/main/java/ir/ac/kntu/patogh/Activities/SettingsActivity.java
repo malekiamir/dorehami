@@ -314,6 +314,7 @@ public class SettingsActivity extends AppCompatActivity {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
                         outputStream.flush();
                         outputStream.close();
+                        setImage();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

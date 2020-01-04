@@ -116,7 +116,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryA
         Event selectedEvent = eventsData.get(position);
         historyAdapterViewHolder.eventNameTextView.setText(selectedEvent.getName());
         historyAdapterViewHolder.eventSummaryTextView.setText(selectedEvent.getDesc());
-        historyAdapterViewHolder.eventCityTextView.setText(selectedEvent.getCity());
+        if(selectedEvent.isPhysical()) {
+            historyAdapterViewHolder.eventCityTextView.setText(selectedEvent.getCity());
+        } else {
+            historyAdapterViewHolder.eventCityTextView.setText("مجازی");
+        }
         historyAdapterViewHolder.likeButton.setVisibility(View.INVISIBLE);
         SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         try {

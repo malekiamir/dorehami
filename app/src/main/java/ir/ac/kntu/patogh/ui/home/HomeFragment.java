@@ -227,7 +227,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                                     , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
                                     , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
                                     , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()
-                                    , dorehami.getTags()));
+                                    , dorehami.getTags(), dorehami.isPhysical()));
                         }
                         eventAdapter.addAll(events);
 
@@ -285,7 +285,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                                 , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
                                 , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
                                 , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()
-                                , dorehami.getTags()));
+                                , dorehami.getTags(), dorehami.isPhysical()));
                     }
                     eventAdapter.addAll(events);
                     swipeContainer.setRefreshing(false);
@@ -322,7 +322,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
     }
 
     @Override
-    public void onClick(Event selectedEvent, TextView textView, ImageView imageView) {
+    public void onClick(Event selectedEvent) {
         Context context = getContext();
         Intent intent = new Intent(context, EventActivity.class);
         intent.putExtra("event_name", selectedEvent.getName());

@@ -95,6 +95,8 @@ public class EventActivity extends AppCompatActivity {
     MapView map;
     @BindView(R.id.tv_map_hint)
     TextView tvMapHint;
+    @BindView(R.id.tv_location_header)
+    TextView tvLocationHeader;
     @BindView(R.id.img_event)
     ImageView imgEvent;
     @BindView(R.id.progress_event)
@@ -281,9 +283,13 @@ public class EventActivity extends AppCompatActivity {
             tvCapacity.setText(getIntent().getStringExtra("event_capacity"));
         }
         if (getIntent().hasExtra("event_long") && getIntent().hasExtra("event_lat")) {
-            if (getIntent().getStringExtra("event_long") != null && getIntent().getStringExtra("event_lat") != null) {
+            if (!getIntent().getStringExtra("event_long").equals("") && !getIntent().getStringExtra("event_lat").equals("")) {
                 mapConfiguration(new LngLat(Double.valueOf(getIntent().getStringExtra("event_long"))
                         , Double.valueOf(getIntent().getStringExtra("event_lat"))));
+            } else {
+                map.setVisibility(View.GONE);
+                tvAddress.setVisibility(View.GONE);
+                tvLocationHeader.setVisibility(View.INVISIBLE);
             }
         }
         if (getIntent().hasExtra("class") && getIntent().getStringExtra("class").equals("favorite")) {

@@ -51,7 +51,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
 
     public interface EventAdapterOnClickHandler {
-        void onClick(Event selectedEvent, TextView v, ImageView imageView);
+        void onClick(Event selectedEvent);
     }
 
     public EventAdapter(EventAdapterOnClickHandler clickHandler) {
@@ -106,7 +106,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             mLastClickTime = now;
             int adapterPosition = getAdapterPosition();
             Event selectedEvent = eventsData.get(adapterPosition);
-            mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
+            mClickHandler.onClick(selectedEvent);
         }
 
         boolean favDorehamiAdd(String id) {
@@ -196,7 +196,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         Event selectedEvent = eventsData.get(position);
         eventAdapterViewHolder.eventNameTextView.setText(selectedEvent.getName());
         eventAdapterViewHolder.eventSummaryTextView.setText(selectedEvent.getDesc());
-        eventAdapterViewHolder.eventCityTextView.setText(selectedEvent.getCity());
+        if(selectedEvent.isPhysical()) {
+            eventAdapterViewHolder.eventCityTextView.setText(selectedEvent.getCity());
+        } else {
+            eventAdapterViewHolder.eventCityTextView.setText("مجازی");
+        }
         SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         try {
             Date dateStart = readingFormat.parse(selectedEvent.getDate());

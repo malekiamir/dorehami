@@ -126,7 +126,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
                                     , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
                                     , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
                                     , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()
-                                    , dorehami.getTags()));
+                                    , dorehami.getTags(), dorehami.isPhysical()));
                         }
                     }
                     historyAdapter.addAll(lastEvents);

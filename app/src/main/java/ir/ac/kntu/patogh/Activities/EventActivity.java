@@ -541,7 +541,11 @@ public class EventActivity extends AppCompatActivity {
                     }
                     for (String tag : dorehami.getTags()) {
                         Chip chip = (Chip) getLayoutInflater().inflate(R.layout.chip_layout, chipGroup, false);
-                        chip.setText(tag.substring(tag.indexOf('\u001F') + 1, tag.lastIndexOf('\u001F')));
+                        if(tag.contains("\u001F")) {
+                            chip.setText(tag.substring(tag.indexOf('\u001F') + 1, tag.lastIndexOf('\u001F')));
+                        } else {
+                            chip.setText(tag);
+                        }
                         chipGroup.addView(chip);
                     }
                     downloadImage(dorehami.getImagesIds()[0]);

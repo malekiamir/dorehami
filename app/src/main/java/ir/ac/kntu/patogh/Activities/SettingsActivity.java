@@ -27,6 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -80,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
     MaterialEditText editFirstName;
     private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
     public Bitmap bitmap;
-    public String imageId;
+    public Uri fileUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,7 +236,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        //setImage();
+        setImage();
 
 
     }
@@ -252,7 +253,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             //Image Uri will not be null for RESULT_OK
-            Uri fileUri = data.getData();
+            fileUri = data.getData();
             Glide.with(this)
                     .load(fileUri)
                     .transform(new RoundedCornersTransformation(22, 0))
@@ -303,44 +304,16 @@ public class SettingsActivity extends AppCompatActivity {
                         JsonObject jsonObject1 = new Gson().fromJson(response.body().string(), JsonObject.class);
                         String returnValue = jsonObject1.get("returnValue").toString();
                         JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
-                        imageId = jsonObject2.get("idString").getAsString();
+                        String imageId = jsonObject2.get("idString").getAsString();
                         makeAppFolder();
                         File filePath = Environment.getExternalStorageDirectory();
                         File dir = new File(filePath.getAbsolutePath() + "/PATOGH/Pictures/");
                         dir.mkdir();
                         File file = new File(dir, "profile.jpg");
-                        File imgFile = new  File("/PATOGH/Pictures/profile.jpg");
-                        if(imgFile.exists()) {
-
-                            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-
-                            ImageView myImage = findViewById(R.id.img_profile_pic_setting);
-
-                            myImage.setImageBitmap(myBitmap);
-                        }
-//                        if (file.exists()) {
-//                            file.delete();
-//                        }
-//                        if (file.delete()) {
-//                            File file1 = new File(dir, "profile.jpg");
-//                            FileOutputStream outputStream = new FileOutputStream(file1);
-//                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-//                            outputStream.flush();
-//                            outputStream.close();
-//                        } else {
-                            FileOutputStream outputStream = new FileOutputStream(file);
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                            outputStream.flush();
-                            outputStream.close();
-
-                        //}
-//                       new StyleableToast
-//                                .Builder(SettingsActivity.this)
-//                                .text(imageId)
-//                                .textColor(Color.WHITE)
-//                                .backgroundColor(Color.argb(255, 255, 94, 100))
-//                                .show();
-
+                        FileOutputStream outputStream = new FileOutputStream(file);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                        outputStream.flush();
+                        outputStream.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -353,7 +326,6 @@ public class SettingsActivity extends AppCompatActivity {
                             .textColor(Color.WHITE)
                             .backgroundColor(Color.argb(255, 255, 94, 100))
                             .show();
-
                 }
             }
 
@@ -384,12 +356,20 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    public void setImage(){
-        File file = new File(Environment.getExternalStorageDirectory(),"PATOGH/Pictures/profile"+imageId+".jpg");
+    public void setImage() {
+        File file = new File(Environment.getExternalStorageDirectory(), "PATOGH/Pictures/profile.jpg");
         Glide.with(SettingsActivity.this)
                 .load(file)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .transform(new RoundedCornersTransformation(22, 0))
                 .into(profilePic);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setImage();
     }
 
 

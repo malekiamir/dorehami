@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <!-- Customize your theme here. -->
     <style name="LightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">#00FDFD</item>
+        <item name="colorPrimary">#505050</item>
         <item name="colorPrimaryDark">#000</item>
         <item name="colorAccent">#FD0048</item>
         <item name="textColor">#000000</item>
@@ -16,7 +16,7 @@
 
 
     <style name="DarkTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">#00FDFD</item>
+        <item name="colorPrimary">#505050</item>
         <item name="colorPrimaryDark">#000</item>
         <item name="colorAccent">#2600FD</item>
         <item name="textColor">#ffffff</item>

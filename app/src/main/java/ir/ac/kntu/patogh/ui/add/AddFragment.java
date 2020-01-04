@@ -69,7 +69,7 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
         String latitude = sharedPreferences.getString("PATOGH_EVENT_LATITUDE", "");
         String longitude = sharedPreferences.getString("PATOGH_EVENT_LONGITUDE", "");
         String address = sharedPreferences.getString("PATOGH_EVENT_ADDRESS", "");
-        Boolean isPhysical = sharedPreferences.getBoolean("PATOGH_EVENT_IS_PHYSICAL", false);
+        boolean isPhysical = sharedPreferences.getBoolean("PATOGH_EVENT_IS_PHYSICAL", false);
 
         startTime = startTime.split(" : ")[0] + ":" + startTime.split(" : ")[1];
         endTime = endTime.split(" : ")[0] + ":" + endTime.split(" : ")[1];
@@ -78,7 +78,7 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
         event = new TypeCreateEvent(name, farsiToDecimal(startDate.substring(2) + " " + startTime)
                 , farsiToDecimal(endDate.substring(2) + " " + endTime), summary, subject
                 , 10, isPhysical, farsiToDecimal(latitude), farsiToDecimal(longitude), "تهران"
-                , imageId, address, description, new String[]{imageId}, new String[]{tags});
+                , imageId, address, description, new String[]{imageId}, tags.split(" {2}"));
         System.out.println(event);
         createEvent();
     }
@@ -120,10 +120,8 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
         if (token.equals("none")) {
             return;
         }
-        TypeCreateEvent typeCreateEvent;
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
-                , gson.toJson(typeCreateEvent = event
-                ));
+                , gson.toJson(event));
 
         patoghApi.createDorehami("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -132,21 +130,22 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
                     if (response.code() == 200) {
                         new StyleableToast
                                 .Builder(getContext())
-                                .text("رویداد با موفقیت ثبت شد.")
+                                .text("رویداد با موفقیت ثبت شد")
                                 .textColor(Color.WHITE)
-                                .backgroundColor(Color.argb(255, 94, 255, 100))
+                                .backgroundColor(Color.argb(255, 124, 179, 66))
                                 .show();
+                        clearCachedData();
+                        mStepperLayout.setCurrentStepPosition(0);
                     } else {
                         new StyleableToast
                                 .Builder(getContext())
-                                .text("با این رویداد ساختنت.")
+                                .text("مشکلی در ساخت رویداد رخ داده")
                                 .textColor(Color.WHITE)
                                 .backgroundColor(Color.argb(255, 255, 94, 100))
                                 .show();
                     }
                     System.out.println(response.code());
                     System.out.println(response.body().string());
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -162,6 +161,25 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
                         .show();
             }
         });
+    }
+
+    private void clearCachedData() {
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("PATOGH_EVENT_NAME", "");
+        editor.putString("PATOGH_EVENT_START_DATE", "");
+        editor.putString("PATOGH_EVENT_END_DATE", "");
+        editor.putString("PATOGH_EVENT_START_TIME", "");
+        editor.putString("PATOGH_EVENT_END_TIME", "");
+        editor.putString("PATOGH_EVENT_IMAGE_ID", "");
+        editor.putString("PATOGH_EVENT_SUMMARY", "");
+        editor.putString("PATOGH_EVENT_DESCRIPTION", "");
+        editor.putString("PATOGH_EVENT_SUBJECT", "");
+        editor.putString("PATOGH_EVENT_TAGS", "");
+        editor.putString("PATOGH_EVENT_LATITUDE", "");
+        editor.putString("PATOGH_EVENT_LONGITUDE", "");
+        editor.putString("PATOGH_EVENT_ADDRESS", "");
+        editor.putBoolean("PATOGH_EVENT_IS_PHYSICAL", true);
+        editor.apply();
     }
 
 }

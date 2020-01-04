@@ -13,6 +13,7 @@ public class Event {
     private String longitude;
     private boolean isFavorited;
     private String[] imagesIds;
+    private String[] tags;
     private String category;
 
     public Event() {
@@ -20,7 +21,7 @@ public class Event {
 
     public Event(String name, String desc, String date, String capacity, String id, String thumbnailId
             , boolean isJoined, boolean isFavorited,String[] imagesIds,  String city, String longitude
-            , String latitude, String category) {
+            , String latitude, String category, String[] tags) {
 
         this.name = name;
         this.desc = desc;
@@ -35,6 +36,15 @@ public class Event {
         this.longitude = longitude;
         this.latitude = latitude;
         this.category = category;
+        this.tags = tags;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
     }
 
     public String getCategory() {

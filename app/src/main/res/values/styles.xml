@@ -41,7 +41,7 @@
 
     <style name="AppTheme.ProfileTheme">
         <item name="colorPrimaryDark">#33ff12</item>
-        <item name="colorAccent">#DFDFDF</item>
+        <item name="colorAccent">#121290</item>
         <item name="windowActionBar">false</item>
         <item name="android:fontFamily">@font/iransans_mobile_font</item>
         <item name="windowNoTitle">true</item>
@@ -75,6 +75,10 @@
     </style>
 
     <style name="myTimePicker"></style>
+
+    <style name="myChips" parent="@style/Widget.MaterialComponents.Chip.Action">
+        <item name="android:fontFamily">@font/iransans_mobile_light_font</item>
+    </style>
 
 
 </resources>

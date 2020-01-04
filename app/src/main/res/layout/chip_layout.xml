@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.chip.Chip
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:backgroundTint="#e2e2e2"
+    android:textColor="#000"
+    android:fontFamily="@font/iransans_mobile_light_font"
+    />

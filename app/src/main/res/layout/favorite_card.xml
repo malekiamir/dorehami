@@ -34,6 +34,8 @@
         android:fontFamily="@font/iransans_mobile_font"
         android:gravity="center"
         android:text="دوچرخه سواری"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_favorite_card_date"

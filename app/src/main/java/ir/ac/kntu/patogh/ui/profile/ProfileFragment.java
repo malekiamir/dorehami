@@ -321,12 +321,18 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     public void setProfilePicture() {
 
         File file = new File(Environment.getExternalStorageDirectory(), "PATOGH/Pictures/profile.jpg");
+        if(!file.exists()){
+            Glide.with(this)
+                    .load(getResources().getDrawable(R.drawable.ic_profile_pic))
+                    .transform(new RoundedCornersTransformation(22, 0))
+                    .into(profilePicture);
+        }else{
             Glide.with(this)
                     .load(file)
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .transform(new RoundedCornersTransformation(22, 0))
                     .into(profilePicture);
-        }
+        }}
     }
 

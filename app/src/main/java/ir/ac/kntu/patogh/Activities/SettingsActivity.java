@@ -1,8 +1,6 @@
 package ir.ac.kntu.patogh.Activities;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -11,15 +9,13 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Environment;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -35,7 +31,6 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.mahfa.dnswitch.DayNightSwitch;
-import com.mahfa.dnswitch.DayNightSwitchListener;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -84,7 +79,8 @@ public class SettingsActivity extends AppCompatActivity {
     private AlertDialog exitDialog;
     MaterialEditText editFirstName;
     private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
-
+    public Bitmap bitmap;
+    public String imageId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +93,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-       DayNightSwitch dayNightSwitch = findViewById(R.id.day_night_switch);
+        DayNightSwitch dayNightSwitch = findViewById(R.id.day_night_switch);
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             dayNightSwitch.setIsNight(true);
         }
@@ -128,7 +124,7 @@ public class SettingsActivity extends AppCompatActivity {
                     restartApp();
                 }
 
-              //  startActivity(new Intent(SettingsActivity.this, SettingsActivity.this.getClass()));
+                //  startActivity(new Intent(SettingsActivity.this, SettingsActivity.this.getClass()));
             }
         });
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -239,6 +235,8 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //setImage();
+
 
     }
 
@@ -257,10 +255,12 @@ public class SettingsActivity extends AppCompatActivity {
             Uri fileUri = data.getData();
             Glide.with(this)
                     .load(fileUri)
-                    .transform(new RoundedCornersTransformation(20, 0))
+                    .transform(new RoundedCornersTransformation(22, 0))
                     .into(profilePic);
             //You can get File object from intent
             File file = ImagePicker.Companion.getFile(data);
+            String filePath = file.getPath();
+            bitmap = BitmapFactory.decodeFile(filePath);
             uploadProfile(file);
             //You can also get File Path from intent
             String filepath = ImagePicker.Companion.getFilePath(data);
@@ -303,12 +303,38 @@ public class SettingsActivity extends AppCompatActivity {
                         JsonObject jsonObject1 = new Gson().fromJson(response.body().string(), JsonObject.class);
                         String returnValue = jsonObject1.get("returnValue").toString();
                         JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
-                        String imageId = jsonObject2.get("idString").getAsString();
-                        int imageIdd = jsonObject2.get("idString").getAsInt();
-//                        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(),imageIdd );
-                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageIdd);
-                      String h =  saveToInternalStorage(bitmap);
-//                        new StyleableToast
+                        imageId = jsonObject2.get("idString").getAsString();
+                        makeAppFolder();
+                        File filePath = Environment.getExternalStorageDirectory();
+                        File dir = new File(filePath.getAbsolutePath() + "/PATOGH/Pictures/");
+                        dir.mkdir();
+                        File file = new File(dir, "profile.jpg");
+                        File imgFile = new  File("/PATOGH/Pictures/profile.jpg");
+                        if(imgFile.exists()) {
+
+                            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+                            ImageView myImage = findViewById(R.id.img_profile_pic_setting);
+
+                            myImage.setImageBitmap(myBitmap);
+                        }
+//                        if (file.exists()) {
+//                            file.delete();
+//                        }
+//                        if (file.delete()) {
+//                            File file1 = new File(dir, "profile.jpg");
+//                            FileOutputStream outputStream = new FileOutputStream(file1);
+//                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+//                            outputStream.flush();
+//                            outputStream.close();
+//                        } else {
+                            FileOutputStream outputStream = new FileOutputStream(file);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                            outputStream.flush();
+                            outputStream.close();
+
+                        //}
+//                       new StyleableToast
 //                                .Builder(SettingsActivity.this)
 //                                .text(imageId)
 //                                .textColor(Color.WHITE)
@@ -327,6 +353,7 @@ public class SettingsActivity extends AppCompatActivity {
                             .textColor(Color.WHITE)
                             .backgroundColor(Color.argb(255, 255, 94, 100))
                             .show();
+
                 }
             }
 
@@ -343,29 +370,30 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-    private String saveToInternalStorage(Bitmap bitmapImage){
-        ContextWrapper cw = new ContextWrapper(getApplicationContext());
-        // path to /data/data/yourapp/app_data/imageDir
-        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        // Create imageDir
-        File mypath=new File(directory,"profile.jpg");
 
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(mypath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void makeAppFolder() {
+        String folder_main = "PATOGH";
+
+        File f = new File(Environment.getExternalStorageDirectory(), folder_main);
+        if (!f.exists()) {
+            f.mkdirs();
         }
-        return directory.getAbsolutePath();
+        File f1 = new File(Environment.getExternalStorageDirectory() + "/" + folder_main, "Pictures");
+        if (!f1.exists()) {
+            f1.mkdirs();
+        }
+    }
+
+    public void setImage(){
+        File file = new File(Environment.getExternalStorageDirectory(),"PATOGH/Pictures/profile"+imageId+".jpg");
+        Glide.with(SettingsActivity.this)
+                .load(file)
+                .transform(new RoundedCornersTransformation(22, 0))
+                .into(profilePic);
     }
 
 
 }
+
+
+

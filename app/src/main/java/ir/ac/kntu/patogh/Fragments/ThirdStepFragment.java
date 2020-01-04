@@ -96,7 +96,6 @@ public class ThirdStepFragment extends Fragment implements Step {
                 } else {
                     ledtAddress.setVisibility(View.VISIBLE);
                     map.setVisibility(View.VISIBLE);
-
                     imgLocIcon.animate().alpha(1.0f).setDuration(300).start();
                     tvLocGuide.animate().alpha(1.0f).setDuration(300).start();
                     ledtAddress.animate().alpha(1.0f).setDuration(300).start();

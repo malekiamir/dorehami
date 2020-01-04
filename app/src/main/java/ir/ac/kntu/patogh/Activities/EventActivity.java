@@ -2,6 +2,7 @@ package ir.ac.kntu.patogh.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -56,6 +57,7 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -123,6 +125,7 @@ public class EventActivity extends AppCompatActivity {
         sharedPreferences = getApplicationContext()
                 .getSharedPreferences("TokenPref", 0);
 
+        setLocale("fa");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -206,6 +209,22 @@ public class EventActivity extends AppCompatActivity {
         });
     }
 
+
+    private void setLocale(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getApplicationContext().getResources().updateConfiguration(config,
+                getApplicationContext().getResources().getDisplayMetrics());
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setLocale("fa");
+    }
+
     private void setupWindowAnimations() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Fade fade = new Fade();
@@ -217,7 +236,6 @@ public class EventActivity extends AppCompatActivity {
             getWindow().setExitTransition(fadeOut);
         }
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -244,6 +262,7 @@ public class EventActivity extends AppCompatActivity {
                 PersianDate persianDateStart = new PersianDate(dateStart);
                 PersianDateFormat pdformater = new PersianDateFormat("l j F H:i");
                 String startDate = pdformater.format(persianDateStart);
+                startDate = decimalToFarsi(startDate);
                 tvDate.setText(startDate);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -516,7 +535,7 @@ public class EventActivity extends AppCompatActivity {
                     }
                     for (String tag : dorehami.getTags()) {
                         Chip chip = (Chip) getLayoutInflater().inflate(R.layout.chip_layout, chipGroup, false);
-                        chip.setText(tag.substring(tag.indexOf('\u001F') + 1,tag.lastIndexOf('\u001F')));
+                        chip.setText(tag.substring(tag.indexOf('\u001F') + 1, tag.lastIndexOf('\u001F')));
                         chipGroup.addView(chip);
                     }
                     downloadImage(dorehami.getImagesIds()[0]);
@@ -530,6 +549,17 @@ public class EventActivity extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
+    }
+
+    private static String decimalToFarsi(String number) {
+        char[] chars = new char[number.length()];
+        for (int i = 0; i < number.length(); i++) {
+            char ch = number.charAt(i);
+            if (ch >= '0' && ch <= '9')
+                ch += 0x0660 - '0';
+            chars[i] = ch;
+        }
+        return new String(chars);
     }
 
     private void mapConfiguration(LngLat focalPoint) {

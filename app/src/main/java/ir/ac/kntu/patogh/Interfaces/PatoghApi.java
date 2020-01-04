@@ -67,4 +67,7 @@ public interface PatoghApi {
 
     @POST("/api/User/joinDorehamiGetSummery")
     Call<ResponseBody> getJoinedDorehami(@Header("Authorization")String token);
+
+    @POST("/api/Dorehami/search")
+    Call<ResponseBody> search(@Header("Authorization")String token, @Body RequestBody requestBody);
 }

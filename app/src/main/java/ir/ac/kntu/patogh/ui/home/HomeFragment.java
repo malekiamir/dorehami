@@ -3,6 +3,7 @@ package ir.ac.kntu.patogh.ui.home;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Fade;
@@ -26,6 +27,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -33,6 +37,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +45,8 @@ import butterknife.Unbinder;
 import ir.ac.kntu.patogh.Activities.EventActivity;
 import ir.ac.kntu.patogh.Activities.MainActivity;
 import ir.ac.kntu.patogh.Adapters.EventAdapter;
+import ir.ac.kntu.patogh.ApiDataTypes.TypeFavDorehamiAdd;
+import ir.ac.kntu.patogh.ApiDataTypes.TypeSearchEvent;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.Dorehami;
@@ -48,6 +55,8 @@ import ir.ac.kntu.patogh.Utils.KeyboardUtils;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,6 +78,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
     RecyclerView rvEvents;
     @BindView(R.id.swipeContainer)
     SwipeRefreshLayout swipeContainer;
+    @BindView(R.id.lottie_animation_search)
+    LottieAnimationView lottieAnimationView;
 
     private EventAdapter eventAdapter;
     private Unbinder unbinder;
@@ -155,14 +166,86 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
         if (view.getId() == R.id.btn_img_search_bar_sort) {
             Toast.makeText(view.getContext(), "sort", Toast.LENGTH_SHORT).show();
         } else if (view.getId() == R.id.btn_img_search_bar_search) {
-            Toast.makeText(view.getContext(), "search", Toast.LENGTH_SHORT).show();
+            search();
         } else if (view.getId() == R.id.btn_img_search_bar_cancel) {
             btnImgSort.setVisibility(View.VISIBLE);
             btnImgCancel.setVisibility(View.GONE);
             edtSearch.clearFocus();
             edtSearch.setText(R.string.edt_home_page_search_hint);
             KeyboardUtils.hideKeyboard(this.getActivity());
+            swipeContainer.setRefreshing(true);
+            getSummery();
         }
+    }
+
+    private void search() {
+        if (edtSearch.getText().toString().trim().equals("")
+                || edtSearch.getText().toString().equals("مثال : دوچرخه سواری")) {
+            return;
+        }
+        swipeContainer.setEnabled(false);
+        lottieAnimationView.animate().alpha(1.0f).setDuration(300).start();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseURL)
+                .build();
+        Gson gson = new Gson();
+        PatoghApi patoghApi = retrofit.create(PatoghApi.class);
+        String token = sharedPreferences.getString("Token", "none");
+        if (token.equals("none")) {
+            Toast.makeText(getContext(), "توکن شما پایان یافته.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+        }
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json")
+                , gson.toJson(new TypeSearchEvent(edtSearch.getText().toString(), ""
+                        , "", new String[]{})
+                ));
+
+        patoghApi.search("Bearer " + token, requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.code() == 200) {
+                        String res = response.body().string();
+                        if (serverResponse != null && serverResponse.equals(res)) {
+                            lottieAnimationView.animate().alpha(0.0f).setDuration(300).start();
+                            return;
+                        } else {
+                            eventAdapter.clear();
+                            events.clear();
+                            serverResponse = res;
+                        }
+                        JsonObject jsonObject1 = new Gson().fromJson(res, JsonObject.class);
+                        String returnValue = jsonObject1.get("returnValue").toString();
+                        Type dorehamiType = new TypeToken<ArrayList<Dorehami>>() {
+                        }.getType();
+                        ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
+                        for (Dorehami dorehami : dorehamis) {
+                            events.add(new Event(dorehami.getName(), dorehami.getSummery()
+                                    , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
+                                    , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
+                                    , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
+                                    , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()
+                                    , dorehami.getTags()));
+                        }
+                        eventAdapter.addAll(events);
+
+                    } else {
+
+                    }
+                    lottieAnimationView.animate().alpha(0.0f).setDuration(300).start();
+                    swipeContainer.setRefreshing(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+        swipeContainer.setEnabled(true);
     }
 
     private void getSummery() {
@@ -215,6 +298,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
             public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
+    }
+
+    private void setLocale(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getContext().getResources().updateConfiguration(config,
+                getContext().getResources().getDisplayMetrics());
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setLocale("fa");
     }
 
     @Override

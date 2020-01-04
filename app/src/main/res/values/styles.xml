@@ -25,7 +25,6 @@
         <item name="viewColor">#4E4E4E</item>
         <item name="imageButtonColor">#ffffff</item>
         <item name="android:windowAnimationStyle">@style/windowAnimationTransition</item>
-
     </style>
 
     <style name="windowAnimationTransition">

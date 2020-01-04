@@ -82,4 +82,5 @@ dependencies {
     implementation 'com.github.luongvo:iOS-SwitchView:1.0.0'
     implementation 'com.github.roojin:persian-calendar-view:1.2.1'
     implementation 'pl.hypeapp:materialtimelineview:1.1'
+    implementation 'com.google.firebase:firebase-crash:16.2.1'
 }

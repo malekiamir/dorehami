@@ -31,12 +31,12 @@
                 android:id="@+id/toolbar_profile_page"
                 layout="@layout/toolbar" />
 
-            <androidx.cardview.widget.CardView
+            <FrameLayout
                 android:id="@+id/cv_profie_page_user_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="15dp"
-                app:cardCornerRadius="8dp"
+                android:background="#00000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -46,8 +46,9 @@
                     android:id="@+id/img_profile_pic"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
-            </androidx.cardview.widget.CardView>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_profile_pic"/>
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/tv_profile_page_name"

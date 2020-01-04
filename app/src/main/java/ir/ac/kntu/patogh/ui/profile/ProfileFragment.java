@@ -3,7 +3,11 @@ package ir.ac.kntu.patogh.ui.profile;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +34,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.muddzdev.styleabletoast.StyleableToast;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -50,6 +55,7 @@ import ir.ac.kntu.patogh.Utils.Badge;
 import ir.ac.kntu.patogh.Utils.Dorehami;
 import ir.ac.kntu.patogh.Utils.EqualSpacingItemDecoration;
 import ir.ac.kntu.patogh.Utils.FavoriteEvent;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,6 +87,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     private ArrayList<FavoriteEvent> favoriteEvents;
     private String badge[];
     private String serverResponse;
+    String imageId;
     private String[] userLvl;
     private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
 
@@ -100,6 +107,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             public void onRefresh() {
                 getFavorites();
                 getUserDetails();
+                setProfilePicture();
             }
         });
         mSwipeRefreshLayout.setColorSchemeResources(R.color.patoghYellow, R.color.patoghBlue);
@@ -114,8 +122,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(40));
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref", 0);
-        getUserDetails();
-        getFavorites();
+
 
 
         Toolbar toolbar = root.findViewById(R.id.toolbar_profile_page);
@@ -136,13 +143,10 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvBadge.addItemDecoration(new EqualSpacingItemDecoration(24));
         loadBadges();
 
-        Glide.with(this)
-                .load(R.drawable.back)
-                .placeholder(R.drawable.back)
-                .error(R.drawable.back)
-                .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .into((ImageView) root.findViewById(R.id.img_profile_pic));
+        getUserDetails();
+        getFavorites();
+        setProfilePicture();
+
         return root;
     }
 
@@ -298,7 +302,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                     JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
                     String firstName = jsonObject2.get("firstName").getAsString();
                     int userLevel = jsonObject2.get("userLevel").getAsInt();
-
+                    imageId = jsonObject2.get("profilePictureId").getAsString();
                     if (firstName != null) {
                         nameTextView.setText(firstName);
                     }
@@ -314,4 +318,15 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         });
     }
 
-}
+    public void setProfilePicture() {
+
+        File file = new File(Environment.getExternalStorageDirectory(), "PATOGH/Pictures/profile.jpg");
+            Glide.with(this)
+                    .load(file)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .transform(new RoundedCornersTransformation(22, 0))
+                    .into(profilePicture);
+        }
+    }
+

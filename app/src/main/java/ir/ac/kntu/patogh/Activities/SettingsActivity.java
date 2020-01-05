@@ -82,6 +82,7 @@ public class SettingsActivity extends AppCompatActivity {
     private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
     public Bitmap bitmap;
     public Uri fileUri;
+    public DayNightSwitch dayNightSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +95,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        DayNightSwitch dayNightSwitch = findViewById(R.id.day_night_switch);
+        dayNightSwitch = findViewById(R.id.day_night_switch);
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             dayNightSwitch.setIsNight(true);
         }
@@ -274,8 +275,12 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         onBackPressed();
         return true;
+
     }
 
     public void uploadProfile(File file) {

@@ -128,7 +128,6 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
                     Date date = new Date();
                     for (Dorehami dorehami : dorehamis) {
                         if (dorehami.getStartTime().compareTo(farsiToDecimal(readingFormat.format(date))) <= 0) {
-                            System.out.println(" IN FUCKIN IF");
                             lastEvents.add(new Event(dorehami.getName(), dorehami.getSummery()
                                     , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
                                     , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()

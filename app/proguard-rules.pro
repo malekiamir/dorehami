@@ -21,3 +21,6 @@
 #-renamesourcefileattribute SourceFile
 
  -keep class org.neshan.** {*;}
+
+ -dontwarn android.support.v4.**
+ -keep class android.support.v4.widget.** { *; }

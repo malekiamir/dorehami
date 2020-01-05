@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -43,6 +44,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
+
+import static java.security.AccessController.getContext;
 
 public class HistoryActivity extends AppCompatActivity implements HistoryAdapter.HistoryAdapterOnClickHandler {
 
@@ -93,10 +96,10 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
     }
 
 
-    @Override
-    public void onClick(Event selectedEvent, TextView v, ImageView imageView) {
-
-    }
+//    @Override
+//    public void onClick(Event selectedEvent) {
+//
+//    }
 
     public void getHistory() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -127,13 +130,13 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
                     SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                     Date date = new Date();
                     for (Dorehami dorehami : dorehamis) {
-                        if (dorehami.getStartTime().compareTo(farsiToDecimal(readingFormat.format(date))) <= 0) {
+                        if (dorehami.getStartTime().compareTo(String.valueOf(date)) < 0) {
                             lastEvents.add(new Event(dorehami.getName(), dorehami.getSummery()
                                     , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
                                     , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
                                     , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
                                     , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()
-                                    , dorehami.getTags(), dorehami.isPhysical()));
+                                    , dorehami.getTags(), dorehami.isPhysical(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getRemainingSize())));
                         }
                     }
                     historyAdapter.addAll(lastEvents);
@@ -161,6 +164,19 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
             chars[i] = ch;
         }
         return new String(chars);
+    }
+    @Override
+    public void onClick(Event selectedEvent) {
+        Context context = HistoryActivity.this;
+        Intent intent = new Intent(context, EventActivity.class);
+        intent.putExtra("event_name", selectedEvent.getName());
+        intent.putExtra("event_date", selectedEvent.getDate());
+        intent.putExtra("event_capacity", selectedEvent.getCapacity());
+        intent.putExtra("event_id", selectedEvent.getId());
+        intent.putExtra("class", "favorite");
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            context.startActivity(intent);
+        }
     }
 
     @Override

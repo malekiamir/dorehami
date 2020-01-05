@@ -227,7 +227,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                                     , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
                                     , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
                                     , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()
-                                    , dorehami.getTags(), dorehami.isPhysical()));
+                                    , dorehami.getTags(), dorehami.isPhysical(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getRemainingSize())));
                         }
                         eventAdapter.addAll(events);
 
@@ -285,7 +285,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Even
                                 , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
                                 , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
                                 , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()
-                                , dorehami.getTags(), dorehami.isPhysical()));
+                                , dorehami.getTags(), dorehami.isPhysical(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getRemainingSize())));
                     }
                     eventAdapter.addAll(events);
                     swipeContainer.setRefreshing(false);

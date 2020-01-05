@@ -118,11 +118,11 @@ public class SettingsActivity extends AppCompatActivity {
                 if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     dayNightSwitch.setIsNight(false);
-                    restartApp();
+//                    restartApp();
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     dayNightSwitch.setIsNight(true);
-                    restartApp();
+//                    restartApp();
                 }
 
                 //  startActivity(new Intent(SettingsActivity.this, SettingsActivity.this.getClass()));

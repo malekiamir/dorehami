@@ -74,11 +74,17 @@ public class AddFragment extends Fragment implements StepperLayout.StepperListen
         startTime = startTime.split(" : ")[0] + ":" + startTime.split(" : ")[1];
         endTime = endTime.split(" : ")[0] + ":" + endTime.split(" : ")[1];
 
-
-        event = new TypeCreateEvent(name, farsiToDecimal(startDate.substring(2) + " " + startTime)
-                , farsiToDecimal(endDate.substring(2) + " " + endTime), summary, subject
-                , 10, isPhysical, farsiToDecimal(latitude), farsiToDecimal(longitude), "تهران"
-                , imageId, address, description, new String[]{imageId}, tags.split(" {2}"));
+        if(isPhysical) {
+            event = new TypeCreateEvent(name, farsiToDecimal(startDate.substring(2) + " " + startTime)
+                    , farsiToDecimal(endDate.substring(2) + " " + endTime), summary, subject
+                    , 10, isPhysical, farsiToDecimal(latitude), farsiToDecimal(longitude), "تهران"
+                    , imageId, address, description, new String[]{imageId}, tags.split(" {2}"));
+        } else {
+            event = new TypeCreateEvent(name, farsiToDecimal(startDate.substring(2) + " " + startTime)
+                    , farsiToDecimal(endDate.substring(2) + " " + endTime), summary, subject
+                    , 10, isPhysical, farsiToDecimal(latitude), farsiToDecimal(longitude), ""
+                    , imageId, null, description, new String[]{imageId}, tags.split(" {2}"));
+        }
         System.out.println(event);
         createEvent();
     }

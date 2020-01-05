@@ -172,6 +172,8 @@ public class ThirdStepFragment extends Fragment implements Step {
                 return new VerificationError("اطلاعات کامل نیست!");
         } else {
             editor.putBoolean("PATOGH_EVENT_IS_PHYSICAL", false);
+            editor.putString("PATOGH_EVENT_ADDRESS", "");
+            editor.putString("PATOGH_EVENT_LATITUDE", "");
             editor.apply();
         }
 

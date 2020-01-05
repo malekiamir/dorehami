@@ -18,6 +18,10 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -37,6 +41,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 public class HistoryActivity extends AppCompatActivity implements HistoryAdapter.HistoryAdapterOnClickHandler {
 
@@ -118,9 +124,11 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
                     Type dorehamiType = new TypeToken<ArrayList<Dorehami>>() {
                     }.getType();
                     ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
+                    SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                     Date date = new Date();
                     for (Dorehami dorehami : dorehamis) {
-                        if (dorehami.getStartTime().compareTo(String.valueOf(date)) < 0) {
+                        if (dorehami.getStartTime().compareTo(farsiToDecimal(readingFormat.format(date))) <= 0) {
+                            System.out.println(" IN FUCKIN IF");
                             lastEvents.add(new Event(dorehami.getName(), dorehami.getSummery()
                                     , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
                                     , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
@@ -141,6 +149,20 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
         });
     }
 
+    private static String farsiToDecimal(String number) {
+        char[] chars = new char[number.length()];
+        for (int i = 0; i < number.length(); i++) {
+            char ch = number.charAt(i);
+            if (ch >= 0x0660 && ch <= 0x0669)
+                ch -= 0x0660 - '0';
+            else if (ch >= 0x06f0 && ch <= 0x06F9)
+                ch -= 0x06f0 - '0';
+            else if (ch=='٫')
+                ch = '.';
+            chars[i] = ch;
+        }
+        return new String(chars);
+    }
 
     @Override
     public boolean onSupportNavigateUp() {

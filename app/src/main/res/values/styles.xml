@@ -1,8 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <!-- Customize your theme here. -->
     <style name="LightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">true</item>
         <item name="colorPrimary">#505050</item>
         <item name="colorPrimaryDark">#000</item>
         <item name="colorAccent">#FD0048</item>
@@ -11,7 +12,6 @@
         <item name="bgColor">#ffffff</item>
         <item name="viewColor">#22000000</item>
         <item name="imageButtonColor">#000000</item>
-        <item name="android:windowAnimationStyle">@style/windowAnimationTransition</item>
     </style>
 
 
@@ -24,7 +24,6 @@
         <item name="bgColor">#000000</item>
         <item name="viewColor">#4E4E4E</item>
         <item name="imageButtonColor">#ffffff</item>
-        <item name="android:windowAnimationStyle">@style/windowAnimationTransition</item>
     </style>
 
     <style name="windowAnimationTransition">

@@ -123,13 +123,14 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
                     ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
                     Date date = new Date();
                     for (Dorehami dorehami : dorehamis) {
+                        //if (new SimpleDateFormat("MM/yyyy").parse(date).before(new Date())){
                         if (dorehami.getStartTime().compareTo(String.valueOf(date)) < 0) {
                             lastEvents.add(new Event(dorehami.getName(), dorehami.getSummery()
                                     , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
                                     , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
                                     , dorehami.isFavorited(), dorehami.getImagesIds(), dorehami.getProvince()
                                     , dorehami.getLongitude(), dorehami.getLatitude(), dorehami.getCategory()
-                                    , dorehami.getTags(), dorehami.isPhysical()));
+                                    , dorehami.getTags(), dorehami.isPhysical(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getRemainingSize())));
                         }
                     }
                     historyAdapter.addAll(lastEvents);

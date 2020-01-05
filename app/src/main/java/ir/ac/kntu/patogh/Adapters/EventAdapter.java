@@ -212,7 +212,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        eventAdapterViewHolder.eventCapacityTextView.setText(String.format(selectedEvent.getCapacity()));
+        eventAdapterViewHolder.eventCapacityTextView.setText(String.format(selectedEvent.getRemainingSize()));
         eventAdapterViewHolder.likeButton.setLiked(selectedEvent.isFavorited());
         Glide.with(context)
                 .load(R.drawable.rounded_rect_image_not_loaded)

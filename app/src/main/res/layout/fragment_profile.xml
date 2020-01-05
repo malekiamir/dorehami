@@ -16,7 +16,8 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar">
 
-    <ScrollView
+
+        <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -174,7 +175,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_favorites"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

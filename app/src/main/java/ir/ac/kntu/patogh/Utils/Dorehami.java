@@ -11,6 +11,7 @@ public class Dorehami {
     private String startTime;
     private String endTime;
     private int size;
+    private int remainingSize;
     private String description;
     private String summery;
     private boolean isPhysical;
@@ -24,6 +25,14 @@ public class Dorehami {
     private boolean isFavorited;
     private String[] tags;
     private String[] imagesIds;
+
+    public int getRemainingSize() {
+        return remainingSize;
+    }
+
+    public void setRemainingSize(int remainingSize) {
+        this.remainingSize = remainingSize;
+    }
 
     public String[] getTags() {
         return tags;
@@ -117,7 +126,6 @@ public class Dorehami {
         return isFavorited;
     }
 
-    @NotNull
     @Override
     public String toString() {
         return "Dorehami{" +
@@ -127,6 +135,7 @@ public class Dorehami {
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", size=" + size +
+                ", remainingSize=" + remainingSize +
                 ", description='" + description + '\'' +
                 ", summery='" + summery + '\'' +
                 ", isPhysical=" + isPhysical +

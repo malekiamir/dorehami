@@ -6,6 +6,7 @@ public class Event {
     private String date;
     private String capacity;
     private String id;
+    private String remainingSize;
     private String city;
     private String thumbnailId;
     private boolean isJoined;
@@ -21,9 +22,10 @@ public class Event {
     }
 
     public Event(String name, String desc, String date, String capacity, String id, String thumbnailId
-            , boolean isJoined, boolean isFavorited,String[] imagesIds,  String city, String longitude
-            , String latitude, String category, String[] tags, boolean isPhysical) {
+            , boolean isJoined, boolean isFavorited, String[] imagesIds, String city, String longitude
+            , String latitude, String category, String[] tags, boolean isPhysical, String remainingSize) {
 
+        this.remainingSize = remainingSize;
         this.isPhysical = isPhysical;
         this.name = name;
         this.desc = desc;
@@ -39,6 +41,14 @@ public class Event {
         this.latitude = latitude;
         this.category = category;
         this.tags = tags;
+    }
+
+    public String getRemainingSize() {
+        return remainingSize;
+    }
+
+    public void setRemainingSize(String remainingSize) {
+        this.remainingSize = remainingSize;
     }
 
     public boolean isPhysical() {

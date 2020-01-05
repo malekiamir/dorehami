@@ -52,7 +52,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryA
     private String baseUrl = "http://patogh.potatogamers.ir:7701/api/";
 
     public interface HistoryAdapterOnClickHandler {
-        void onClick(Event selectedEvent, TextView v, ImageView imageView);
+       // void onClick(Event selectedEvent, TextView v, ImageView imageView);
+
+        void onClick(Event selectedEvent);
     }
 
     public HistoryAdapter(HistoryAdapterOnClickHandler clickHandler) {
@@ -79,7 +81,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryA
             eventCityTextView = view.findViewById(R.id.tv_card_view_city_name);
             eventImage = view.findViewById(R.id.img_card_view_event_pic);
             likeButton = view.findViewById(R.id.btn_img_card_view_like);
-          //  likeView = view.findViewById(R.id.view_event_card_around_like_btn);
+            likeView = view.findViewById(R.id.view_event_card_around_like_btn);
 
             view.setOnClickListener(this);
         }
@@ -93,7 +95,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryA
             mLastClickTime = now;
             int adapterPosition = getAdapterPosition();
             Event selectedEvent = eventsData.get(adapterPosition);
-            mClickHandler.onClick(selectedEvent, eventNameTextView, eventImage);
+            mClickHandler.onClick(selectedEvent);
         }
     }
 
@@ -121,7 +123,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryA
         } else {
             historyAdapterViewHolder.eventCityTextView.setText("مجازی");
         }
-        historyAdapterViewHolder.likeButton.setVisibility(View.INVISIBLE);
+        historyAdapterViewHolder.likeButton.setVisibility(View.GONE);
         SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         try {
             Date dateStart = readingFormat.parse(selectedEvent.getDate());
@@ -137,6 +139,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryA
         Glide.with(context)
                 .load(R.drawable.rounded_rect_image_not_loaded)
                 .into(historyAdapterViewHolder.eventImage);
+        historyAdapterViewHolder.likeView.setVisibility(View.GONE);
         downloadThumbnail(selectedEvent.getThumbnailId(), historyAdapterViewHolder.eventImage);
     }
 

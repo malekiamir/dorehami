@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,6 +38,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static java.security.AccessController.getContext;
 
 public class HistoryActivity extends AppCompatActivity implements HistoryAdapter.HistoryAdapterOnClickHandler {
 
@@ -87,10 +90,10 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
     }
 
 
-    @Override
-    public void onClick(Event selectedEvent, TextView v, ImageView imageView) {
-
-    }
+//    @Override
+//    public void onClick(Event selectedEvent) {
+//
+//    }
 
     public void getHistory() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -141,6 +144,19 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
         });
     }
 
+    @Override
+    public void onClick(Event selectedEvent) {
+        Context context = HistoryActivity.this;
+        Intent intent = new Intent(context, EventActivity.class);
+        intent.putExtra("event_name", selectedEvent.getName());
+        intent.putExtra("event_date", selectedEvent.getDate());
+        intent.putExtra("event_capacity", selectedEvent.getCapacity());
+        intent.putExtra("event_id", selectedEvent.getId());
+        intent.putExtra("class", "favorite");
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            context.startActivity(intent);
+        }
+    }
 
     @Override
     public boolean onSupportNavigateUp() {

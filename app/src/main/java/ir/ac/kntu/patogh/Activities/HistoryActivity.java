@@ -130,7 +130,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
                     SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                     Date date = new Date();
                     for (Dorehami dorehami : dorehamis) {
-                        if (dorehami.getStartTime().compareTo(String.valueOf(date)) < 0) {
+                        if (dorehami.getStartTime().compareTo(farsiToDecimal(readingFormat.format(date))) < 0) {
                             lastEvents.add(new Event(dorehami.getName(), dorehami.getSummery()
                                     , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
                                     , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()
@@ -159,12 +159,13 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
                 ch -= 0x0660 - '0';
             else if (ch >= 0x06f0 && ch <= 0x06F9)
                 ch -= 0x06f0 - '0';
-            else if (ch=='٫')
+            else if (ch == '٫')
                 ch = '.';
             chars[i] = ch;
         }
         return new String(chars);
     }
+
     @Override
     public void onClick(Event selectedEvent) {
         Context context = HistoryActivity.this;

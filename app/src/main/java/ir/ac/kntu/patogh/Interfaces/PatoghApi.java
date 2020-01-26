@@ -70,4 +70,8 @@ public interface PatoghApi {
 
     @POST("/api/Dorehami/search")
     Call<ResponseBody> search(@Header("Authorization")String token, @Body RequestBody requestBody);
+
+    @POST("/api/User/deleteUser")
+    Call<ResponseBody> deleteUser(@Header("Authorization")String token);
+
 }

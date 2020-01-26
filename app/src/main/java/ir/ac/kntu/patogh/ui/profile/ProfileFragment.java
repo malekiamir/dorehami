@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
@@ -93,6 +96,14 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                              ViewGroup container, Bundle savedInstanceState) {
 
 
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            getActivity().setTheme(R.style.DarkTheme);
+            // setTheme(R.style.DarkTheme);
+
+        } else {
+            getActivity().setTheme(R.style.LightTheme);
+            // setTheme(R.style.LightTheme);
+        }
         profileViewModel =
                 ViewModelProviders.of(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -120,7 +131,6 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
         rvFavoriteEvents.addItemDecoration(new EqualSpacingItemDecoration(40));
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref", 0);
-
 
 
         Toolbar toolbar = root.findViewById(R.id.toolbar_profile_page);
@@ -319,18 +329,36 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
     public void setProfilePicture() {
 
         File file = new File(Environment.getExternalStorageDirectory(), "PATOGH/Pictures/profile.jpg");
-        if(!file.exists()){
+        if (!file.exists()) {
             Glide.with(this)
                     .load(getResources().getDrawable(R.drawable.ic_profile_pic))
                     .transform(new RoundedCornersTransformation(22, 0))
                     .into(profilePicture);
-        }else{
+        } else {
             Glide.with(this)
                     .load(file)
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .transform(new RoundedCornersTransformation(22, 0))
                     .into(profilePicture);
-        }}
+        }
     }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.options_menu,menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+
+
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(true);
+//    }
+//
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.fragment_menu_items, menu);
+//    }
+}
 

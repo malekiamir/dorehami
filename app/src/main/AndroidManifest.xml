@@ -4,8 +4,8 @@
     package="ir.ac.kntu.patogh">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,10 +17,19 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon,android:supportsRtl">
-        <activity android:name=".Activities.AboutUsActivity" android:label="درباره ما"/>
-        <activity android:name=".Activities.SupportActivity"  android:label="پشتیبانی"/>
-        <activity android:name=".Activities.HistoryActivity" android:label="تاریخچه" />
-        <activity android:name=".Activities.BadgesActivity" android:label="دستاوردها"/>
+        <activity android:name=".Activities.DeleteAccount"></activity>
+        <activity
+            android:name=".Activities.AboutUsActivity"
+            android:label="درباره ما" />
+        <activity
+            android:name=".Activities.SupportActivity"
+            android:label="پشتیبانی" />
+        <activity
+            android:name=".Activities.HistoryActivity"
+            android:label="تاریخچه" />
+        <activity
+            android:name=".Activities.BadgesActivity"
+            android:label="دستاوردها" />
         <activity
             android:name=".Activities.SettingsActivity"
             android:label="تنظیمات"

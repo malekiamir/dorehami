@@ -90,10 +90,10 @@ public class OwnerHistoryAdapter extends RecyclerView.Adapter<OwnerHistoryAdapte
                 @Override
                 public void onClick(View view) {
                     mRecentlyDeletedItemPosition = getAdapterPosition();
+                    mRecentlyDeletedItem = eventsData.get(mRecentlyDeletedItemPosition);
                     boolean isDeleted = deleteDorehami(eventsData
                             .get(mRecentlyDeletedItemPosition).getId());
                     if (isDeleted) {
-                        mRecentlyDeletedItem = eventsData.get(mRecentlyDeletedItemPosition);
                         eventsData.remove(mRecentlyDeletedItemPosition);
                         notifyItemRemoved(mRecentlyDeletedItemPosition);
                         showUndoSnackbar(view);

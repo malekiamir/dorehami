@@ -88,6 +88,7 @@ public class FirstStepFragment extends Fragment implements Step {
     private Date mStartDate;
     private Date mEndDate;
     private SharedPreferences sharedPreferences;
+    private boolean isImageAdded = false;
     private String baseURL = "http://patogh.potatogamers.ir:7701/api/";
 
 
@@ -298,6 +299,7 @@ public class FirstStepFragment extends Fragment implements Step {
                             .textColor(Color.WHITE)
                             .backgroundColor(Color.argb(255, 0, 200, 83))
                             .show();
+                    isImageAdded = true;
                     try {
                         JsonObject jsonObject1 = new Gson().fromJson(response.body().string(), JsonObject.class);
                         String returnValue = jsonObject1.get("returnValue").toString();
@@ -430,6 +432,15 @@ public class FirstStepFragment extends Fragment implements Step {
             }
         } else {
             ledtEndTime.setError("زمان پایان خالیه!");
+            error = true;
+        }
+        if(!isImageAdded) {
+            new StyleableToast
+                    .Builder(getContext())
+                    .text("پس از اتمام آپلود عکس مجددا تلاش نمایید")
+                    .textColor(Color.WHITE)
+                    .backgroundColor(Color.argb(255, 255, 94, 100))
+                    .show();
             error = true;
         }
         if (error)

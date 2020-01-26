@@ -24,6 +24,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.kntu.patogh.Adapters.HistoryAdapter;
+import ir.ac.kntu.patogh.Adapters.OwnerHistoryAdapter;
 import ir.ac.kntu.patogh.Interfaces.PatoghApi;
 import ir.ac.kntu.patogh.R;
 import ir.ac.kntu.patogh.Utils.Dorehami;
@@ -37,12 +38,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class HistoryActivity extends AppCompatActivity implements HistoryAdapter.HistoryAdapterOnClickHandler {
+public class OwnerHistoryActivity extends AppCompatActivity implements OwnerHistoryAdapter.OwnerHistoryAdapterOnClickHandler {
 
-    @BindView(R.id.rv_profile_page_history)
+    @BindView(R.id.rv_owner_history)
     RecyclerView rvHistory;
 
-    private HistoryAdapter historyAdapter;
+    private OwnerHistoryAdapter historyAdapter;
     private Event event;
     private ArrayList<Event> lastEvents;
     private SharedPreferences sharedPreferences;
@@ -52,14 +53,14 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+        setContentView(R.layout.activity_owner_history);
 
-        Toolbar toolbar = findViewById(R.id.toolbar_history_page);
+        Toolbar toolbar = findViewById(R.id.toolbar_owner_history_page);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("تاریخچه");
+        getSupportActionBar().setTitle("رویدادهای ایجاد شده");
         ButterKnife.bind(this);
 
         lastEvents = new ArrayList<>();
@@ -73,7 +74,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
 
         rvHistory.setHasFixedSize(true);
         rvHistory.setItemAnimator(new SlideInLeftAnimator());
-        historyAdapter = new HistoryAdapter(this);
+        historyAdapter = new OwnerHistoryAdapter(this);
 
         AlphaInAnimationAdapter a = new AlphaInAnimationAdapter(historyAdapter);
         a.setDuration(200);
@@ -82,7 +83,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
         scaleInAnimationAdapter.setDuration(150);
         scaleInAnimationAdapter.setFirstOnly(false);
         rvHistory.setAdapter(scaleInAnimationAdapter);
-        getHistory();
+        getOwnedHistory();
     }
 
 
@@ -91,7 +92,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
 //
 //    }
 
-    public void getHistory() {
+    public void getOwnedHistory() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .build();
@@ -104,7 +105,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
             startActivity(intent);
         }
 
-        patoghApi.getJoinedDorehami("Bearer " + token).enqueue(new Callback<ResponseBody>() {
+        patoghApi.getOwnedDorehamies("Bearer " + token).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
@@ -158,7 +159,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
 
     @Override
     public void onClick(Event selectedEvent) {
-        Context context = HistoryActivity.this;
+        Context context = OwnerHistoryActivity.this;
         Intent intent = new Intent(context, EventActivity.class);
         intent.putExtra("event_name", selectedEvent.getName());
         intent.putExtra("event_date", selectedEvent.getDate());

@@ -543,6 +543,7 @@ public class EventActivity extends AppCompatActivity {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             fab.setIcon(getDrawable(R.drawable.ic_add));
                         }
+
                     }
                     for (String tag : dorehami.getTags()) {
                         Chip chip = (Chip) getLayoutInflater().inflate(R.layout.chip_layout, chipGroup, false);

@@ -79,6 +79,22 @@ public class SecondStepFragment extends Fragment implements Step {
                 return true;
             }
         });
+
+        edtSummary.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                edtSummary.setError(null);
+                ledtSummary.setError(null);
+            }
+        });
+        edtDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                edtDescription.setError(null);
+                ledtDescription.setError(null);
+            }
+        });
+
         sharedPreferences = getActivity()
                 .getSharedPreferences("TokenPref", 0);
         spinnerSubject.setItems("موضوع رویداد را انتخاب کنید", "ورزشی", "تکنولوژی", "سرگرمی", "تاریخی", "علمی", "گردشگری", "مسابقه");
@@ -107,32 +123,32 @@ public class SecondStepFragment extends Fragment implements Step {
         String tags = nachoTextView.getText().toString();
         boolean error = false;
 
-        if (!summary.equals("")) {
+        if (!summary.equals("") && summary.length() >= 5) {
             editor.putString("PATOGH_EVENT_SUMMARY", summary);
             editor.apply();
         } else {
-            ledtSummary.setError("اسم رویداد خالیه!");
+            ledtSummary.setError("خلاصه رویداد باید حداقل 5 حرف باشه!");
             error = true;
         }
-        if (!description.equals("")) {
+        if (!description.equals("") && description.length() >= 5) {
             editor.putString("PATOGH_EVENT_DESCRIPTION", description);
             editor.apply();
         } else {
-            ledtDescription.setError("تاریخ شروع خالیه!");
+            ledtDescription.setError("توضیحات باید حداقل 5 حرف باشه!");
             error = true;
         }
-        if (!subject.equals("")) {
+        if (!subject.equals("") && !subject.equals("موضوع رویداد را انتخاب کنید")) {
             editor.putString("PATOGH_EVENT_SUBJECT", subject);
             editor.apply();
         } else {
-            spinnerSubject.setError("تاریخ پایان خالیه!");
+            spinnerSubject.setError("موضوع رویداد انتخاب نشده!");
             error = true;
         }
         if (!tags.equals("")) {
             editor.putString("PATOGH_EVENT_TAGS", tags);
             editor.apply();
         } else {
-            nachoTextView.setError("زمان شروع خالیه!");
+            nachoTextView.setError("برچسبی نداریم!");
             error = true;
         }
         if (error)

@@ -161,11 +161,11 @@ public class ThirdStepFragment extends Fragment implements Step {
             editor.apply();
             editor.putString("PATOGH_EVENT_LATITUDE", String.format("%3.10f", location.getY()));
             editor.apply();
-            if (!address.equals("")) {
+            if (!address.equals("") && address.length()>=5) {
                 editor.putString("PATOGH_EVENT_ADDRESS", address);
                 editor.apply();
             } else {
-                ledtAddress.setError("آدرس رویداد خالیه!");
+                ledtAddress.setError("آدرس رویداد باید حداقل 5 حرف باشه!");
                 error = true;
             }
             if (error)

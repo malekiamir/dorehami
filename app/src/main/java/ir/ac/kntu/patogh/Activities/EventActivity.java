@@ -290,6 +290,7 @@ public class EventActivity extends AppCompatActivity {
                 map.setVisibility(View.GONE);
                 tvAddress.setVisibility(View.GONE);
                 tvLocationHeader.setVisibility(View.INVISIBLE);
+                tvCity.setText("مجازی");
             }
         }
         if (getIntent().hasExtra("class") && getIntent().getStringExtra("class").equals("favorite")) {
@@ -525,7 +526,11 @@ public class EventActivity extends AppCompatActivity {
                     tvAddress.setText(dorehami.getAddress());
                     isJoined = dorehami.isJoined();
                     isLiked = dorehami.isFavorited();
-                    tvCity.setText(dorehami.getProvince());
+                    if(dorehami.getProvince().equals("")) {
+                        tvCity.setText("مجازی");
+                    }else {
+                        tvCity.setText(dorehami.getProvince());
+                    }
                     tvCapacity.setText(String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize()));
                     ExtendedFloatingActionButton fab = findViewById(R.id.fab);
                     if (isJoined) {
@@ -538,6 +543,7 @@ public class EventActivity extends AppCompatActivity {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             fab.setIcon(getDrawable(R.drawable.ic_add));
                         }
+
                     }
                     for (String tag : dorehami.getTags()) {
                         Chip chip = (Chip) getLayoutInflater().inflate(R.layout.chip_layout, chipGroup, false);

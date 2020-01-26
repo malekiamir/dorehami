@@ -116,8 +116,8 @@ public class FirstStepFragment extends Fragment implements Step {
         edtName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (b)
-                    ledtName.setError(null);
+                ledtName.setError(null);
+                edtName.setError(null);
             }
         });
         edtStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -375,11 +375,11 @@ public class FirstStepFragment extends Fragment implements Step {
         boolean error = false;
 
         // verify name
-        if (!name.equals("")) {
+        if (!name.equals("") && name.length() >= 5) {
             editor.putString("PATOGH_EVENT_NAME", name);
             editor.apply();
         } else {
-            ledtName.setError("اسم رویداد خالیه!");
+            ledtName.setError("اسم رویداد باید حداقل 5 حرف باشه!");
             error = true;
         }
         // verify date
@@ -391,8 +391,18 @@ public class FirstStepFragment extends Fragment implements Step {
             error = true;
         }
         if (!endDate.equals("")) {
-            editor.putString("PATOGH_EVENT_END_DATE", endDate);
-            editor.apply();
+            if (endDate.compareTo(startDate) < 0) {
+                new StyleableToast
+                        .Builder(getContext())
+                        .text("ساعت یا تاریخ پایان نمیتواند قبل شروع باشد!")
+                        .textColor(Color.WHITE)
+                        .backgroundColor(Color.argb(255, 255, 94, 100))
+                        .show();
+                error = true;
+            } else {
+                editor.putString("PATOGH_EVENT_END_DATE", endDate);
+                editor.apply();
+            }
         } else {
             ledtEndDate.setError("تاریخ پایان خالیه!");
             error = true;
@@ -406,8 +416,18 @@ public class FirstStepFragment extends Fragment implements Step {
             error = true;
         }
         if (!endTime.equals("")) {
-            editor.putString("PATOGH_EVENT_END_TIME", endTime);
-            editor.apply();
+            if (endTime.compareTo(startTime) < 0 && endDate.compareTo(startDate) <= 0) {
+                new StyleableToast
+                        .Builder(getContext())
+                        .text("ساعت یا تاریخ پایان نمیتواند قبل شروع باشد!")
+                        .textColor(Color.WHITE)
+                        .backgroundColor(Color.argb(255, 255, 94, 100))
+                        .show();
+                error = true;
+            } else {
+                editor.putString("PATOGH_EVENT_END_TIME", endTime);
+                editor.apply();
+            }
         } else {
             ledtEndTime.setError("زمان پایان خالیه!");
             error = true;

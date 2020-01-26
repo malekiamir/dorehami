@@ -73,12 +73,14 @@ public class SettingsActivity extends AppCompatActivity {
     ImageButton supportButton;
     @BindView(R.id.constraintLayout_setting_about_us)
     ConstraintLayout aboutUs;
+    @BindView(R.id.constraintLayout_setting_delete_acc)
+    ConstraintLayout deleteAcc;
     @BindView(R.id.btn_setting_about_us)
     ImageButton aboutUsButton;
     @BindView(R.id.btn_change_profile)
     ImageButton changeProfile;
-    //@BindView(R.id.day_night_switch)
-    //DayNightSwitch dayNightSwitch;
+    @BindView(R.id.btn_setting_delet_acc)
+    ImageButton deleteAccButton;
     private SharedPreferences sharedPreferences;
     private AlertDialog dialog;
     private AlertDialog exitDialog;
@@ -241,6 +243,22 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        deleteAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingsActivity.this, DeleteAccount.class);
+                startActivity(intent);
+            }
+        });
+
+        deleteAccButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingsActivity.this, DeleteAccount.class);
+                startActivity(intent);
+            }
+        });
+
         setImage();
 
 
@@ -279,9 +297,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//        }
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         onBackPressed();
         return true;
 
@@ -399,6 +417,10 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.owner_history_option) {
             Intent intent = new Intent(SettingsActivity.this, OwnerHistoryActivity.class);
+            startActivity(intent);
+            return true;
+        }else if(item.getItemId() == R.id.joined_history_option){
+            Intent intent = new Intent(SettingsActivity.this,HistoryActivity.class);
             startActivity(intent);
             return true;
         }

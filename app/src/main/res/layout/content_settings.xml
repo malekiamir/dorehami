@@ -9,6 +9,10 @@
     tools:context=".Activities.SettingsActivity"
     tools:showIn="@layout/activity_settings">
 
+<!--    <ScrollView-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp">-->
+
 
     <FrameLayout
         android:id="@+id/cv_setting_page_user_image"
@@ -46,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="@color/patoghYellow"
         android:fontFamily="@font/iransans_mobile_medium_font"
         android:text="خروج از حساب کاربری"
@@ -286,4 +290,74 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline71" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline80"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.81" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_setting_delete_acc"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline80"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline71">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline75"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline76"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily="@font/iransans_mobile_font"
+            android:layoutDirection="rtl"
+            android:padding="10dp"
+            android:text="حذف حساب کاربری"
+            android:textColor="?attr/textColor"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline75"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_setting_delet_acc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00000000"
+            android:tint="?attr/imageButtonColor"
+            android:src="@drawable/ms_ic_chevron_left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline76"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view_event_divider5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.6"
+        android:background="?attr/viewColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline80" />
+
+<!--    </ScrollView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -135,8 +135,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
         Toolbar toolbar = root.findViewById(R.id.toolbar_profile_page);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_history);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -172,11 +171,12 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             Intent intent = new Intent(context, SettingsActivity.class);
             startActivity(intent);
             return true;
-        } else if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(getContext(), HistoryActivity.class);
-            startActivity(intent);
-            return true;
         }
+//        } else if (item.getItemId() == android.R.id.home) {
+//            Intent intent = new Intent(getContext(), HistoryActivity.class);
+//            startActivity(intent);
+//            return true;
+//        }
 
         return false;
     }

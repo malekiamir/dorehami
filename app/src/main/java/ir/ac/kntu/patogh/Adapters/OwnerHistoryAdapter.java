@@ -75,6 +75,7 @@ public class OwnerHistoryAdapter extends RecyclerView.Adapter<OwnerHistoryAdapte
         ImageButton eventDeleteButton;
         private int mRecentlyDeletedItemPosition;
         private Event mRecentlyDeletedItem;
+        private View root;
 
         public OwnerHistoryAdapterViewHolder(View view) {
             super(view);
@@ -91,20 +92,11 @@ public class OwnerHistoryAdapter extends RecyclerView.Adapter<OwnerHistoryAdapte
                 public void onClick(View view) {
                     mRecentlyDeletedItemPosition = getAdapterPosition();
                     mRecentlyDeletedItem = eventsData.get(mRecentlyDeletedItemPosition);
+                    root = view;
                     boolean isDeleted = deleteDorehami(eventsData
                             .get(mRecentlyDeletedItemPosition).getId());
-                    if (isDeleted) {
-                        eventsData.remove(mRecentlyDeletedItemPosition);
-                        notifyItemRemoved(mRecentlyDeletedItemPosition);
-                        showUndoSnackbar(view);
-                    } else {
-                        new StyleableToast
-                                .Builder(view.getContext())
-                                .text("مجددا تلاش نمایید")
-                                .textColor(Color.WHITE)
-                                .backgroundColor(Color.argb(255, 255, 94, 100))
-                                .show();
-                    }
+
+
                 }
             });
         }
@@ -147,6 +139,17 @@ public class OwnerHistoryAdapter extends RecyclerView.Adapter<OwnerHistoryAdapte
                     if (response.code() == 200) {
                         System.out.println("deleted event with id : " + id);
                         success = true;
+                            eventsData.remove(mRecentlyDeletedItemPosition);
+                            notifyItemRemoved(mRecentlyDeletedItemPosition);
+//                            showUndoSnackbar(root);
+
+                    } else {
+                        new StyleableToast
+                                .Builder(root.getContext())
+                                .text("مجددا تلاش نمایید")
+                                .textColor(Color.WHITE)
+                                .backgroundColor(Color.argb(255, 255, 94, 100))
+                                .show();
                     }
                 }
                 @Override
@@ -202,7 +205,6 @@ public class OwnerHistoryAdapter extends RecyclerView.Adapter<OwnerHistoryAdapte
             PersianDateFormat pdformater = new PersianDateFormat("l j F H:i");
             String startDate = pdformater.format(persianDateStart);
             historyAdapterViewHolder.eventDateTextView.setText(startDate);
-
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -109,7 +109,7 @@ public class OwnerHistoryActivity extends AppCompatActivity implements OwnerHist
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    System.out.println(response.code());
+                    System.out.println("OWNER : "+response.code());
                     String res = response.body().string();
                     historyAdapter.clear();
                     lastEvents.clear();
@@ -118,10 +118,11 @@ public class OwnerHistoryActivity extends AppCompatActivity implements OwnerHist
                     Type dorehamiType = new TypeToken<ArrayList<Dorehami>>() {
                     }.getType();
                     ArrayList<Dorehami> dorehamis = gson.fromJson(returnValue, dorehamiType);
+                    System.out.println(dorehamis.size());
                     SimpleDateFormat readingFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                     Date date = new Date();
                     for (Dorehami dorehami : dorehamis) {
-                        if (dorehami.getStartTime().compareTo(farsiToDecimal(readingFormat.format(date))) < 0) {
+                        if (dorehami.getStartTime().compareTo(farsiToDecimal(readingFormat.format(date))) > 0) {
                             lastEvents.add(new Event(dorehami.getName(), dorehami.getSummery()
                                     , dorehami.getStartTime(), String.format("ظرفیت باقی مانده : %d نفر", dorehami.getSize())
                                     , dorehami.getId(), dorehami.getThumbnailId(), dorehami.isJoined()

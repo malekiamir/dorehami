@@ -200,6 +200,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             }
 
             @Override
+            
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 new StyleableToast
                         .Builder(PhoneVerificationActivity.this)

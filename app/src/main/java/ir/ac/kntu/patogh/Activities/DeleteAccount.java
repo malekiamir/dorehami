@@ -4,12 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.FileUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.io.File;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,9 +62,13 @@ public class DeleteAccount extends AppCompatActivity {
         deleteAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deleteImage();
+                callBroadCast();
                 deleteUser();
             }
         });
+//        deleteImage();
+//        callBroadCast();
     }
 
     private void deleteUser() {
@@ -73,13 +83,10 @@ public class DeleteAccount extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     if (response.code() == 200) {
-                        deleteAppFolder();
                         final SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("Token",null);
+                        editor.putString("Token", null);
                         editor.apply();
-                        Intent intent = new Intent(DeleteAccount.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        GoToActivityAsNewTask(DeleteAccount.this,MainActivity.class);
                     } else {
                         new StyleableToast
                                 .Builder(DeleteAccount.this)
@@ -100,23 +107,56 @@ public class DeleteAccount extends AppCompatActivity {
         });
     }
 
-    public void deleteAppFolder(){
-        File dir = new File(Environment.getExternalStorageDirectory(),"PATOGH");
-        if (dir.isDirectory())
-        {
-            String[] children = dir.list();
-            for (int i = 0; i < children.length; i++)
-            {
-                new File(dir, children[i]).delete();
+//    public void deleteAppFolder(File file) throws IOException {
+//        file.delete();
+//        file.getCanonicalFile().delete();
+//    }
+
+    public void deleteImage() {
+        String file_dj_path = Environment.getExternalStorageDirectory() + "/PATOGH/Pictures/profile.jpg";
+        File fdelete = new File(file_dj_path);
+        if (fdelete.exists()) {
+            if (fdelete.delete()) {
+                Log.e("-->", "file Deleted :" + file_dj_path);
+                callBroadCast();
+            } else {
+                Log.e("-->", "file not Deleted :" + file_dj_path);
             }
         }
-        dir.delete();
+    }
+
+    public void callBroadCast() {
+        if (Build.VERSION.SDK_INT >= 14) {
+            Log.e("-->", " >= 14");
+            MediaScannerConnection.scanFile(this, new String[]{Environment.getExternalStorageDirectory().toString()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+                /*
+                 *   (non-Javadoc)
+                 * @see android.media.MediaScannerConnection.OnScanCompletedListener#onScanCompleted(java.lang.String, android.net.Uri)
+                 */
+                public void onScanCompleted(String path, Uri uri) {
+                    Log.e("ExternalStorage", "Scanned " + path + ":");
+                    Log.e("ExternalStorage", "-> uri=" + uri);
+                }
+            });
+        } else {
+            Log.e("-->", " < 14");
+            sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+                    Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+        }
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+
+    }
+
+    public static void GoToActivityAsNewTask(Activity context, Class<?> clazz) {
+        Intent intent = new Intent(context, clazz);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+        context.finish();
 
     }
 

@@ -98,11 +98,9 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             getActivity().setTheme(R.style.DarkTheme);
-            // setTheme(R.style.DarkTheme);
 
         } else {
             getActivity().setTheme(R.style.LightTheme);
-            // setTheme(R.style.LightTheme);
         }
         profileViewModel =
                 ViewModelProviders.of(this).get(ProfileViewModel.class);
@@ -135,7 +133,6 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
 
         Toolbar toolbar = root.findViewById(R.id.toolbar_profile_page);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -172,11 +169,7 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
             startActivity(intent);
             return true;
         }
-//        } else if (item.getItemId() == android.R.id.home) {
-//            Intent intent = new Intent(getContext(), HistoryActivity.class);
-//            startActivity(intent);
-//            return true;
-//        }
+
 
         return false;
     }
@@ -310,7 +303,8 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                     JsonObject jsonObject2 = new Gson().fromJson(returnValue, JsonObject.class);
                     String firstName = jsonObject2.get("firstName").getAsString();
                     int userLevel = jsonObject2.get("userLevel").getAsInt();
-                    imageId = jsonObject2.get("profilePictureId").getAsString();
+                        imageId = jsonObject2.get("profilePictureId").toString();
+
                     if (firstName != null) {
                         nameTextView.setText(firstName);
                     }
@@ -343,22 +337,5 @@ public class ProfileFragment extends Fragment implements FavoriteAdapter.Favorit
                     .into(profilePicture);
         }
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.options_menu,menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
-//    }
-//
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.fragment_menu_items, menu);
-//    }
 }
 
